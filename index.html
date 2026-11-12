@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harness Inspection - Point to Point Structures Corp.</title>
+  <style>
+    /* =========================================
+       1. MOBILE WEBFORM STYLES (SCREEN ONLY)
+       ========================================= */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #f0f2f5;
+      color: #111;
+    }
+    .form-card {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .form-header {
+      text-align: center;
+      border-bottom: 2px solid #111;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .form-header h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+    }
+    .form-header p {
+      margin: 4px 0 0;
+      font-weight: bold;
+      color: #444;
+    }
+    .section-title {
+      background: #b5b5b5;
+      color: #000;
+      font-weight: bold;
+      padding: 8px 12px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      border: 1px solid #000;
+      text-transform: uppercase;
+    }
+    .check-item {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 0;
+    }
+    .check-label {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .radio-group {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .radio-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px 4px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .radio-option input {
+      margin-bottom: 4px;
+      width: 18px;
+      height: 18px;
+    }
+    .radio-option:has(input:checked) {
+      background: #e5e7eb;
+      border-color: #111;
+    }
+    .meta-grid {
+      margin-top: 20px;
+      border-top: 2px solid #111;
+      padding-top: 12px;
+    }
+    .field-group {
+      margin-bottom: 14px;
+    }
+    .field-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .field-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #9ca3af;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      margin-top: 16px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .submit-btn:active {
+      background: #333;
+    }
+
+    /* Hide PDF sheet on normal screen */
+    #pdf-template {
+      display: none;
+    }
+
+    /* =========================================
+       2. PRINT / PDF LAYOUT (MATCHING YOUR PDF)
+       ========================================= */
+    @media print {
+      @page {
+        size: letter portrait;
+        margin: 0.45in 0.5in;
+      }
+      body {
+        background: #fff;
+        padding: 0;
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .form-card {
+        display: none;
+      }
+      #pdf-template {
+        display: block;
+        width: 100%;
+        color: #000;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .logo-box {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .logo-svg {
+        width: 240px;
+        height: auto;
+      }
+      .doc-title {
+        font-size: 15px;
+        font-weight: bold;
+        margin: 8px 0 8px 0;
+        text-transform: uppercase;
+      }
+      table.insp-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 14px;
+        font-size: 11px;
+      }
+      table.insp-table th, table.insp-table td {
+        border: 1px solid #000;
+        padding: 3px 6px;
+      }
+      .cat-header {
+        background-color: #b5b5b5 !important;
+        font-weight: bold;
+        text-align: left;
+        width: 52%;
+        text-transform: uppercase;
+      }
+      .empty-top {
+        border: none !important;
+      }
+      .col-items {
+        font-weight: bold;
+        text-align: left;
+        width: 52%;
+      }
+      .col-rating {
+        font-weight: bold;
+        text-align: center;
+        width: 12%;
+        font-size: 10px;
+      }
+      .mark-cell {
+        text-align: center;
+        font-weight: bold;
+        font-size: 12px;
+      }
+      .meta-box {
+        border: 1.5px solid #000;
+        padding: 10px 12px;
+        margin-top: 14px;
+        font-size: 11px;
+      }
+      .meta-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .meta-row:last-child {
+        margin-bottom: 0;
+      }
+      .meta-col {
+        width: 48%;
+        display: flex;
+        align-items: baseline;
+      }
+      .meta-col span.lbl {
+        white-space: nowrap;
+        margin-right: 4px;
+      }
+      .meta-col span.val {
+        flex-grow: 1;
+        border-bottom: 1px solid #000;
+        padding-left: 4px;
+        min-height: 13px;
+        font-weight: bold;
+      }
+      .pdf-footer {
+        margin-top: 28px;
+        font-size: 10px;
+        color: #111;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================
+       MOBILE INPUT FORM
+       ========================================= -->
+  <div class="form-card">
+    <div class="form-header">
+      <h1>POINT TO POINT STRUCTURES CORP.</h1>
+      <p>HARNESS INSPECTION</p>
+    </div>
+
+    <form id="inspectionForm">
+      <!-- Dynamic Checklist Container -->
+      <div id="form-sections"></div>
+
+      <!-- Bottom Details -->
+      <div class="meta-grid">
+        <div class="field-group">
+          <label>Serial #</label>
+          <input type="text" id="inSerial" required>
+        </div>
+        <div class="field-group">
+          <label>Owner / Company</label>
+          <input type="text" id="inOwner" value="Point to Point Structures Corp." required>
+        </div>
+        <div class="field-group">
+          <label>Date of First Use</label>
+          <input type="date" id="inFirstUse">
+        </div>
+        <div class="field-group">
+          <label>Inspector</label>
+          <input type="text" id="inInspector" required>
+        </div>
+        <div class="field-group">
+          <label>Date of Manufacture</label>
+          <input type="date" id="inManufacture">
+        </div>
+        <div class="field-group">
+          <label>Date of Inspection</label>
+          <input type="date" id="inInspectionDate" required>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Generate Inspection PDF</button>
+    </form>
+  </div>
+
+  <!-- =========================================
+       PRINT / PDF TEMPLATE (EXACT LAYOUT)
+       ========================================= -->
+  <div id="pdf-template">
+    <div class="logo-box">
+      <svg class="logo-svg" viewBox="0 0 320 115" xmlns="http://www.w3.org/2000/svg">
+        <!-- Antlers emblem -->
+        <path d="M160 32 C152 28, 142 20, 140 8 M146 21 C148 15, 151 11, 152 6 M142 15 C137 13, 134 10, 133 6" stroke="#000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M160 32 C168 28, 178 20, 180 8 M174 21 C172 15, 169 11, 168 6 M178 15 C183 13, 186 10, 187 6" stroke="#000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Main Box -->
+        <rect x="20" y="30" width="280" height="52" fill="none" stroke="#000" stroke-width="4"/>
+        <!-- POINT TO POINT Text -->
+        <text x="32" y="69" font-family="Impact, Arial Black, sans-serif" font-size="38" font-weight="900" fill="#000" letter-spacing="1">POINT</text>
+        <text x="150" y="63" font-family="Impact, Arial Black, sans-serif" font-size="16" font-weight="900" fill="#000">TO</text>
+        <text x="176" y="69" font-family="Impact, Arial Black, sans-serif" font-size="38" font-weight="900" fill="#000" letter-spacing="1">POINT</text>
+        <!-- STRUCTURES CORP. -->
+        <text x="160" y="103" text-anchor="middle" font-family="Impact, Arial Black, sans-serif" font-size="22" font-weight="900" fill="#000" letter-spacing="1.5">STRUCTURES CORP.</text>
+      </svg>
+    </div>
+
+    <div class="doc-title">HARNESS INSPECTION</div>
+
+    <!-- Tables rendered here by JS -->
+    <div id="pdf-tables"></div>
+
+    <!-- Bottom Bordered Box -->
+    <div class="meta-box">
+      <div class="meta-row">
+        <div class="meta-col"><span class="lbl">Serial #</span><span class="val" id="outSerial"></span></div>
+        <div class="meta-col"><span class="lbl">Owner/company:</span><span class="val" id="outOwner"></span></div>
+      </div>
+      <div class="meta-row">
+        <div class="meta-col"><span class="lbl">Date of first use:</span><span class="val" id="outFirstUse"></span></div>
+        <div class="meta-col"><span class="lbl">Inspector:</span><span class="val" id="outInspector"></span></div>
+      </div>
+      <div class="meta-row">
+        <div class="meta-col"><span class="lbl">Date of manufacture:</span><span class="val" id="outManufacture"></span></div>
+        <div class="meta-col"><span class="lbl">Date of inspection:</span><span class="val" id="outInspectionDate"></span></div>
+      </div>
+    </div>
+
+    <div class="pdf-footer">
+      | 3250 46th Ave SE &nbsp;Calgary, AB &nbsp;T2B 3K7 &nbsp;(587) 328-0007
+    </div>
+  </div>
+
+  <script>
+    // Checklist data matching your PDF
+    const sections = [
+      {
+        title: "LABELS & MARKINGS",
+        items: [
+          "Labels intact and legible.",
+          "Appropriate ANSI/OSHA/CSA marks visible",
+          "Inspections current/up to date",
+          "Date of first use documented"
+        ]
+      },
+      {
+        title: "WEBBING",
+        items: [
+          "Shoulder/chest/leg/back straps intact",
+          "Cuts/burns/holes present",
+          "Paint contamination present",
+          "Excessive wear",
+          "Heat/sun/uv damage"
+        ]
+      },
+      {
+        title: "STITCHING",
+        items: [
+          "shoulder/chest/leg/back straps intact"
+        ]
+      },
+      {
+        title: "HARDWARE (BUCKLES AND D-RINGS)",
+        items: [
+          "Shoulder adjustment buckles damage free",
+          "leg and waist buckles damage free",
+          "D-ring (Dorsal, side, shoulder,) damage",
+          "There is no corrosion/pitting/nicks."
+        ]
+      }
+    ];
+
+    const ratings = ["EXCELLENT", "GOOD", "BAD", "REPAIR"];
+    const formContainer = document.getElementById("form-sections");
+
+    // 1. Build Mobile Form Questions
+    sections.forEach((sec, sIdx) => {
+      const secHeader = document.createElement("div");
+      secHeader.className = "section-title";
+      secHeader.textContent = sec.title;
+      formContainer.appendChild(secHeader);
+
+      sec.items.forEach((itemText, iIdx) => {
+        const fieldName = `q_${sIdx}_${iIdx}`;
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "check-item";
+
+        let radiosHTML = `<div class="radio-group">`;
+        ratings.forEach((rate) => {
+          radiosHTML += `
+            <label class="radio-option">
+              <input type="radio" name="${fieldName}" value="${rate}" required>
+              ${rate}
+            </label>
+          `;
+        });
+        radiosHTML += `</div>`;
+
+        itemDiv.innerHTML = `<span class="check-label">${itemText}</span>${radiosHTML}`;
+        formContainer.appendChild(itemDiv);
+      });
+    });
+
+    // Auto-fill today's inspection date
+    document.getElementById("inInspectionDate").valueAsDate = new Date();
+
+    // 2. Populate PDF Tables & Trigger Save/Print
+    document.getElementById("inspectionForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const pdfTablesDiv = document.getElementById("pdf-tables");
+      pdfTablesDiv.innerHTML = "";
+
+      sections.forEach((sec, sIdx) => {
+        let tableHTML = `
+          <table class="insp-table">
+            <tr>
+              <th class="cat-header">${sec.title}</th>
+              <td colspan="4" class="empty-top"></td>
+            </tr>
+            <tr>
+              <th class="col-items">ITEMS</th>
+              <th class="col-rating">EXCELLENT</th>
+              <th class="col-rating">GOOD</th>
+              <th class="col-rating">BAD</th>
+              <th class="col-rating">REPAIR</th>
+            </tr>
+        `;
+
+        sec.items.forEach((itemText, iIdx) => {
+          const selected = document.querySelector(`input[name="q_${sIdx}_${iIdx}"]:checked`).value;
+          tableHTML += `<tr><td>${itemText}</td>`;
+          ratings.forEach((rate) => {
+            tableHTML += `<td class="mark-cell">${selected === rate ? "&#10003;" : ""}</td>`;
+          });
+          tableHTML += `</tr>`;
+        });
+
+        tableHTML += `</table>`;
+        pdfTablesDiv.innerHTML += tableHTML;
+      });
+
+      // Populate bottom metadata fields
+      const serial = document.getElementById("inSerial").value.trim();
+      const inspDate = document.getElementById("inInspectionDate").value;
+      const inspectorName = document.getElementById("inInspector").value;
+
+      document.getElementById("outSerial").textContent = serial;
+      document.getElementById("outOwner").textContent = document.getElementById("inOwner").value;
+      document.getElementById("outFirstUse").textContent = document.getElementById("inFirstUse").value;
+      document.getElementById("outInspector").textContent = document.getElementById("inInspector").value;
+      document.getElementById("outManufacture").textContent = document.getElementById("inManufacture").value;
+      document.getElementById("outInspectionDate").textContent = inspDate;
+
+      // Set automatic PDF filename
+      document.title = `Harness Inspection-${inspectorName}-${inspDate}`;
+
+      window.print();
+    });
+  </script>
+</body>
+</html>

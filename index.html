@@ -276,7 +276,7 @@
         </div>
         <div class="field-group">
           <label>Date of Manufacture</label>
-          <input type="date" id="inManufacture">
+          <input type="month" id="inManufacture">
         </div>
         <div class="field-group">
           <label>Date of Inspection</label>
@@ -360,6 +360,16 @@
         ]
       }
     ];
+
+    const rawMfg = document.getElementById("inManufacture").value;
+let formattedMfg = "";
+if (rawMfg && rawMfg.includes("-")) {
+  const parts = rawMfg.split("-");
+  formattedMfg = `${parts}/${parts}`; // Converts "2024-08" to "08/2024"
+}
+document.getElementById("outManufacture").textContent = formattedMfg;
+
+    
 
     const ratings = ["EXCELLENT", "GOOD", "BAD", "REPAIR"];
     const formContainer = document.getElementById("form-sections");

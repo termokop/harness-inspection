@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toolbox Safety Meeting Record - Point to Point Structures Corp.</title>
+  <style>
+    /* =========================================
+       1. MOBILE WEBFORM STYLES (SCREEN ONLY)
+       ========================================= */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 12px;
+      background: #f0f2f5;
+      color: #111;
+    }
+    .form-card {
+      max-width: 650px;
+      margin: auto;
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+    .back-link {
+      font-size: 13px;
+      font-weight: bold;
+      color: #111;
+      text-decoration: none;
+      background: #e5e7eb;
+      padding: 7px 11px;
+      border-radius: 6px;
+    }
+    .reset-btn {
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      background: #b91c1c;
+      border: none;
+      padding: 7px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .reset-btn:active {
+      background: #991b1b;
+    }
+    .form-header {
+      text-align: center;
+      border-bottom: 2px solid #111;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .form-header img {
+      max-height: 55px;
+      width: auto;
+      margin-bottom: 4px;
+    }
+    .form-header h1 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    }
+    .form-header p {
+      margin: 3px 0 0;
+      font-weight: bold;
+      color: #444;
+      font-size: 13px;
+    }
+    .save-indicator {
+      font-size: 12px;
+      color: #15803d;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      padding: 6px 10px;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 14px;
+      font-weight: bold;
+    }
+    .section-title {
+      background: #b5b5b5;
+      color: #000;
+      font-weight: bold;
+      padding: 7px 10px;
+      margin-top: 16px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      border: 1px solid #000;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .count-badge {
+      background: #111;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 480px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .field-group {
+      margin-bottom: 10px;
+    }
+    .field-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+    .field-group input,
+    .field-group textarea {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #9ca3af;
+      border-radius: 6px;
+      font-size: 15px;
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+    }
+
+    /* Compact Worker Cards */
+    .worker-card {
+      border: 1px solid #9ca3af;
+      background: #f9fafb;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .worker-top-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .worker-num {
+      font-weight: bold;
+      font-size: 13px;
+      background: #111;
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 4px;
+      min-width: 22px;
+      text-align: center;
+    }
+    .worker-name-input {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #9ca3af;
+      border-radius: 5px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+    .remove-btn {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+      padding: 6px 9px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .sig-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sig-wrapper {
+      flex-grow: 1;
+      border: 1.5px solid #9ca3af;
+      border-radius: 5px;
+      background: #fff;
+      overflow: hidden;
+    }
+    canvas.sig-pad {
+      display: block;
+      width: 100%;
+      height: 75px;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .clear-sig-btn {
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #e5e7eb;
+      color: #111;
+      border: 1px solid #9ca3af;
+      border-radius: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .supervisor-sig canvas.sig-pad {
+      height: 100px;
+    }
+
+    .add-worker-btn {
+      width: 100%;
+      padding: 12px;
+      background: #1f2937;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+    .add-worker-btn:active {
+      background: #374151;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 16px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .submit-btn:active {
+      background: #333;
+    }
+
+    /* Hide PDF template on normal screen */
+    #pdf-template {
+      display: none;
+    }
+
+    /* =========================================
+       2. COMPACT 1-PAGE PRINT / PDF LAYOUT
+       ========================================= */
+    @media print {
+      @page {
+        size: letter portrait;
+        margin: 0.3in 0.4in;
+      }
+      body {
+        background: #fff;
+        padding: 0;
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .form-card {
+        display: none;
+      }
+      #pdf-template {
+        display: block;
+        width: 100%;
+        color: #000;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .pdf-top-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 7px;
+      }
+      .logo-box img {
+        max-height: 80px;
+        width: auto;
+        display: block;
+      }
+      .doc-title {
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: right;
+      }
+      .doc-sub {
+        font-size: 10px;
+        color: #333;
+        text-align: right;
+      }
+
+      /* Compact Metadata & Notes Table */
+      table.info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 7px;
+        font-size: 10px;
+      }
+      table.info-table th,
+      table.info-table td {
+        border: 1px solid #000;
+        padding: 3px 6px;
+        text-align: left;
+        vertical-align: top;
+      }
+      table.info-table th {
+        background-color: #d9d9d9 !important;
+        font-weight: bold;
+        width: 18%;
+      }
+      .notes-cell {
+        white-space: pre-wrap;
+        min-height: 24px;
+        line-height: 1.25;
+      }
+
+      /* Dynamic 2-Column Attendance Grid */
+      .attendance-heading {
+        background-color: #b5b5b5 !important;
+        border: 1px solid #000;
+        border-bottom: none;
+        padding: 3px 6px;
+        font-size: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .dual-table-wrap {
+        display: flex;
+        width: 100%;
+        gap: 0;
+        margin-bottom: 7px;
+      }
+      table.attend-table {
+        width: 50%;
+        border-collapse: collapse;
+        font-size: 10px;
+      }
+      table.attend-table:first-child {
+        border-right: 1.5px solid #000;
+      }
+      table.attend-table th,
+      table.attend-table td {
+        border: 1px solid #000;
+        padding: 1px 5px;
+        height: 22px;
+        vertical-align: middle;
+      }
+      table.attend-table th {
+        background-color: #e5e5e5 !important;
+        font-weight: bold;
+        text-align: center;
+        height: 18px;
+        font-size: 9.5px;
+      }
+      .col-num {
+        width: 24px;
+        text-align: center;
+        font-weight: bold;
+      }
+      .col-name {
+        width: 48%;
+      }
+      .col-sig {
+        width: 44%;
+        text-align: center;
+        padding: 0 3px !important;
+      }
+      .sig-cell-img {
+        max-height: 20px;
+        max-width: 100%;
+        width: auto;
+        vertical-align: middle;
+        display: inline-block;
+      }
+
+      /* Compact Supervisor Sign-Off */
+      .sup-box {
+        border: 1.5px solid #000;
+        padding: 5px 8px;
+        font-size: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+      }
+      .sup-col {
+        width: 48%;
+        display: flex;
+        align-items: center;
+      }
+      .sup-col span.lbl {
+        white-space: nowrap;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      .sup-col span.val {
+        flex-grow: 1;
+        border-bottom: 1px solid #000;
+        padding-left: 4px;
+        min-height: 16px;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+      }
+      .sup-sig-img {
+        max-height: 24px;
+        width: auto;
+        display: block;
+      }
+      .pdf-footer {
+        margin-top: 6px;
+        font-size: 9.5px;
+        color: #111;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================
+       MOBILE INPUT FORM
+       ========================================= -->
+  <div class="form-card">
+    <div class="top-bar">
+      <a href="index.html" class="back-link">&larr; Main Menu</a>
+      <button type="button" id="newMeetingBtn" class="reset-btn">New Meeting (Clear Sigs)</button>
+    </div>
+
+    <div class="form-header">
+      <img src="logo.jpg" alt="Point to Point Structures Corp." onerror="this.style.display='none'">
+      <p>TOOLBOX SAFETY MEETING RECORD</p>
+    </div>
+
+    <div class="save-indicator" id="saveStatus">Auto-saved locally on this device</div>
+
+    <form id="toolboxForm">
+      <div class="section-title">1. Meeting Details</div>
+
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Project / Site Name</label>
+          <input type="text" id="inSite" placeholder="e.g., Oakridge Commercial">
+        </div>
+        <div class="field-group">
+          <label>Meeting Date</label>
+          <input type="date" id="inDate">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Start Time</label>
+          <input type="time" id="inStartTime">
+        </div>
+        <div class="field-group">
+          <label>Finish Time</label>
+          <input type="time" id="inFinishTime">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Meeting Conducted By</label>
+        <input type="text" id="inConductor" placeholder="Supervisor / Foreman Name">
+      </div>
+
+      <div class="field-group">
+        <label>Topics Discussed</label>
+        <textarea id="inTopics" rows="3" placeholder="Enter safety topics covered (one per line)..."></textarea>
+      </div>
+
+      <div class="field-group">
+        <label>Safety Concerns / Worker Feedback / Action Items</label>
+        <textarea id="inConcerns" rows="3" placeholder="Enter concerns raised or follow-up actions..."></textarea>
+      </div>
+
+      <div class="section-title">
+        <span>2. Workers in Attendance</span>
+        <span class="count-badge" id="workerCountBadge">0 Workers</span>
+      </div>
+      <div id="workersContainer"></div>
+
+      <button type="button" id="addWorkerBtn" class="add-worker-btn">+ Add Worker</button>
+
+      <div class="section-title">3. Supervisor / Meeting Leader Sign-Off</div>
+      <div class="field-group">
+        <label>Supervisor Signature</label>
+        <div class="sig-row supervisor-sig">
+          <div class="sig-wrapper">
+            <canvas id="supSigCanvas" class="sig-pad" width="520" height="100"></canvas>
+          </div>
+          <button type="button" id="clearSupSig" class="clear-sig-btn">Clear</button>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Generate 1-Page Meeting PDF</button>
+    </form>
+  </div>
+
+  <!-- =========================================
+       COMPACT 1-PAGE PRINT / PDF TEMPLATE
+       ========================================= -->
+  <div id="pdf-template">
+    <div class="pdf-top-header">
+      <div class="logo-box">
+        <img src="logo.jpg" alt="POINT TO POINT STRUCTURES CORP.">
+      </div>
+      <div>
+        <div class="doc-title">TOOLBOX SAFETY MEETING RECORD</div>
+        <div class="doc-sub">Point to Point Structures Corp.</div>
+      </div>
+    </div>
+
+    <table class="info-table">
+      <tr>
+        <th>Project / Site:</th>
+        <td id="outSite" style="width:32%;"></td>
+        <th>Date:</th>
+        <td id="outDate" style="width:32%;"></td>
+      </tr>
+      <tr>
+        <th>Conducted By:</th>
+        <td id="outConductor"></td>
+        <th>Time (Start – Finish):</th>
+        <td id="outTimeRange"></td>
+      </tr>
+      <tr>
+        <th>Topics Discussed:</th>
+        <td colspan="3" class="notes-cell" id="outTopics"></td>
+      </tr>
+      <tr>
+        <th>Safety Concerns / Action Items:</th>
+        <td colspan="3" class="notes-cell" id="outConcerns"></td>
+      </tr>
+    </table>
+
+    <div class="attendance-heading">Workers in Attendance &amp; Signatures (<span id="outTotalCount">0</span>)</div>
+    <div class="dual-table-wrap">
+      <table class="attend-table">
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th class="col-name">Worker Name</th>
+            <th class="col-sig">Signature</th>
+          </tr>
+        </thead>
+        <tbody id="outWorkersLeft"></tbody>
+      </table>
+      <table class="attend-table">
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th class="col-name">Worker Name</th>
+            <th class="col-sig">Signature</th>
+          </tr>
+        </thead>
+        <tbody id="outWorkersRight"></tbody>
+      </table>
+    </div>
+
+    <div class="sup-box">
+      <div class="sup-col">
+        <span class="lbl">Supervisor Name:</span>
+        <span class="val" id="outSupName"></span>
+      </div>
+      <div class="sup-col">
+        <span class="lbl">Supervisor Signature:</span>
+        <span class="val" id="outSupSigCell"></span>
+      </div>
+    </div>
+
+    <div class="pdf-footer">
+      3250 46th Ave SE &nbsp;Calgary, AB &nbsp;T2B 3K7 &nbsp;(587) 328-0007
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "p2p_toolbox_meeting_v5";
+
+    let state = {
+      site: "",
+      date: new Date().toISOString().split("T")[0],
+      startTime: "",
+      finishTime: "",
+      conductor: "",
+      topics: "",
+      concerns: "",
+      supSig: "",
+      workers: []
+    };
+
+    function getTodayString() {
+      const now = new Date();
+      const offset = now.getTimezoneOffset() * 60000;
+      return new Date(now - offset).toISOString().split("T")[0];
+    }
+
+    function formatTime12Hour(timeStr) {
+      if (!timeStr || !timeStr.includes(":")) return "";
+      const parts = timeStr.split(":");
+      let hours = parseInt(parts[0], 10);
+      const minutes = parts[1];
+      const ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      return `${hours}:${minutes} ${ampm}`;
+    }
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          state = Object.assign(state, parsed);
+        } else {
+          state.date = getTodayString();
+        }
+      } catch (e) {
+        console.error("Could not load saved state:", e);
+      }
+      if (!Array.isArray(state.workers)) {
+        state.workers = [];
+      }
+      if (state.workers.length === 0) {
+        state.workers.push({ name: "", sig: "" });
+      }
+    }
+
+    function saveState() {
+      const indicator = document.getElementById("saveStatus");
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        indicator.textContent = "Auto-saved locally on this device";
+        indicator.style.color = "#15803d";
+        indicator.style.background = "#dcfce7";
+        indicator.style.borderColor = "#86efac";
+      } catch (e) {
+        console.warn("Storage quota warning:", e);
+        indicator.textContent = "Note: Browser storage full — signatures kept in current session";
+        indicator.style.color = "#92400e";
+        indicator.style.background = "#fef3c7";
+        indicator.style.borderColor = "#fcd34d";
+      }
+    }
+
+    function setupSignatureCanvas(canvas, initialDataUrl, onSaveCallback) {
+      const ctx = canvas.getContext("2d");
+      ctx.lineWidth = 2.2;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = "#000000";
+
+      if (initialDataUrl) {
+        const img = new Image();
+        img.onload = function() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = initialDataUrl;
+      }
+
+      let drawing = false;
+
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: (clientX - rect.left) * (canvas.width / rect.width),
+          y: (clientY - rect.top) * (canvas.height / rect.height)
+        };
+      }
+
+      function startDraw(e) {
+        if (e.cancelable) e.preventDefault();
+        drawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      }
+
+      function moveDraw(e) {
+        if (!drawing) return;
+        if (e.cancelable) e.preventDefault();
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      }
+
+      function endDraw() {
+        if (!drawing) return;
+        drawing = false;
+        const compactDataUrl = exportCompactSignature(canvas);
+        onSaveCallback(compactDataUrl);
+      }
+
+      canvas.addEventListener("mousedown", startDraw);
+      canvas.addEventListener("mousemove", moveDraw);
+      window.addEventListener("mouseup", endDraw);
+
+      canvas.addEventListener("touchstart", startDraw, { passive: false });
+      canvas.addEventListener("touchmove", moveDraw, { passive: false });
+      canvas.addEventListener("touchend", endDraw);
+    }
+
+    function exportCompactSignature(sourceCanvas) {
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = 240;
+      tempCanvas.height = 55;
+      const tCtx = tempCanvas.getContext("2d");
+      tCtx.drawImage(sourceCanvas, 0, 0, tempCanvas.width, tempCanvas.height);
+      return tempCanvas.toDataURL("image/png");
+    }
+
+    function updateWorkerCountBadge() {
+      const count = state.workers.length;
+      const badge = document.getElementById("workerCountBadge");
+      badge.textContent = count === 1 ? "1 Worker" : `${count} Workers`;
+    }
+
+    function renderWorkers() {
+      const container = document.getElementById("workersContainer");
+      container.innerHTML = "";
+      updateWorkerCountBadge();
+
+      state.workers.forEach((worker, idx) => {
+        const card = document.createElement("div");
+        card.className = "worker-card";
+
+        card.innerHTML = `
+          <div class="worker-top-row">
+            <span class="worker-num">${idx + 1}</span>
+            <input type="text" class="worker-name-input" placeholder="Worker Full Name" value="${escapeHtml(worker.name)}">
+            ${state.workers.length > 1 ? `<button type="button" class="remove-btn">X</button>` : ""}
+          </div>
+          <div class="sig-row">
+            <div class="sig-wrapper">
+              <canvas class="sig-pad" width="420" height="75"></canvas>
+            </div>
+            <button type="button" class="clear-sig-btn">Clear</button>
+          </div>
+        `;
+
+        const nameInput = card.querySelector(".worker-name-input");
+        nameInput.addEventListener("input", function() {
+          state.workers[idx].name = this.value;
+          saveState();
+        });
+
+        const removeBtn = card.querySelector(".remove-btn");
+        if (removeBtn) {
+          removeBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            state.workers.splice(idx, 1);
+            saveState();
+            renderWorkers();
+          });
+        }
+
+        const canvas = card.querySelector("canvas.sig-pad");
+        setupSignatureCanvas(canvas, worker.sig, function(dataUrl) {
+          state.workers[idx].sig = dataUrl;
+          saveState();
+        });
+
+        const clearBtn = card.querySelector(".clear-sig-btn");
+        clearBtn.addEventListener("click", function(e) {
+          e.preventDefault();
+          const ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          state.workers[idx].sig = "";
+          saveState();
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // Initialize Page
+    loadState();
+
+    const inSite = document.getElementById("inSite");
+    const inDate = document.getElementById("inDate");
+    const inStartTime = document.getElementById("inStartTime");
+    const inFinishTime = document.getElementById("inFinishTime");
+    const inConductor = document.getElementById("inConductor");
+    const inTopics = document.getElementById("inTopics");
+    const inConcerns = document.getElementById("inConcerns");
+
+    inSite.value = state.site || "";
+    inDate.value = state.date || getTodayString();
+    inStartTime.value = state.startTime || "";
+    inFinishTime.value = state.finishTime || "";
+    inConductor.value = state.conductor || "";
+    inTopics.value = state.topics || "";
+    inConcerns.value = state.concerns || "";
+
+    inSite.addEventListener("input", () => { state.site = inSite.value; saveState(); });
+    inDate.addEventListener("input", () => { state.date = inDate.value; saveState(); });
+    inStartTime.addEventListener("input", () => { state.startTime = inStartTime.value; saveState(); });
+    inFinishTime.addEventListener("input", () => { state.finishTime = inFinishTime.value; saveState(); });
+    inConductor.addEventListener("input", () => { state.conductor = inConductor.value; saveState(); });
+    inTopics.addEventListener("input", () => { state.topics = inTopics.value; saveState(); });
+    inConcerns.addEventListener("input", () => { state.concerns = inConcerns.value; saveState(); });
+
+    const supCanvas = document.getElementById("supSigCanvas");
+    setupSignatureCanvas(supCanvas, state.supSig, function(dataUrl) {
+      state.supSig = dataUrl;
+      saveState();
+    });
+
+    document.getElementById("clearSupSig").addEventListener("click", function(e) {
+      e.preventDefault();
+      const ctx = supCanvas.getContext("2d");
+      ctx.clearRect(0, 0, supCanvas.width, supCanvas.height);
+      state.supSig = "";
+      saveState();
+    });
+
+    document.getElementById("addWorkerBtn").addEventListener("click", function(e) {
+      e.preventDefault();
+      state.workers.push({ name: "", sig: "" });
+      saveState();
+      renderWorkers();
+
+      const cards = document.querySelectorAll(".worker-card");
+      if (cards.length > 0) {
+        const lastCard = cards[cards.length - 1];
+        lastCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        const input = lastCard.querySelector(".worker-name-input");
+        if (input) input.focus();
+      }
+    });
+
+    document.getElementById("newMeetingBtn").addEventListener("click", function(e) {
+      e.preventDefault();
+      if (!confirm("Start a new meeting? This will clear all signatures and reset the date to today while keeping Site, Conductor, and Worker Names.")) {
+        return;
+      }
+      state.date = getTodayString();
+      state.startTime = "";
+      state.finishTime = "";
+      state.supSig = "";
+      state.workers = state.workers.map(w => ({ name: w.name, sig: "" }));
+
+      inDate.value = state.date;
+      inStartTime.value = "";
+      inFinishTime.value = "";
+      const ctx = supCanvas.getContext("2d");
+      ctx.clearRect(0, 0, supCanvas.width, supCanvas.height);
+
+      saveState();
+      renderWorkers();
+    });
+
+    renderWorkers();
+
+    // Generate Compact 1-Page PDF with Exact Worker Row Count
+    document.getElementById("toolboxForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const site = inSite.value.trim();
+      const meetingDate = inDate.value;
+      const startFormatted = formatTime12Hour(inStartTime.value);
+      const finishFormatted = formatTime12Hour(inFinishTime.value);
+      const conductor = inConductor.value.trim();
+
+      let timeDisplay = "";
+      if (startFormatted && finishFormatted) {
+        timeDisplay = `${startFormatted} – ${finishFormatted}`;
+      } else if (startFormatted) {
+        timeDisplay = `Started: ${startFormatted}`;
+      } else if (finishFormatted) {
+        timeDisplay = `Finished: ${finishFormatted}`;
+      }
+
+      document.getElementById("outSite").textContent = site;
+      document.getElementById("outDate").textContent = meetingDate;
+      document.getElementById("outConductor").textContent = conductor;
+      document.getElementById("outTimeRange").textContent = timeDisplay;
+      document.getElementById("outTopics").textContent = inTopics.value;
+      document.getElementById("outConcerns").textContent = inConcerns.value;
+
+      // Filter only filled workers (or keep at least 1 row if completely blank)
+      const activeWorkers = state.workers.filter(w => w.name.trim() !== "" || w.sig !== "");
+      const listToPrint = activeWorkers.length > 0 ? activeWorkers : [{ name: "", sig: "" }];
+      const totalCount = listToPrint.length;
+
+      document.getElementById("outTotalCount").textContent = activeWorkers.length;
+
+      const leftBody = document.getElementById("outWorkersLeft");
+      const rightBody = document.getElementById("outWorkersRight");
+      leftBody.innerHTML = "";
+      rightBody.innerHTML = "";
+
+      // Split exact number of workers evenly across left and right columns
+      const rowsPerCol = Math.ceil(totalCount / 2);
+
+      for (let i = 0; i < rowsPerCol; i++) {
+        // Left column row (1 to rowsPerCol)
+        const leftWorker = listToPrint[i];
+        const trLeft = document.createElement("tr");
+        const leftSigHtml = leftWorker && leftWorker.sig
+          ? `<img src="${leftWorker.sig}" class="sig-cell-img" alt="Signature">`
+          : "";
+        trLeft.innerHTML = `
+          <td class="col-num">${i + 1}</td>
+          <td class="col-name">${escapeHtml(leftWorker ? leftWorker.name : "")}</td>
+          <td class="col-sig">${leftSigHtml}</td>
+        `;
+        leftBody.appendChild(trLeft);
+
+        // Right column row (rowsPerCol + 1 to totalCount)
+        const rightIdx = i + rowsPerCol;
+        const trRight = document.createElement("tr");
+        if (rightIdx < totalCount) {
+          const rightWorker = listToPrint[rightIdx];
+          const rightSigHtml = rightWorker && rightWorker.sig
+            ? `<img src="${rightWorker.sig}" class="sig-cell-img" alt="Signature">`
+            : "";
+          trRight.innerHTML = `
+            <td class="col-num">${rightIdx + 1}</td>
+            <td class="col-name">${escapeHtml(rightWorker ? rightWorker.name : "")}</td>
+            <td class="col-sig">${rightSigHtml}</td>
+          `;
+        } else {
+          // Empty filler cell only when totalCount is an odd number
+          trRight.innerHTML = `
+            <td class="col-num"></td>
+            <td class="col-name"></td>
+            <td class="col-sig"></td>
+          `;
+        }
+        rightBody.appendChild(trRight);
+      }
+
+      document.getElementById("outSupName").textContent = conductor;
+      const supSigCell = document.getElementById("outSupSigCell");
+      supSigCell.innerHTML = "";
+      if (state.supSig) {
+        const img = document.createElement("img");
+        img.src = state.supSig;
+        img.className = "sup-sig-img";
+        img.alt = "Supervisor Signature";
+        supSigCell.appendChild(img);
+      }
+
+      const safeSite = site ? site.replace(/\s+/g, "_") : "Site";
+      document.title = `Toolbox_Meeting_${safeSite}_${meetingDate || "Record"}`;
+
+      window.print();
+    });
+  </script>
+</body>
+</html>

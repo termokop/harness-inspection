@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toolbox Safety Meeting Record - Point to Point Structures Corp.</title>
+  <title>Toolbox Meeting Record - Point to Point Structures Corp.</title>
   <style>
     /* =========================================
        1. MOBILE WEBFORM STYLES (SCREEN ONLY)
        ========================================= */
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: Arial, Helvetica, sans-serif;
       margin: 0;
@@ -23,34 +26,31 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .top-bar {
+    .top-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
-      gap: 8px;
     }
     .back-link {
+      text-decoration: none;
+      color: #374151;
       font-size: 13px;
       font-weight: bold;
-      color: #111;
-      text-decoration: none;
-      background: #e5e7eb;
-      padding: 7px 11px;
-      border-radius: 6px;
+      padding: 6px 10px;
+      background: #f3f4f6;
+      border-radius: 5px;
+      border: 1px solid #d1d5db;
     }
     .reset-btn {
-      font-size: 13px;
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 12px;
       font-weight: bold;
-      color: #fff;
-      background: #b91c1c;
-      border: none;
-      padding: 7px 11px;
-      border-radius: 6px;
       cursor: pointer;
-    }
-    .reset-btn:active {
-      background: #991b1b;
     }
     .form-header {
       text-align: center;
@@ -74,15 +74,14 @@
       color: #444;
       font-size: 13px;
     }
-    .save-indicator {
-      font-size: 12px;
-      color: #15803d;
-      background: #dcfce7;
-      border: 1px solid #86efac;
-      padding: 6px 10px;
-      border-radius: 6px;
-      text-align: center;
-      margin-bottom: 14px;
+    .save-badge {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 11px;
+      color: #065f46;
+      background: #d1fae5;
+      padding: 2px 8px;
+      border-radius: 12px;
       font-weight: bold;
     }
     .section-title {
@@ -99,12 +98,12 @@
       justify-content: space-between;
       align-items: center;
     }
-    .count-badge {
+    .count-pill {
       background: #111;
       color: #fff;
+      font-size: 11px;
       padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 12px;
+      border-radius: 10px;
     }
     .grid-2 {
       display: grid;
@@ -123,7 +122,7 @@
       display: block;
       font-weight: bold;
       font-size: 13px;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
     .field-group input,
     .field-group textarea {
@@ -132,110 +131,136 @@
       border: 1px solid #9ca3af;
       border-radius: 6px;
       font-size: 15px;
-      font-family: Arial, Helvetica, sans-serif;
-      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .field-group textarea {
+      resize: vertical;
     }
 
-    /* Compact Worker Cards */
+    /* Compact Worker Row Cards (No accidental drawing while scrolling!) */
     .worker-card {
-      border: 1px solid #9ca3af;
-      background: #f9fafb;
-      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 8px;
       padding: 10px;
-      margin-bottom: 10px;
-    }
-    .worker-top-row {
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
+      flex-wrap: wrap;
     }
     .worker-num {
-      font-weight: bold;
-      font-size: 13px;
       background: #111;
       color: #fff;
-      padding: 5px 8px;
-      border-radius: 4px;
-      min-width: 22px;
-      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+      min-width: 28px;
+      height: 36px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .worker-name-input {
-      flex-grow: 1;
-      padding: 8px;
+      flex: 1;
+      min-width: 140px;
+      padding: 8px 10px;
+      border: 1px solid #9ca3af;
+      border-radius: 6px;
+      font-size: 15px;
+      background: #fff;
+    }
+    .sig-trigger-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sig-thumb {
+      height: 36px;
+      width: 85px;
       border: 1px solid #9ca3af;
       border-radius: 5px;
-      font-size: 15px;
-      box-sizing: border-box;
+      background: #fff;
+      object-fit: contain;
+      display: none;
+    }
+    .sig-open-btn {
+      height: 36px;
+      padding: 0 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 1px solid #111;
+      background: #fff;
+      color: #111;
+      white-space: nowrap;
+    }
+    .sig-open-btn.signed {
+      background: #d1fae5;
+      border-color: #059669;
+      color: #065f46;
     }
     .remove-btn {
+      height: 36px;
+      width: 32px;
       background: #fee2e2;
       color: #991b1b;
       border: 1px solid #fca5a5;
-      padding: 6px 9px;
-      border-radius: 5px;
-      font-size: 12px;
+      border-radius: 6px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
-    }
-    .sig-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
     }
-    .sig-wrapper {
-      flex-grow: 1;
-      border: 1.5px solid #9ca3af;
+
+    /* Supervisor Sign Card */
+    .sup-sig-box {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .sup-sig-preview {
+      height: 44px;
+      max-width: 160px;
+      border: 1px dashed #9ca3af;
       border-radius: 5px;
       background: #fff;
-      overflow: hidden;
-    }
-    canvas.sig-pad {
-      display: block;
-      width: 100%;
-      height: 150px;
-      touch-action: none;
-      cursor: crosshair;
-    }
-    .clear-sig-btn {
-      padding: 8px 10px;
-      font-size: 12px;
-      font-weight: bold;
-      background: #e5e7eb;
-      color: #111;
-      border: 1px solid #9ca3af;
-      border-radius: 5px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .supervisor-sig canvas.sig-pad {
-      height: 150px;
+      padding: 2px;
+      display: none;
     }
 
     .add-worker-btn {
       width: 100%;
-      padding: 12px;
-      background: #1f2937;
-      color: #fff;
-      border: none;
+      padding: 11px;
+      background: #e5e7eb;
+      color: #111;
+      border: 1.5px dashed #6b7280;
       border-radius: 6px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 2px;
+      margin-bottom: 10px;
     }
     .add-worker-btn:active {
-      background: #374151;
+      background: #d1d5db;
     }
     .submit-btn {
       width: 100%;
-      padding: 14px;
-      margin-top: 16px;
+      padding: 15px;
+      margin-top: 14px;
       background: #111;
       color: #fff;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: bold;
       cursor: pointer;
     }
@@ -243,13 +268,120 @@
       background: #333;
     }
 
-    /* Hide PDF template on normal screen */
+    /* =========================================
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= */
+    .sig-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      padding: 12px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .sig-modal.active {
+      display: flex;
+    }
+    .sig-modal-card {
+      width: 100%;
+      max-width: 720px;
+      height: 82vh;
+      max-height: 520px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .sig-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .sig-modal-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #111;
+    }
+    .sig-modal-sub {
+      font-size: 12px;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+    .modal-canvas-wrap {
+      flex: 1;
+      width: 100%;
+      border: 2px solid #111;
+      border-radius: 8px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    #modalCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .sig-baseline {
+      position: absolute;
+      bottom: 24%;
+      left: 6%;
+      right: 6%;
+      border-bottom: 1px dashed #9ca3af;
+      pointer-events: none;
+    }
+    .sig-baseline::after {
+      content: "X";
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #9ca3af;
+    }
+    .sig-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .modal-btn {
+      padding: 13px 10px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-cancel {
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+    .btn-clear {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+    .btn-done {
+      background: #059669;
+      color: #fff;
+    }
+
+    /* Hide PDF sheet on normal screen */
     #pdf-template {
       display: none;
     }
 
     /* =========================================
-       2. COMPACT 1-PAGE PRINT / PDF LAYOUT
+       2. COMPACT PRINT / PDF LAYOUT (1-PAGE FIT)
        ========================================= */
     @media print {
       @page {
@@ -263,8 +395,8 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .form-card {
-        display: none;
+      .form-card, .sig-modal {
+        display: none !important;
       }
       #pdf-template {
         display: block;
@@ -272,13 +404,31 @@
         color: #000;
         font-family: Arial, Helvetica, sans-serif;
       }
-      .pdf-top-header {
+      .pdf-top-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 2px solid #000;
         padding-bottom: 5px;
         margin-bottom: 7px;
+      }
+      .logo-frame {
+        display: inline-block;
+        border: 2.5px solid #000;
+        padding: 3px 9px;
+        font-weight: 900;
+        font-size: 16px;
+        letter-spacing: 0.8px;
+        line-height: 1;
+      }
+      .logo-sub {
+        font-weight: 900;
+        font-size: 9px;
+        letter-spacing: 1px;
+        margin-top: 2px;
+      }
+      .doc-title-right {
+        text-align: right;
       }
       .logo-box img {
         max-height: 80px;
@@ -289,15 +439,13 @@
         font-size: 14px;
         font-weight: bold;
         text-transform: uppercase;
-        text-align: right;
+        margin: 0;
       }
       .doc-sub {
-        font-size: 10px;
+        font-size: 9.5px;
         color: #333;
-        text-align: right;
+        margin-top: 2px;
       }
-
-      /* Compact Metadata & Notes Table */
       table.info-table {
         width: 100%;
         border-collapse: collapse;
@@ -307,7 +455,7 @@
       table.info-table th,
       table.info-table td {
         border: 1px solid #000;
-        padding: 3px 6px;
+        padding: 3.5px 6px;
         text-align: left;
         vertical-align: top;
       }
@@ -317,107 +465,93 @@
         width: 18%;
       }
       .notes-cell {
+        min-height: 22px;
         white-space: pre-wrap;
-        min-height: 24px;
         line-height: 1.25;
       }
-
-      /* Dynamic 2-Column Attendance Grid */
-      .attendance-heading {
+      .att-header {
         background-color: #b5b5b5 !important;
+        font-weight: bold;
+        font-size: 10.5px;
+        padding: 3.5px 6px;
         border: 1px solid #000;
         border-bottom: none;
-        padding: 3px 6px;
-        font-size: 10px;
-        font-weight: bold;
         text-transform: uppercase;
       }
-      .dual-table-wrap {
+      .dual-att-grid {
         display: flex;
         width: 100%;
-        gap: 0;
-        margin-bottom: 7px;
       }
-      table.attend-table {
+      .dual-att-col {
         width: 50%;
+      }
+      table.att-table {
+        width: 100%;
         border-collapse: collapse;
-        font-size: 10px;
-      }
-      table.attend-table:first-child {
-        border-right: 1.5px solid #000;
-      }
-      table.attend-table th,
-      table.attend-table td {
-        border: 1px solid #000;
-        padding: 1px 5px;
-        height: 22px;
-        vertical-align: middle;
-      }
-      table.attend-table th {
-        background-color: #e5e5e5 !important;
-        font-weight: bold;
-        text-align: center;
-        height: 18px;
         font-size: 9.5px;
       }
-      .col-num {
-        width: 24px;
-        text-align: center;
-        font-weight: bold;
-      }
-      .col-name {
-        width: 48%;
-      }
-      .col-sig {
-        width: 44%;
-        text-align: center;
-        padding: 0 3px !important;
-      }
-      .sig-cell-img {
-        max-height: 20px;
-        max-width: 100%;
-        width: auto;
+      table.att-table th,
+      table.att-table td {
+        border: 1px solid #000;
+        padding: 1.5px 4px;
+        height: 21px;
         vertical-align: middle;
-        display: inline-block;
       }
-
-      /* Compact Supervisor Sign-Off */
+      .dual-att-col:last-child table.att-table th:first-child,
+      .dual-att-col:last-child table.att-table td:first-child {
+        border-left: none;
+      }
+      table.att-table th {
+        background-color: #e5e5e5 !important;
+        font-weight: bold;
+        text-align: left;
+        height: 18px;
+      }
+      .sig-cell {
+        text-align: center;
+        padding: 1px 2px !important;
+      }
+      .sig-cell img {
+        max-height: 18px;
+        max-width: 120px;
+        display: block;
+        margin: auto;
+      }
       .sup-box {
         border: 1.5px solid #000;
         padding: 5px 8px;
+        margin-top: 8px;
         font-size: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 14px;
       }
       .sup-col {
-        width: 48%;
         display: flex;
         align-items: center;
+        width: 49%;
       }
       .sup-col span.lbl {
-        white-space: nowrap;
         font-weight: bold;
-        margin-right: 5px;
+        white-space: nowrap;
+        margin-right: 6px;
       }
       .sup-col span.val {
         flex-grow: 1;
         border-bottom: 1px solid #000;
-        padding-left: 4px;
-        min-height: 16px;
-        font-weight: bold;
+        min-height: 18px;
         display: inline-flex;
         align-items: center;
+        padding-left: 4px;
+        font-weight: bold;
       }
-      .sup-sig-img {
-        max-height: 24px;
-        width: auto;
-        display: block;
+      .sup-col span.val img {
+        max-height: 22px;
+        max-width: 150px;
       }
       .pdf-footer {
-        margin-top: 6px;
-        font-size: 9.5px;
+        margin-top: 8px;
+        font-size: 9px;
         color: #111;
         text-align: center;
         width: 100%;
@@ -431,33 +565,29 @@
        MOBILE INPUT FORM
        ========================================= -->
   <div class="form-card">
-    <div class="top-bar">
+    <div class="top-nav">
       <a href="index.html" class="back-link">&larr; Main Menu</a>
-      <button type="button" id="newMeetingBtn" class="reset-btn">New Meeting (Clear Sigs)</button>
+      <button type="button" class="reset-btn" id="newMeetingBtn">New Meeting (Clear Sigs)</button>
     </div>
 
     <div class="form-header">
       <img src="logo.jpg" alt="Point to Point Structures Corp." onerror="this.style.display='none'">
       <p>TOOLBOX SAFETY MEETING RECORD</p>
+      <div class="save-badge">&#10003; Auto-Saved Locally on Device</div>
     </div>
 
-    <div class="save-indicator" id="saveStatus">Auto-saved locally on this device</div>
-
     <form id="toolboxForm">
+      <!-- 1. MEETING DETAILS -->
       <div class="section-title">1. Meeting Details</div>
-
       <div class="grid-2">
         <div class="field-group">
           <label>Project / Site Name</label>
-          <input type="text" id="inSite" placeholder="e.g., Oakridge Commercial">
+          <input type="text" id="inSite" placeholder="e.g., Calgary Tower Phase 2">
         </div>
         <div class="field-group">
-          <label>Meeting Date</label>
+          <label>Date</label>
           <input type="date" id="inDate">
         </div>
-      </div>
-
-      <div class="grid-2">
         <div class="field-group">
           <label>Start Time</label>
           <input type="time" id="inStartTime">
@@ -467,56 +597,75 @@
           <input type="time" id="inFinishTime">
         </div>
       </div>
-
       <div class="field-group">
         <label>Meeting Conducted By</label>
-        <input type="text" id="inConductor" placeholder="Supervisor / Foreman Name">
+        <input type="text" id="inConductor" placeholder="Supervisor / Foreman name">
       </div>
 
+      <!-- 2. TOPICS & SAFETY CONCERNS -->
+      <div class="section-title">2. Discussion &amp; Safety Concerns</div>
       <div class="field-group">
         <label>Topics Discussed</label>
-        <textarea id="inTopics" rows="3" placeholder="Enter safety topics covered (one per line)..."></textarea>
+        <textarea id="inTopics" rows="3" placeholder="e.g., Fall protection tie-off points, rigging hand signals, weather/wind limits..."></textarea>
       </div>
-
       <div class="field-group">
         <label>Safety Concerns / Worker Feedback / Action Items</label>
-        <textarea id="inConcerns" rows="3" placeholder="Enter concerns raised or follow-up actions..."></textarea>
+        <textarea id="inConcerns" rows="2" placeholder="Any hazards raised by crew or corrective actions required..."></textarea>
       </div>
 
+      <!-- 3. WORKER ATTENDANCE & SIGNATURES -->
       <div class="section-title">
-        <span>2. Workers in Attendance</span>
-        <span class="count-badge" id="workerCountBadge">0 Workers</span>
+        <span>3. Workers in Attendance</span>
+        <span class="count-pill" id="workerCountBadge">0 Workers</span>
       </div>
       <div id="workersContainer"></div>
+      <button type="button" class="add-worker-btn" id="addWorkerBtn">+ Add Worker</button>
 
-      <button type="button" id="addWorkerBtn" class="add-worker-btn">+ Add Worker</button>
-
-      <div class="section-title">3. Supervisor / Meeting Leader Sign-Off</div>
-      <div class="field-group">
-        <label>Supervisor Signature</label>
-        <div class="sig-row supervisor-sig">
-          <div class="sig-wrapper">
-            <canvas id="supSigCanvas" class="sig-pad" width="520" height="150"></canvas>
-          </div>
-          <button type="button" id="clearSupSig" class="clear-sig-btn">Clear</button>
+      <!-- 4. SUPERVISOR SIGN-OFF -->
+      <div class="section-title">4. Supervisor / Leader Sign-Off</div>
+      <div class="sup-sig-box">
+        <div style="font-size:13px; font-weight:bold;">Supervisor Signature:</div>
+        <div class="sig-trigger-wrap">
+          <img id="supSigPreview" class="sup-sig-preview" alt="Supervisor Signature">
+          <button type="button" class="sig-open-btn" id="openSupSigBtn">Sign Here</button>
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">Generate 1-Page Meeting PDF</button>
+      <button type="submit" class="submit-btn">Generate Toolbox Meeting PDF</button>
     </form>
   </div>
 
   <!-- =========================================
-       COMPACT 1-PAGE PRINT / PDF TEMPLATE
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= -->
+  <div class="sig-modal" id="sigModal">
+    <div class="sig-modal-card">
+      <div class="sig-modal-header">
+        <div class="sig-modal-title" id="modalSignerTitle">Sign Below</div>
+      </div>
+      <div class="sig-modal-sub">Use your finger or stylus to sign on the line below</div>
+      <div class="modal-canvas-wrap">
+        <div class="sig-baseline"></div>
+        <canvas id="modalCanvas"></canvas>
+      </div>
+      <div class="sig-modal-actions">
+        <button type="button" class="modal-btn btn-cancel" id="modalCancelBtn">Cancel</button>
+        <button type="button" class="modal-btn btn-clear" id="modalClearBtn">Clear</button>
+        <button type="button" class="modal-btn btn-done" id="modalDoneBtn">Done &amp; Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       PRINT / PDF TEMPLATE (EXACT ROW COUNT)
        ========================================= -->
   <div id="pdf-template">
-    <div class="pdf-top-header">
+    <div class="pdf-top-bar">
       <div class="logo-box">
         <img src="logo.jpg" alt="POINT TO POINT STRUCTURES CORP.">
       </div>
-      <div>
+      <div class="doc-title-right">
         <div class="doc-title">TOOLBOX SAFETY MEETING RECORD</div>
-        <div class="doc-sub">Point to Point Structures Corp.</div>
       </div>
     </div>
 
@@ -530,7 +679,7 @@
       <tr>
         <th>Conducted By:</th>
         <td id="outConductor"></td>
-        <th>Time (Start – Finish):</th>
+        <th>Time (Start - Finish):</th>
         <td id="outTimeRange"></td>
       </tr>
       <tr>
@@ -538,43 +687,47 @@
         <td colspan="3" class="notes-cell" id="outTopics"></td>
       </tr>
       <tr>
-        <th>Safety Concerns / Action Items:</th>
+        <th>Safety Concerns /<br>Action Items:</th>
         <td colspan="3" class="notes-cell" id="outConcerns"></td>
       </tr>
     </table>
 
-    <div class="attendance-heading">Workers in Attendance &amp; Signatures (<span id="outTotalCount">0</span>)</div>
-    <div class="dual-table-wrap">
-      <table class="attend-table">
-        <thead>
-          <tr>
-            <th class="col-num">#</th>
-            <th class="col-name">Worker Name</th>
-            <th class="col-sig">Signature</th>
-          </tr>
-        </thead>
-        <tbody id="outWorkersLeft"></tbody>
-      </table>
-      <table class="attend-table">
-        <thead>
-          <tr>
-            <th class="col-num">#</th>
-            <th class="col-name">Worker Name</th>
-            <th class="col-sig">Signature</th>
-          </tr>
-        </thead>
-        <tbody id="outWorkersRight"></tbody>
-      </table>
+    <div class="att-header" id="outAttHeader">WORKER ATTENDANCE &amp; SIGNATURES</div>
+    <div class="dual-att-grid">
+      <div class="dual-att-col">
+        <table class="att-table">
+          <thead>
+            <tr>
+              <th style="width:10%;">#</th>
+              <th style="width:45%;">Worker Name</th>
+              <th style="width:45%;">Signature</th>
+            </tr>
+          </thead>
+          <tbody id="outAttBodyLeft"></tbody>
+        </table>
+      </div>
+      <div class="dual-att-col">
+        <table class="att-table">
+          <thead>
+            <tr>
+              <th style="width:10%;">#</th>
+              <th style="width:45%;">Worker Name</th>
+              <th style="width:45%;">Signature</th>
+            </tr>
+          </thead>
+          <tbody id="outAttBodyRight"></tbody>
+        </table>
+      </div>
     </div>
 
     <div class="sup-box">
       <div class="sup-col">
-        <span class="lbl">Supervisor Name:</span>
+        <span class="lbl">Supervisor / Leader:</span>
         <span class="val" id="outSupName"></span>
       </div>
       <div class="sup-col">
-        <span class="lbl">Supervisor Signature:</span>
-        <span class="val" id="outSupSigCell"></span>
+        <span class="lbl">Signature:</span>
+        <span class="val" id="outSupSig"></span>
       </div>
     </div>
 
@@ -584,7 +737,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "p2p_toolbox_meeting_v5";
+    const STORAGE_KEY = "p2p_toolbox_meeting_v6";
 
     let state = {
       site: "",
@@ -594,380 +747,406 @@
       conductor: "",
       topics: "",
       concerns: "",
-      supSig: "",
+      supervisorSig: "",
       workers: []
     };
 
-    function getTodayString() {
-      const now = new Date();
-      const offset = now.getTimezoneOffset() * 60000;
-      return new Date(now - offset).toISOString().split("T")[0];
-    }
-
-    function formatTime12Hour(timeStr) {
-      if (!timeStr || !timeStr.includes(":")) return "";
-      const parts = timeStr.split(":");
-      let hours = parseInt(parts[0], 10);
-      const minutes = parts[1];
-      const ampm = hours >= 12 ? "PM" : "AM";
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      return `${hours}:${minutes} ${ampm}`;
-    }
+    // Active modal target: { type: 'worker', index: number } or { type: 'supervisor' }
+    let activeSigTarget = null;
 
     function loadState() {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
-          state = Object.assign(state, parsed);
-        } else {
-          state.date = getTodayString();
+          state = { ...state, ...parsed };
         }
       } catch (e) {
-        console.error("Could not load saved state:", e);
+        console.warn("Could not read localStorage:", e);
       }
-      if (!Array.isArray(state.workers)) {
-        state.workers = [];
-      }
-      if (state.workers.length === 0) {
-        state.workers.push({ name: "", sig: "" });
+      if (!Array.isArray(state.workers) || state.workers.length === 0) {
+        state.workers = [
+          { name: "", sig: "" },
+          { name: "", sig: "" }
+        ];
       }
     }
 
     function saveState() {
-      const indicator = document.getElementById("saveStatus");
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        indicator.textContent = "Auto-saved locally on this device";
-        indicator.style.color = "#15803d";
-        indicator.style.background = "#dcfce7";
-        indicator.style.borderColor = "#86efac";
       } catch (e) {
-        console.warn("Storage quota warning:", e);
-        indicator.textContent = "Note: Browser storage full — signatures kept in current session";
-        indicator.style.color = "#92400e";
-        indicator.style.background = "#fef3c7";
-        indicator.style.borderColor = "#fcd34d";
+        console.warn("Storage warning:", e);
       }
     }
 
-    function setupSignatureCanvas(canvas, initialDataUrl, onSaveCallback) {
-      const ctx = canvas.getContext("2d");
-      ctx.lineWidth = 2.2;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.strokeStyle = "#000000";
-
-      if (initialDataUrl) {
-        const img = new Image();
-        img.onload = function() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        };
-        img.src = initialDataUrl;
-      }
-
-      let drawing = false;
-
-      function getPos(e) {
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return {
-          x: (clientX - rect.left) * (canvas.width / rect.width),
-          y: (clientY - rect.top) * (canvas.height / rect.height)
-        };
-      }
-
-      function startDraw(e) {
-        if (e.cancelable) e.preventDefault();
-        drawing = true;
-        const pos = getPos(e);
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-      }
-
-      function moveDraw(e) {
-        if (!drawing) return;
-        if (e.cancelable) e.preventDefault();
-        const pos = getPos(e);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-      }
-
-      function endDraw() {
-        if (!drawing) return;
-        drawing = false;
-        const compactDataUrl = exportCompactSignature(canvas);
-        onSaveCallback(compactDataUrl);
-      }
-
-      canvas.addEventListener("mousedown", startDraw);
-      canvas.addEventListener("mousemove", moveDraw);
-      window.addEventListener("mouseup", endDraw);
-
-      canvas.addEventListener("touchstart", startDraw, { passive: false });
-      canvas.addEventListener("touchmove", moveDraw, { passive: false });
-      canvas.addEventListener("touchend", endDraw);
-    }
-
-    function exportCompactSignature(sourceCanvas) {
+    // Export compact grayscale/dark-ink PNG so localStorage holds 50+ signatures easily
+    function getCompactSignatureDataURL(sourceCanvas) {
+      const targetW = 320;
+      const targetH = 110;
       const tempCanvas = document.createElement("canvas");
-      tempCanvas.width = 240;
-      tempCanvas.height = 55;
+      tempCanvas.width = targetW;
+      tempCanvas.height = targetH;
       const tCtx = tempCanvas.getContext("2d");
-      tCtx.drawImage(sourceCanvas, 0, 0, tempCanvas.width, tempCanvas.height);
+      tCtx.drawImage(sourceCanvas, 0, 0, targetW, targetH);
       return tempCanvas.toDataURL("image/png");
     }
 
-    function updateWorkerCountBadge() {
+    // =========================================
+    // FULL-SCREEN MODAL SIGNATURE LOGIC
+    // =========================================
+    const sigModal = document.getElementById("sigModal");
+    const modalCanvas = document.getElementById("modalCanvas");
+    const modalCtx = modalCanvas.getContext("2d");
+    let isDrawingModal = false;
+    let modalHasInk = false;
+
+    function resizeModalCanvas() {
+      const rect = modalCanvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      modalCanvas.width = rect.width * dpr;
+      modalCanvas.height = rect.height * dpr;
+      modalCtx.setTransform(1, 0, 0, 1, 0, 0);
+      modalCtx.scale(dpr, dpr);
+      modalCtx.lineWidth = 3;
+      modalCtx.lineCap = "round";
+      modalCtx.lineJoin = "round";
+      modalCtx.strokeStyle = "#000000";
+    }
+
+    function openSignatureModal(target) {
+      activeSigTarget = target;
+      const titleEl = document.getElementById("modalSignerTitle");
+      let existingDataUrl = "";
+
+      if (target.type === "worker") {
+        const w = state.workers[target.index];
+        const wName = (w && w.name.trim()) ? w.name.trim() : `Worker #${target.index + 1}`;
+        titleEl.textContent = `Sign: ${wName}`;
+        existingDataUrl = w ? w.sig : "";
+      } else {
+        const supName = state.conductor.trim() || "Supervisor / Leader";
+        titleEl.textContent = `Sign: ${supName}`;
+        existingDataUrl = state.supervisorSig;
+      }
+
+      sigModal.classList.add("active");
+      document.body.style.overflow = "hidden";
+
+      requestAnimationFrame(() => {
+        resizeModalCanvas();
+        modalCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+        modalHasInk = false;
+
+        if (existingDataUrl) {
+          const img = new Image();
+          img.onload = function() {
+            const rect = modalCanvas.getBoundingClientRect();
+            modalCtx.drawImage(img, 0, 0, rect.width, rect.height);
+            modalHasInk = true;
+          };
+          img.src = existingDataUrl;
+        }
+      });
+    }
+
+    function closeSignatureModal() {
+      sigModal.classList.remove("active");
+      document.body.style.overflow = "";
+      activeSigTarget = null;
+    }
+
+    function getModalCoords(e) {
+      const rect = modalCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function startModalDraw(e) {
+      if (e.cancelable) e.preventDefault();
+      isDrawingModal = true;
+      modalHasInk = true;
+      const pos = getModalCoords(e);
+      modalCtx.beginPath();
+      modalCtx.moveTo(pos.x, pos.y);
+    }
+
+    function moveModalDraw(e) {
+      if (!isDrawingModal) return;
+      if (e.cancelable) e.preventDefault();
+      const pos = getModalCoords(e);
+      modalCtx.lineTo(pos.x, pos.y);
+      modalCtx.stroke();
+    }
+
+    function endModalDraw() {
+      isDrawingModal = false;
+    }
+
+    modalCanvas.addEventListener("mousedown", startModalDraw);
+    modalCanvas.addEventListener("mousemove", moveModalDraw);
+    window.addEventListener("mouseup", endModalDraw);
+
+    modalCanvas.addEventListener("touchstart", startModalDraw, { passive: false });
+    modalCanvas.addEventListener("touchmove", moveModalDraw, { passive: false });
+    modalCanvas.addEventListener("touchend", endModalDraw);
+
+    document.getElementById("modalClearBtn").addEventListener("click", function() {
+      modalCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+      modalHasInk = false;
+    });
+
+    document.getElementById("modalCancelBtn").addEventListener("click", function() {
+      closeSignatureModal();
+    });
+
+    document.getElementById("modalDoneBtn").addEventListener("click", function() {
+      if (!activeSigTarget) return;
+      const dataUrl = modalHasInk ? getCompactSignatureDataURL(modalCanvas) : "";
+
+      if (activeSigTarget.type === "worker") {
+        if (state.workers[activeSigTarget.index]) {
+          state.workers[activeSigTarget.index].sig = dataUrl;
+        }
+        saveState();
+        renderWorkers();
+      } else {
+        state.supervisorSig = dataUrl;
+        saveState();
+        updateSupervisorPreview();
+      }
+      closeSignatureModal();
+    });
+
+    function updateSupervisorPreview() {
+      const previewImg = document.getElementById("supSigPreview");
+      const openBtn = document.getElementById("openSupSigBtn");
+      if (state.supervisorSig) {
+        previewImg.src = state.supervisorSig;
+        previewImg.style.display = "block";
+        openBtn.textContent = "Re-Sign";
+        openBtn.classList.add("signed");
+      } else {
+        previewImg.style.display = "none";
+        previewImg.src = "";
+        openBtn.textContent = "Sign Here";
+        openBtn.classList.remove("signed");
+      }
+    }
+
+    document.getElementById("openSupSigBtn").addEventListener("click", function() {
+      openSignatureModal({ type: "supervisor" });
+    });
+
+    // =========================================
+    // RENDER COMPACT WORKER ROWS
+    // =========================================
+    function updateWorkerCount() {
       const count = state.workers.length;
-      const badge = document.getElementById("workerCountBadge");
-      badge.textContent = count === 1 ? "1 Worker" : `${count} Workers`;
+      document.getElementById("workerCountBadge").textContent = `${count} ${count === 1 ? "Worker" : "Workers"}`;
     }
 
     function renderWorkers() {
       const container = document.getElementById("workersContainer");
       container.innerHTML = "";
-      updateWorkerCountBadge();
+      updateWorkerCount();
 
       state.workers.forEach((worker, idx) => {
         const card = document.createElement("div");
         card.className = "worker-card";
 
-        card.innerHTML = `
-          <div class="worker-top-row">
-            <span class="worker-num">${idx + 1}</span>
-            <input type="text" class="worker-name-input" placeholder="Worker Full Name" value="${escapeHtml(worker.name)}">
-            ${state.workers.length > 1 ? `<button type="button" class="remove-btn">X</button>` : ""}
-          </div>
-          <div class="sig-row">
-            <div class="sig-wrapper">
-              <canvas class="sig-pad" width="420" height="150"></canvas>
-            </div>
-            <button type="button" class="clear-sig-btn">Clear</button>
-          </div>
-        `;
+        const numBadge = document.createElement("div");
+        numBadge.className = "worker-num";
+        numBadge.textContent = idx + 1;
 
-        const nameInput = card.querySelector(".worker-name-input");
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.className = "worker-name-input";
+        nameInput.placeholder = `Worker #${idx + 1} Full Name`;
+        nameInput.value = worker.name || "";
         nameInput.addEventListener("input", function() {
           state.workers[idx].name = this.value;
           saveState();
         });
 
-        const removeBtn = card.querySelector(".remove-btn");
-        if (removeBtn) {
-          removeBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            state.workers.splice(idx, 1);
-            saveState();
-            renderWorkers();
-          });
+        const triggerWrap = document.createElement("div");
+        triggerWrap.className = "sig-trigger-wrap";
+
+        if (worker.sig) {
+          const thumb = document.createElement("img");
+          thumb.className = "sig-thumb";
+          thumb.style.display = "block";
+          thumb.src = worker.sig;
+          thumb.alt = "Signed";
+          triggerWrap.appendChild(thumb);
         }
 
-        const canvas = card.querySelector("canvas.sig-pad");
-        setupSignatureCanvas(canvas, worker.sig, function(dataUrl) {
-          state.workers[idx].sig = dataUrl;
+        const signBtn = document.createElement("button");
+        signBtn.type = "button";
+        signBtn.className = worker.sig ? "sig-open-btn signed" : "sig-open-btn";
+        signBtn.textContent = worker.sig ? "Signed ✓" : "Sign";
+        signBtn.addEventListener("click", function() {
+          openSignatureModal({ type: "worker", index: idx });
+        });
+        triggerWrap.appendChild(signBtn);
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "remove-btn";
+        removeBtn.title = "Remove worker";
+        removeBtn.textContent = "✕";
+        removeBtn.addEventListener("click", function() {
+          state.workers.splice(idx, 1);
           saveState();
+          renderWorkers();
         });
 
-        const clearBtn = card.querySelector(".clear-sig-btn");
-        clearBtn.addEventListener("click", function(e) {
-          e.preventDefault();
-          const ctx = canvas.getContext("2d");
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          state.workers[idx].sig = "";
-          saveState();
-        });
-
+        card.appendChild(numBadge);
+        card.appendChild(nameInput);
+        card.appendChild(triggerWrap);
+        card.appendChild(removeBtn);
         container.appendChild(card);
       });
     }
 
-    function escapeHtml(str) {
-      if (!str) return "";
-      return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+    function formatTime12Hr(timeStr) {
+      if (!timeStr || !timeStr.includes(":")) return "";
+      const [hStr, mStr] = timeStr.split(":");
+      let h = parseInt(hStr, 10);
+      const ampm = h >= 12 ? "PM" : "AM";
+      h = h % 12 || 12;
+      return `${h}:${mStr} ${ampm}`;
     }
 
-    // Initialize Page
-    loadState();
+    function initApp() {
+      loadState();
 
-    const inSite = document.getElementById("inSite");
-    const inDate = document.getElementById("inDate");
-    const inStartTime = document.getElementById("inStartTime");
-    const inFinishTime = document.getElementById("inFinishTime");
-    const inConductor = document.getElementById("inConductor");
-    const inTopics = document.getElementById("inTopics");
-    const inConcerns = document.getElementById("inConcerns");
+      const fields = [
+        { id: "inSite", key: "site" },
+        { id: "inDate", key: "date" },
+        { id: "inStartTime", key: "startTime" },
+        { id: "inFinishTime", key: "finishTime" },
+        { id: "inConductor", key: "conductor" },
+        { id: "inTopics", key: "topics" },
+        { id: "inConcerns", key: "concerns" }
+      ];
 
-    inSite.value = state.site || "";
-    inDate.value = state.date || getTodayString();
-    inStartTime.value = state.startTime || "";
-    inFinishTime.value = state.finishTime || "";
-    inConductor.value = state.conductor || "";
-    inTopics.value = state.topics || "";
-    inConcerns.value = state.concerns || "";
+      fields.forEach(f => {
+        const el = document.getElementById(f.id);
+        el.value = state[f.key] || "";
+        el.addEventListener("input", function() {
+          state[f.key] = this.value;
+          saveState();
+        });
+      });
 
-    inSite.addEventListener("input", () => { state.site = inSite.value; saveState(); });
-    inDate.addEventListener("input", () => { state.date = inDate.value; saveState(); });
-    inStartTime.addEventListener("input", () => { state.startTime = inStartTime.value; saveState(); });
-    inFinishTime.addEventListener("input", () => { state.finishTime = inFinishTime.value; saveState(); });
-    inConductor.addEventListener("input", () => { state.conductor = inConductor.value; saveState(); });
-    inTopics.addEventListener("input", () => { state.topics = inTopics.value; saveState(); });
-    inConcerns.addEventListener("input", () => { state.concerns = inConcerns.value; saveState(); });
+      renderWorkers();
+      updateSupervisorPreview();
+    }
 
-    const supCanvas = document.getElementById("supSigCanvas");
-    setupSignatureCanvas(supCanvas, state.supSig, function(dataUrl) {
-      state.supSig = dataUrl;
-      saveState();
-    });
-
-    document.getElementById("clearSupSig").addEventListener("click", function(e) {
-      e.preventDefault();
-      const ctx = supCanvas.getContext("2d");
-      ctx.clearRect(0, 0, supCanvas.width, supCanvas.height);
-      state.supSig = "";
-      saveState();
-    });
-
-    document.getElementById("addWorkerBtn").addEventListener("click", function(e) {
-      e.preventDefault();
+    document.getElementById("addWorkerBtn").addEventListener("click", function() {
       state.workers.push({ name: "", sig: "" });
       saveState();
       renderWorkers();
-
-      const cards = document.querySelectorAll(".worker-card");
-      if (cards.length > 0) {
-        const lastCard = cards[cards.length - 1];
-        lastCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        const input = lastCard.querySelector(".worker-name-input");
-        if (input) input.focus();
-      }
     });
 
-    document.getElementById("newMeetingBtn").addEventListener("click", function(e) {
-      e.preventDefault();
-      if (!confirm("Start a new meeting? This will clear all signatures and reset the date to today while keeping Site, Conductor, and Worker Names.")) {
+    document.getElementById("newMeetingBtn").addEventListener("click", function() {
+      if (!confirm("Start a new meeting? This will clear all worker signatures and supervisor signature while keeping your site and worker names.")) {
         return;
       }
-      state.date = getTodayString();
+      state.date = new Date().toISOString().split("T")[0];
       state.startTime = "";
       state.finishTime = "";
-      state.supSig = "";
+      state.topics = "";
+      state.concerns = "";
+      state.supervisorSig = "";
       state.workers = state.workers.map(w => ({ name: w.name, sig: "" }));
 
-      inDate.value = state.date;
-      inStartTime.value = "";
-      inFinishTime.value = "";
-      const ctx = supCanvas.getContext("2d");
-      ctx.clearRect(0, 0, supCanvas.width, supCanvas.height);
+      document.getElementById("inDate").value = state.date;
+      document.getElementById("inStartTime").value = "";
+      document.getElementById("inFinishTime").value = "";
+      document.getElementById("inTopics").value = "";
+      document.getElementById("inConcerns").value = "";
 
       saveState();
       renderWorkers();
+      updateSupervisorPreview();
     });
 
-    renderWorkers();
-
-    // Generate Compact 1-Page PDF with Exact Worker Row Count
+    // Generate PDF
     document.getElementById("toolboxForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const site = inSite.value.trim();
-      const meetingDate = inDate.value;
-      const startFormatted = formatTime12Hour(inStartTime.value);
-      const finishFormatted = formatTime12Hour(inFinishTime.value);
-      const conductor = inConductor.value.trim();
+      document.getElementById("outSite").textContent = state.site;
+      document.getElementById("outDate").textContent = state.date;
+      document.getElementById("outConductor").textContent = state.conductor;
 
+      const startFmt = formatTime12Hr(state.startTime);
+      const finishFmt = formatTime12Hr(state.finishTime);
       let timeDisplay = "";
-      if (startFormatted && finishFormatted) {
-        timeDisplay = `${startFormatted} – ${finishFormatted}`;
-      } else if (startFormatted) {
-        timeDisplay = `Started: ${startFormatted}`;
-      } else if (finishFormatted) {
-        timeDisplay = `Finished: ${finishFormatted}`;
+      if (startFmt && finishFmt) {
+        timeDisplay = `${startFmt} – ${finishFmt}`;
+      } else if (startFmt) {
+        timeDisplay = `Start: ${startFmt}`;
+      } else if (finishFmt) {
+        timeDisplay = `Finish: ${finishFmt}`;
       }
-
-      document.getElementById("outSite").textContent = site;
-      document.getElementById("outDate").textContent = meetingDate;
-      document.getElementById("outConductor").textContent = conductor;
       document.getElementById("outTimeRange").textContent = timeDisplay;
-      document.getElementById("outTopics").textContent = inTopics.value;
-      document.getElementById("outConcerns").textContent = inConcerns.value;
 
-      // Filter only filled workers (or keep at least 1 row if completely blank)
+      document.getElementById("outTopics").textContent = state.topics;
+      document.getElementById("outConcerns").textContent = state.concerns;
+
       const activeWorkers = state.workers.filter(w => w.name.trim() !== "" || w.sig !== "");
-      const listToPrint = activeWorkers.length > 0 ? activeWorkers : [{ name: "", sig: "" }];
-      const totalCount = listToPrint.length;
+      const totalCount = activeWorkers.length;
 
-      document.getElementById("outTotalCount").textContent = activeWorkers.length;
+      document.getElementById("outAttHeader").textContent = `WORKER ATTENDANCE & SIGNATURES (${totalCount} ATTENDEES)`;
 
-      const leftBody = document.getElementById("outWorkersLeft");
-      const rightBody = document.getElementById("outWorkersRight");
-      leftBody.innerHTML = "";
-      rightBody.innerHTML = "";
+      const tbodyLeft = document.getElementById("outAttBodyLeft");
+      const tbodyRight = document.getElementById("outAttBodyRight");
+      tbodyLeft.innerHTML = "";
+      tbodyRight.innerHTML = "";
 
-      // Split exact number of workers evenly across left and right columns
-      const rowsPerCol = Math.ceil(totalCount / 2);
+      const rowsPerCol = Math.max(1, Math.ceil(totalCount / 2));
 
       for (let i = 0; i < rowsPerCol; i++) {
-        // Left column row (1 to rowsPerCol)
-        const leftWorker = listToPrint[i];
-        const trLeft = document.createElement("tr");
-        const leftSigHtml = leftWorker && leftWorker.sig
-          ? `<img src="${leftWorker.sig}" class="sig-cell-img" alt="Signature">`
-          : "";
-        trLeft.innerHTML = `
-          <td class="col-num">${i + 1}</td>
-          <td class="col-name">${escapeHtml(leftWorker ? leftWorker.name : "")}</td>
-          <td class="col-sig">${leftSigHtml}</td>
+        const w = activeWorkers[i];
+        const sigHTML = (w && w.sig) ? `<img src="${w.sig}" alt="Sig">` : "";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="text-align:center;">${w ? i + 1 : ""}</td>
+          <td>${w ? w.name : ""}</td>
+          <td class="sig-cell">${sigHTML}</td>
         `;
-        leftBody.appendChild(trLeft);
-
-        // Right column row (rowsPerCol + 1 to totalCount)
-        const rightIdx = i + rowsPerCol;
-        const trRight = document.createElement("tr");
-        if (rightIdx < totalCount) {
-          const rightWorker = listToPrint[rightIdx];
-          const rightSigHtml = rightWorker && rightWorker.sig
-            ? `<img src="${rightWorker.sig}" class="sig-cell-img" alt="Signature">`
-            : "";
-          trRight.innerHTML = `
-            <td class="col-num">${rightIdx + 1}</td>
-            <td class="col-name">${escapeHtml(rightWorker ? rightWorker.name : "")}</td>
-            <td class="col-sig">${rightSigHtml}</td>
-          `;
-        } else {
-          // Empty filler cell only when totalCount is an odd number
-          trRight.innerHTML = `
-            <td class="col-num"></td>
-            <td class="col-name"></td>
-            <td class="col-sig"></td>
-          `;
-        }
-        rightBody.appendChild(trRight);
+        tbodyLeft.appendChild(tr);
       }
 
-      document.getElementById("outSupName").textContent = conductor;
-      const supSigCell = document.getElementById("outSupSigCell");
-      supSigCell.innerHTML = "";
-      if (state.supSig) {
-        const img = document.createElement("img");
-        img.src = state.supSig;
-        img.className = "sup-sig-img";
-        img.alt = "Supervisor Signature";
-        supSigCell.appendChild(img);
+      for (let j = rowsPerCol; j < rowsPerCol * 2; j++) {
+        const w = activeWorkers[j];
+        const sigHTML = (w && w.sig) ? `<img src="${w.sig}" alt="Sig">` : "";
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="text-align:center;">${w ? j + 1 : ""}</td>
+          <td>${w ? w.name : ""}</td>
+          <td class="sig-cell">${sigHTML}</td>
+        `;
+        tbodyRight.appendChild(tr);
       }
 
-      const safeSite = site ? site.replace(/\s+/g, "_") : "Site";
-      document.title = `Toolbox_Meeting_${safeSite}_${meetingDate || "Record"}`;
+      document.getElementById("outSupName").textContent = state.conductor;
+      const outSupSig = document.getElementById("outSupSig");
+      outSupSig.innerHTML = state.supervisorSig ? `<img src="${state.supervisorSig}" alt="Supervisor Sig">` : "";
+
+      const safeSite = (state.site || "Site").trim().replace(/\s+/g, "_");
+      document.title = `Toolbox_Meeting_${safeSite}_${state.date || "Report"}`;
 
       window.print();
     });
+
+    initApp();
   </script>
 </body>
 </html>

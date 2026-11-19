@@ -677,6 +677,10 @@
             <label>Lead Spotter</label>
             <input type="text" id="fEquipTeleSpotter" placeholder="Lead Spotter Name" oninput="saveFormState()">
           </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>On-Demand Spotter</label>
+            <input type="text" id="fEquipTeleSpotterOnDem" placeholder="On-Demand Spotter Name" oninput="saveFormState()">
+          </div>
         </div>
         <div class="equip-card">
           <h4>About Manlift</h4>
@@ -831,6 +835,7 @@
               <div style="font-weight:bold; text-decoration:underline; margin-bottom:2px;">TELEHANDLER</div>
               <div class="p-line-item" style="margin-bottom:3px;"><strong>Operator:</strong> <span id="pEquipTeleOp"></span></div>
               <div class="p-line-item"><strong>Lead Spotter:</strong> <span id="pEquipTeleSpotter"></span></div>
+              <div class="p-line-item"><strong>On-Demand Spotter:</strong> <span id="pEquipTeleSpotterOnDem"></span></div>
             </div>
             <div>
               <div style="font-weight:bold; text-decoration:underline; margin-bottom:2px;">MANLIFT</div>
@@ -908,6 +913,7 @@
       rescuer2: "",
       equipTeleOp: "",
       equipTeleSpotter: "",
+      equipTeleSpotterOnDem: "",
       equipManliftOp: "",
       equipManliftAssist: "",
       equipCraneOp: "",
@@ -957,6 +963,7 @@
 
       appState.equipTeleOp = document.getElementById("fEquipTeleOp").value;
       appState.equipTeleSpotter = document.getElementById("fEquipTeleSpotter").value;
+      appState.equipTeleSpotterOnDem = document.getElementById("fEquipTeleSpotterOnDem").value;
       appState.equipManliftOp = document.getElementById("fEquipManliftOp").value;
       appState.equipManliftAssist = document.getElementById("fEquipManliftAssist").value;
       appState.equipCraneOp = document.getElementById("fEquipCraneOp").value;
@@ -1263,6 +1270,7 @@
 
       document.getElementById("fEquipTeleOp").value = appState.equipTeleOp || "";
       document.getElementById("fEquipTeleSpotter").value = appState.equipTeleSpotter || "";
+      document.getElementById("fEquipTeleSpotterOnDem").value = appState.equipTeleSpotterOnDem || "";
       document.getElementById("fEquipManliftOp").value = appState.equipManliftOp || "";
       document.getElementById("fEquipManliftAssist").value = appState.equipManliftAssist || "";
       document.getElementById("fEquipCraneOp").value = appState.equipCraneOp || "";
@@ -1357,6 +1365,7 @@
       // Render Equipment Roles (Telehandler, Manlift, Crane)
       document.getElementById("pEquipTeleOp").textContent = appState.equipTeleOp;
       document.getElementById("pEquipTeleSpotter").textContent = appState.equipTeleSpotter;
+      document.getElementById("pEquipTeleSpotterOnDem").textContent = appState.equipTeleSpotterOnDem;
       document.getElementById("pEquipManliftOp").textContent = appState.equipManliftOp;
       document.getElementById("pEquipManliftAssist").textContent = appState.equipManliftAssist;
       document.getElementById("pEquipCraneOp").textContent = appState.equipCraneOp;

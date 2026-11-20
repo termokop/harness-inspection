@@ -113,33 +113,51 @@
       font-size: 16px;
       box-sizing: border-box;
     }
-    .sig-wrapper {
-      border: 1.5px solid #9ca3af;
+
+    /* Signature Trigger Row & Thumbnail */
+    .sig-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
       border-radius: 6px;
-      background: #fafafa;
+      padding: 8px 10px;
+    }
+    .sig-preview-box {
+      flex-grow: 1;
+      height: 44px;
+      background: #fff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
-    #sigCanvas {
-      width: 100%;
-      height: 130px;
-      display: block;
-      touch-action: none;
-      cursor: crosshair;
+    .sig-preview-box img {
+      max-height: 40px;
+      max-width: 100%;
     }
-    .clear-sig-btn {
-      margin-top: 6px;
-      padding: 6px 12px;
-      font-size: 13px;
+    .sig-placeholder {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .sign-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 14px;
       font-weight: bold;
-      background: #e5e7eb;
-      color: #111;
-      border: 1px solid #9ca3af;
-      border-radius: 4px;
       cursor: pointer;
+      white-space: nowrap;
     }
-    .clear-sig-btn:active {
-      background: #d1d5db;
+    .sign-btn.signed {
+      background: #16a34a;
     }
+
     .submit-btn {
       width: 100%;
       padding: 15px;
@@ -156,6 +174,115 @@
       background: #333;
     }
 
+    /* =========================================
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-box {
+      background: #fff;
+      width: 100%;
+      max-width: 680px;
+      border-radius: 10px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 8px;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .modal-sub {
+      font-size: 12px;
+      color: #555;
+      margin: 2px 0 0 0;
+    }
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      height: 55vh;
+      min-height: 240px;
+      max-height: 400px;
+      border: 2px solid #111;
+      border-radius: 8px;
+      background: #fafafa;
+      overflow: hidden;
+    }
+    #modalCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .sig-guide-line {
+      position: absolute;
+      bottom: 28%;
+      left: 8%;
+      right: 8%;
+      border-bottom: 1px dashed #9ca3af;
+      pointer-events: none;
+    }
+    .sig-guide-x {
+      position: absolute;
+      bottom: 29%;
+      left: 8%;
+      color: #9ca3af;
+      font-weight: bold;
+      font-size: 16px;
+      pointer-events: none;
+    }
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.5fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .m-btn {
+      padding: 13px 10px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    .m-btn-cancel {
+      background: #e5e7eb;
+      color: #111;
+    }
+    .m-btn-clear {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    .m-btn-save {
+      background: #16a34a;
+      color: #fff;
+    }
+
     /* Hide PDF sheet on normal screen */
     #pdf-template {
       display: none;
@@ -167,7 +294,7 @@
     @media print {
       @page {
         size: letter portrait;
-        margin: 0.4in 0.5in;
+        margin: 0.45in 0.5in;
       }
       body {
         background: #fff;
@@ -176,8 +303,8 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .form-card {
-        display: none;
+      .form-card, .modal-overlay {
+        display: none !important;
       }
       #pdf-template {
         display: block;
@@ -187,22 +314,22 @@
       }
       .logo-box {
         text-align: center;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
       .logo-box img {
-        max-height: 70px;
+        max-height: 75px;
         width: auto;
       }
       .doc-title {
         font-size: 15px;
         font-weight: bold;
-        margin: 8px 0 8px 0;
+        margin: 10px 0 8px 0;
         text-transform: uppercase;
       }
       table.insp-table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         font-size: 11px;
       }
       table.insp-table th, table.insp-table td {
@@ -238,13 +365,12 @@
       .meta-box {
         border: 1.5px solid #000;
         padding: 10px 12px;
-        margin-top: 12px;
+        margin-top: 14px;
         font-size: 11px;
       }
       .meta-row {
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
         margin-bottom: 10px;
       }
       .meta-row:last-child {
@@ -253,7 +379,7 @@
       .meta-col {
         width: 48%;
         display: flex;
-        align-items: flex-end;
+        align-items: baseline;
       }
       .meta-col span.lbl {
         white-space: nowrap;
@@ -263,22 +389,21 @@
         flex-grow: 1;
         border-bottom: 1px solid #000;
         padding-left: 4px;
-        min-height: 14px;
+        min-height: 13px;
         font-weight: bold;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         justify-content: space-between;
-        gap: 6px;
       }
-      .sig-inline-img {
+      .inline-sig-img {
         max-height: 24px;
-        width: auto;
-        display: block;
-        margin-bottom: -2px;
+        max-width: 130px;
+        margin-left: 8px;
+        vertical-align: middle;
       }
       .pdf-footer {
-        margin-top: 8px;
-        font-size: 9.5px;
+        margin-top: 28px;
+        font-size: 10px;
         color: #111;
         text-align: center;
         width: 100%;
@@ -293,8 +418,8 @@
        ========================================= -->
   <div class="form-card">
     <div class="form-header">
-      <img src="logo.jpg" alt="Company Logo" onerror="this.style.display='none'">
-      
+      <img src="logo.jpg" alt="Company Logo">
+      <h1>POINT TO POINT STRUCTURES CORP.</h1>
       <p>HARNESS INSPECTION</p>
     </div>
 
@@ -320,13 +445,18 @@
           <label>Inspector</label>
           <input type="text" id="inInspector" required>
         </div>
+
+        <!-- Inspector Signature Modal Trigger -->
         <div class="field-group">
           <label>Inspector Signature</label>
-          <div class="sig-wrapper">
-            <canvas id="sigCanvas"></canvas>
+          <div class="sig-row">
+            <div class="sig-preview-box" id="sigPreviewBox">
+              <span class="sig-placeholder">No signature yet</span>
+            </div>
+            <button type="button" class="sign-btn" id="openSignBtn" onclick="openSignatureModal()">Sign</button>
           </div>
-          <button type="button" class="clear-sig-btn" id="clearSigBtn">Clear Signature</button>
         </div>
+
         <div class="field-group">
           <label>Date of Manufacture (Month / Year)</label>
           <input type="month" id="inManufacture">
@@ -342,11 +472,35 @@
   </div>
 
   <!-- =========================================
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= -->
+  <div class="modal-overlay" id="sigModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <p class="modal-title" id="modalSignerName">Inspector Signature</p>
+          <p class="modal-sub">Sign with your finger inside the box below</p>
+        </div>
+      </div>
+      <div class="canvas-container">
+        <canvas id="modalCanvas"></canvas>
+        <div class="sig-guide-x">X</div>
+        <div class="sig-guide-line"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="m-btn m-btn-cancel" onclick="closeSignatureModal()">Cancel</button>
+        <button type="button" class="m-btn m-btn-clear" onclick="clearModalCanvas()">Clear</button>
+        <button type="button" class="m-btn m-btn-save" onclick="saveModalSignature()">Done &amp; Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
        PRINT / PDF TEMPLATE (EXACT LAYOUT)
        ========================================= -->
   <div id="pdf-template">
     <div class="logo-box">
-      <img src="logo.jpg" alt="Company Logo" onerror="this.outerHTML='<div style=\'display:inline-block;border:3px solid #000;padding:6px 14px;font-weight:900;font-size:22px;\'>POINT TO POINT STRUCTURES CORP.</div>'">
+      <img src="logo.jpg" alt="Company Logo">
     </div>
 
     <div class="doc-title">HARNESS INSPECTION</div>
@@ -366,7 +520,7 @@
           <span class="lbl">Inspector:</span>
           <span class="val">
             <span id="outInspector"></span>
-            <img id="outInspectorSig" class="sig-inline-img" src="" alt="" style="display:none;">
+            <img id="outInspectorSig" class="inline-sig-img" src="" alt="" style="display:none;">
           </span>
         </div>
       </div>
@@ -454,29 +608,83 @@
     // Auto-fill today's inspection date
     document.getElementById("inInspectionDate").valueAsDate = new Date();
 
-    // 2. Signature Pad Setup
-    const canvas = document.getElementById("sigCanvas");
+    // =========================================
+    // FULL-SCREEN SIGNATURE MODAL LOGIC
+    // =========================================
+    let inspectorSignatureData = "";
+    const modal = document.getElementById("sigModal");
+    const canvas = document.getElementById("modalCanvas");
     const ctx = canvas.getContext("2d");
     let isDrawing = false;
-    let hasSigned = false;
+    let hasDrawnInModal = false;
 
-    function resizeCanvas() {
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    function resizeModalCanvas() {
       const rect = canvas.getBoundingClientRect();
-      if (rect.width > 0) {
-        canvas.width = rect.width * ratio;
-        canvas.height = rect.height * ratio;
-        ctx.scale(ratio, ratio);
-        ctx.lineWidth = 2.2;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.strokeStyle = "#000";
-      }
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      ctx.lineWidth = 2.8;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = "#000";
     }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
 
-    function getPos(e) {
+    function openSignatureModal() {
+      const nameVal = document.getElementById("inInspector").value.trim();
+      document.getElementById("modalSignerName").textContent = nameVal
+        ? `Sign: ${nameVal}`
+        : "Inspector Signature";
+
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      hasDrawnInModal = false;
+
+      requestAnimationFrame(() => {
+        resizeModalCanvas();
+        if (inspectorSignatureData) {
+          const img = new Image();
+          img.onload = function() {
+            const rect = canvas.getBoundingClientRect();
+            ctx.drawImage(img, 0, 0, rect.width, rect.height);
+            hasDrawnInModal = true;
+          };
+          img.src = inspectorSignatureData;
+        }
+      });
+    }
+
+    function closeSignatureModal() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    function clearModalCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      hasDrawnInModal = false;
+    }
+
+    function saveModalSignature() {
+      if (!hasDrawnInModal) {
+        inspectorSignatureData = "";
+        document.getElementById("sigPreviewBox").innerHTML =
+          '<span class="sig-placeholder">No signature yet</span>';
+        const btn = document.getElementById("openSignBtn");
+        btn.textContent = "Sign";
+        btn.classList.remove("signed");
+      } else {
+        inspectorSignatureData = canvas.toDataURL("image/png");
+        document.getElementById("sigPreviewBox").innerHTML =
+          `<img src="${inspectorSignatureData}" alt="Signature">`;
+        const btn = document.getElementById("openSignBtn");
+        btn.textContent = "Signed ✓";
+        btn.classList.add("signed");
+      }
+      closeSignatureModal();
+    }
+
+    function getPointerPos(e) {
       const rect = canvas.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -487,45 +695,42 @@
     }
 
     function startDraw(e) {
+      e.preventDefault();
       isDrawing = true;
-      hasSigned = true;
-      const pos = getPos(e);
+      hasDrawnInModal = true;
+      const pos = getPointerPos(e);
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
-      e.preventDefault();
     }
 
     function draw(e) {
       if (!isDrawing) return;
-      const pos = getPos(e);
+      e.preventDefault();
+      const pos = getPointerPos(e);
       ctx.lineTo(pos.x, pos.y);
       ctx.stroke();
-      e.preventDefault();
     }
 
-    function stopDraw() {
+    function endDraw(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
       isDrawing = false;
     }
 
     canvas.addEventListener("mousedown", startDraw);
     canvas.addEventListener("mousemove", draw);
-    window.addEventListener("mouseup", stopDraw);
+    window.addEventListener("mouseup", endDraw);
 
     canvas.addEventListener("touchstart", startDraw, { passive: false });
     canvas.addEventListener("touchmove", draw, { passive: false });
-    canvas.addEventListener("touchend", stopDraw);
+    canvas.addEventListener("touchend", endDraw, { passive: false });
 
-    document.getElementById("clearSigBtn").addEventListener("click", () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      hasSigned = false;
-    });
-
-    // 3. Populate PDF Tables & Trigger Save/Print
+    // 2. Populate PDF Tables & Trigger Save/Print
     document.getElementById("inspectionForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      if (!hasSigned) {
-        alert("Please provide the Inspector signature before generating the PDF.");
+      if (!inspectorSignatureData) {
+        alert("Please tap 'Sign' to add the Inspector signature before generating the PDF.");
         return;
       }
 
@@ -570,12 +775,11 @@
       document.getElementById("outFirstUse").textContent = document.getElementById("inFirstUse").value;
       document.getElementById("outInspector").textContent = document.getElementById("inInspector").value;
 
-      // Embed signature image inline next to Inspector name
       const sigImg = document.getElementById("outInspectorSig");
-      sigImg.src = canvas.toDataURL("image/png");
-      sigImg.style.display = "block";
+      sigImg.src = inspectorSignatureData;
+      sigImg.style.display = "inline-block";
 
-      // Format Date of Manufacture as MM/YYYY
+      // Format Month/Year (YYYY-MM -> MM/YYYY)
       const rawMfg = document.getElementById("inManufacture").value;
       let formattedMfg = "";
       if (rawMfg && rawMfg.includes("-")) {

@@ -6,94 +6,81 @@
   <title>Field Level Hazard Assessment - Point to Point Structures Corp.</title>
   <style>
     /* =========================================
-       1. MOBILE / SCREEN FORM STYLES
+       1. MOBILE WEBFORM STYLES (SCREEN ONLY)
        ========================================= */
     * { box-sizing: border-box; }
     body {
       font-family: Arial, Helvetica, sans-serif;
       margin: 0;
       padding: 12px;
-      background: #eef1f5;
+      background: #f0f2f5;
       color: #111;
     }
-    .app-container {
-      max-width: 780px;
+    .form-card {
+      max-width: 720px;
       margin: auto;
       background: #fff;
       padding: 18px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .top-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #111;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-      gap: 10px;
-    }
-    .top-bar h1 {
-      margin: 0;
-      font-size: 19px;
-      letter-spacing: 0.4px;
-    }
-        .form-header {
-          width: 100%;
+    .form-header {
       text-align: center;
       border-bottom: 2px solid #111;
       padding-bottom: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
     .form-header img {
-      max-height: 70px;
+      max-height: 60px;
       width: auto;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .form-header h1 {
       margin: 0;
-      font-size: 20px;
+      font-size: 19px;
       letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
-    .form-header p {
-      margin: 4px 0 0;
+    .save-badge {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 11px;
       font-weight: bold;
-      color: #444;
+      color: #15803d;
+      background: #dcfce7;
+      padding: 3px 10px;
+      border-radius: 12px;
     }
-    .top-bar p {
-      margin: 2px 0 0;
-      font-size: 13px;
-      font-weight: bold;
-      color: #444;
-    }
-    .action-bar {
+    .toolbar {
       display: flex;
       gap: 8px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
     }
-    .btn {
-      padding: 9px 13px;
-      border: none;
-      border-radius: 6px;
+    .tool-btn {
+      flex: 1;
+      padding: 10px;
       font-size: 13px;
       font-weight: bold;
+      border: 1px solid #9ca3af;
+      border-radius: 6px;
+      background: #f9fafb;
+      color: #111;
       cursor: pointer;
     }
-    .btn-primary { background: #111; color: #fff; }
-    .btn-secondary { background: #e5e7eb; color: #111; border: 1px solid #cbd5e1; }
-    .btn-warning { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; }
-    .btn-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-    .btn-sm { padding: 6px 10px; font-size: 12px; }
-
-    .sec-banner {
+    .tool-btn.danger {
+      color: #b91c1c;
+      border-color: #fca5a5;
+      background: #fef2f2;
+    }
+    .section-title {
       background: #b5b5b5;
       color: #000;
       font-weight: bold;
       padding: 8px 12px;
-      margin-top: 22px;
+      margin-top: 20px;
       margin-bottom: 12px;
-      font-size: 13px;
+      font-size: 14px;
       border: 1px solid #000;
       text-transform: uppercase;
       display: flex;
@@ -102,84 +89,92 @@
     }
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
+    @media (max-width: 540px) {
+      .grid-2 { grid-template-columns: 1fr; }
     }
-    .field {
+    .field-group {
       margin-bottom: 10px;
     }
-    .field label {
+    .field-group label {
       display: block;
-      font-size: 12px;
       font-weight: bold;
+      font-size: 13px;
       margin-bottom: 4px;
-      color: #222;
     }
-    .field input, .field select, .field textarea {
+    .field-group input[type="text"],
+    .field-group input[type="date"],
+    .field-group select,
+    .field-group textarea {
       width: 100%;
-      padding: 10px;
+      padding: 9px 10px;
       border: 1px solid #9ca3af;
       border-radius: 6px;
       font-size: 15px;
       font-family: inherit;
     }
-    .field textarea {
+    .field-group textarea {
       resize: vertical;
       line-height: 1.4;
     }
-    .helper-hint {
-      font-size: 11px;
-      color: #555;
-      margin-top: 3px;
-    }
 
     /* Hazard Checkboxes */
-    .haz-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-    .haz-cat {
+    .hazard-cat {
       border: 1px solid #d1d5db;
       border-radius: 6px;
       padding: 10px;
+      margin-bottom: 10px;
       background: #fafafa;
     }
-    .haz-cat h4 {
-      margin: 0 0 8px;
-      font-size: 12px;
-      background: #e5e7eb;
-      padding: 5px 8px;
-      border-radius: 4px;
+    .hazard-cat-title {
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 8px;
       text-transform: uppercase;
+      color: #111;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 4px;
     }
-    .haz-item {
+    .hazard-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    @media (max-width: 540px) {
+      .hazard-list { grid-template-columns: 1fr; }
+    }
+    .hazard-item {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 13px;
-      padding: 4px 0;
       cursor: pointer;
     }
-    .haz-item input[type="checkbox"] {
+    .hazard-item input[type="checkbox"] {
       width: 18px;
       height: 18px;
       accent-color: #111;
-      cursor: pointer;
+      flex-shrink: 0;
     }
 
-    /* Task Cards & Per-Task Signatures */
+    /* Task Cards */
+    .note-box {
+      font-size: 12px;
+      background: #fefce8;
+      border: 1px solid #fde047;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      color: #333;
+    }
     .task-card {
-      border: 1.5px solid #9ca3af;
+      border: 1.5px solid #374151;
       border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 16px;
-      background: #fdfdfd;
+      padding: 12px;
+      margin-bottom: 14px;
+      background: #fff;
     }
     .task-card-header {
       display: flex;
@@ -192,125 +187,190 @@
     .task-badge {
       font-weight: bold;
       font-size: 14px;
-      color: #111;
+      background: #111;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 4px;
     }
-    .task-workers-box {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed #9ca3af;
+    .remove-btn {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
     }
-    .task-workers-header {
+    .add-btn {
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .add-btn.secondary {
+      background: #374151;
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px;
+    }
+
+    /* Per-Task Worker Row (Modal Sign Button Style) */
+    .workers-subbox {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .workers-subbox-title {
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
     }
-    .task-workers-header span {
-      font-size: 13px;
-      font-weight: bold;
-      color: #111;
-    }
-    .worker-sig-row {
-      border: 1px solid #cbd5e1;
-      background: #f8fafc;
-      border-radius: 6px;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    .worker-sig-top {
+    .worker-row {
       display: flex;
-      gap: 8px;
       align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px;
       margin-bottom: 8px;
-      flex-wrap: wrap;
     }
-    .lead-pill {
-      background: #111;
+    .lead-tag {
+      background: #d97706;
       color: #fff;
       font-size: 10px;
       font-weight: bold;
-      padding: 3px 7px;
+      padding: 3px 6px;
       border-radius: 4px;
-      letter-spacing: 0.4px;
+      white-space: nowrap;
     }
-    .worker-pill {
-      background: #e2e8f0;
-      color: #334155;
-      font-size: 10px;
+    .worker-num-tag {
+      background: #e5e7eb;
+      color: #111;
+      font-size: 11px;
       font-weight: bold;
       padding: 3px 7px;
       border-radius: 4px;
+      white-space: nowrap;
     }
-    .worker-name-input {
+    .worker-row input[type="text"] {
       flex: 1;
-      min-width: 160px;
-      padding: 8px 10px;
+      min-width: 0;
+      padding: 8px;
       border: 1px solid #9ca3af;
       border-radius: 5px;
       font-size: 14px;
+    }
+    .sig-thumb {
+      height: 34px;
+      max-width: 80px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      background: #fff;
+      object-fit: contain;
+    }
+    .sign-trigger-btn {
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 13px;
       font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
     }
-    .sig-pad-wrap {
-      background: #fff;
-      border: 1.5px dashed #64748b;
-      border-radius: 6px;
-      padding: 4px;
+    .sign-trigger-btn.signed {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #16a34a;
     }
-    .sig-canvas {
-      width: 100%;
-      height: 95px;
-      display: block;
-      touch-action: none;
-      cursor: crosshair;
-      background: #fff;
-    }
-    .sig-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 4px;
-      font-size: 11px;
-      color: #555;
+    .del-worker-btn {
+      background: none;
+      border: none;
+      color: #b91c1c;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
     }
 
-    /* Rescue & Equipment Highlights */
-    .rescue-check {
+    /* Equipment Sub-headers */
+    .equip-sub {
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      background: #e5e7eb;
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin: 12px 0 8px 0;
+    }
+
+    /* Rescue Checkbox Row */
+    .rescue-check-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: #fef3c7;
-      border: 1px solid #f59e0b;
-      padding: 10px 12px;
+      background: #fefce8;
+      border: 1px solid #facc15;
+      padding: 10px;
       border-radius: 6px;
-      font-weight: bold;
-      font-size: 13px;
       margin-bottom: 12px;
+      font-weight: bold;
+      font-size: 14px;
       cursor: pointer;
     }
-    .rescue-check input[type="checkbox"] {
+    .rescue-check-row input {
       width: 20px;
       height: 20px;
       accent-color: #111;
-      cursor: pointer;
-    }
-    .equip-card {
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 10px;
-      background: #f8fafc;
-    }
-    .equip-card h4 {
-      margin: 0 0 8px;
-      font-size: 13px;
-      text-transform: uppercase;
-      border-bottom: 1px solid #cbd5e1;
-      padding-bottom: 4px;
     }
 
-    .submit-main {
+    /* Supervisor Signature Row (Modal Trigger) */
+    .sup-sig-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f9fafb;
+      border: 1px solid #9ca3af;
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 6px;
+    }
+    .sup-sig-preview {
+      flex: 1;
+      height: 46px;
+      background: #fff;
+      border: 1px dashed #9ca3af;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #6b7280;
+      overflow: hidden;
+    }
+    .sup-sig-preview img {
+      max-height: 42px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .submit-btn {
       width: 100%;
-      padding: 16px;
-      margin-top: 22px;
+      padding: 15px;
+      margin-top: 18px;
       background: #111;
       color: #fff;
       border: none;
@@ -319,17 +379,112 @@
       font-weight: bold;
       cursor: pointer;
     }
-    .save-status {
+    .submit-btn:active { background: #333; }
+
+    /* =========================================
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= */
+    .sig-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      padding: 12px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .sig-modal-overlay.open {
+      display: flex;
+    }
+    .sig-modal-box {
+      width: 100%;
+      max-width: 700px;
+      height: 85vh;
+      max-height: 520px;
+      background: #fff;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .sig-modal-header {
+      padding: 12px 16px;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sig-modal-header h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .sig-modal-body {
+      flex: 1;
+      position: relative;
+      background: #fff;
+      touch-action: none;
+    }
+    #modalCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .sig-baseline {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 26%;
+      border-bottom: 1.5px dashed #9ca3af;
+      pointer-events: none;
+    }
+    .sig-baseline::after {
+      content: "Sign above line";
+      position: absolute;
+      left: 0;
+      top: 4px;
       font-size: 11px;
-      color: #15803d;
+      color: #9ca3af;
+    }
+    .sig-modal-footer {
+      padding: 12px;
+      background: #f3f4f6;
+      border-top: 1px solid #d1d5db;
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      gap: 8px;
+    }
+    .modal-btn {
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 15px;
       font-weight: bold;
+      cursor: pointer;
+      border: 1px solid #9ca3af;
+      background: #fff;
+      color: #111;
+    }
+    .modal-btn.clear {
+      color: #b91c1c;
+      border-color: #fca5a5;
+      background: #fef2f2;
+    }
+    .modal-btn.save {
+      background: #15803d;
+      color: #fff;
+      border-color: #15803d;
     }
 
     /* Hide PDF template on screen */
     #pdf-template { display: none; }
 
     /* =========================================
-       2. PRINT / PDF LAYOUT (LANDSCAPE FLHA)
+       2. PRINT / PDF LAYOUT (LANDSCAPE)
        ========================================= */
     @media print {
       @page {
@@ -343,7 +498,7 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .app-container { display: none; }
+      .form-card, .sig-modal-overlay { display: none !important; }
       #pdf-template {
         display: block;
         width: 100%;
@@ -351,218 +506,133 @@
         font-family: Arial, Helvetica, sans-serif;
         font-size: 9px;
       }
-
-      /* PDF Header */
-      .p-header {
+      .pdf-top-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 2px solid #000;
-        padding-bottom: 5px;
-        margin-bottom: 6px;
+        padding-bottom: 4px;
+        margin-bottom: 5px;
       }
-      .logo-box {
-        text-align: center;
-        margin-bottom: 8px;
-      }
-      .logo-box img {
-        max-height: 70px;
+      .pdf-top-bar img {
+        max-height: 38px;
         width: auto;
       }
-      .p-title-block {
+      .pdf-title-block {
         text-align: right;
       }
-      .p-title-block h2 {
+      .pdf-title-block h2 {
         margin: 0;
-        font-size: 15px;
-        letter-spacing: 0.5px;
+        font-size: 14px;
         text-transform: uppercase;
       }
-      .p-title-block span {
-        font-size: 8.5px;
+      .pdf-title-block p {
+        margin: 1px 0 0;
+        font-size: 8px;
         font-weight: bold;
       }
 
-      /* PDF Tables */
-      table.p-tbl {
+      table.pdf-grid {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 6px;
+        margin-bottom: 5px;
       }
-      table.p-tbl th, table.p-tbl td {
+      table.pdf-grid th, table.pdf-grid td {
         border: 1px solid #000;
         padding: 3px 5px;
         vertical-align: top;
       }
-      table.p-tbl th {
-        background-color: #b5b5b5 !important;
+      table.pdf-grid th {
+        background: #d9d9d9 !important;
         font-weight: bold;
         text-align: left;
-        text-transform: uppercase;
-        font-size: 8.5px;
-      }
-      .p-lbl {
-        font-weight: bold;
-        color: #222;
-        font-size: 8px;
-        text-transform: uppercase;
-      }
-      .p-val {
-        font-weight: bold;
-        font-size: 9.5px;
-        margin-top: 1px;
       }
 
-      /* True Square Checkbox Styling on PDF */
-      .cb-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 4px;
-        line-height: 1.25;
-        margin-bottom: 1.5px;
-      }
+      /* True Square Checkboxes */
       .cb-box {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 9.5px;
-        height: 9.5px;
-        min-width: 9.5px;
+        display: inline-block;
+        width: 9px;
+        height: 9px;
         border: 1px solid #000;
-        background: #fff;
+        text-align: center;
+        line-height: 8px;
         font-size: 8px;
         font-weight: bold;
-        line-height: 1;
-        margin-top: 0.5px;
+        margin-right: 3px;
+        vertical-align: middle;
+        background: #fff;
       }
       .cb-box-lg {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        display: inline-block;
         width: 11px;
         height: 11px;
-        min-width: 11px;
         border: 1.2px solid #000;
+        text-align: center;
+        line-height: 10px;
+        font-size: 10px;
+        font-weight: bold;
+        margin-right: 5px;
+        vertical-align: middle;
         background: #fff;
-        font-size: 9px;
-        font-weight: bold;
-        line-height: 1;
       }
-
-      /* Hazard Matrix */
-      .p-haz-tbl td {
-        width: 16.66%;
+      .haz-pdf-item {
+        margin-bottom: 2px;
         font-size: 8px;
-        line-height: 1.25;
+        line-height: 1.15;
       }
-      .p-risk-bar {
-        background: #efefef !important;
+      .risk-legend {
+        background: #f2f2f2 !important;
         border: 1px solid #000;
-        padding: 3px 6px;
+        padding: 2px 5px;
         font-size: 8px;
         font-weight: bold;
-        margin-bottom: 6px;
-        display: flex;
-        justify-content: space-between;
+        margin-bottom: 5px;
+        text-align: center;
       }
-
-      /* Task Rows & Per-Task Workers */
-      .p-task-tbl th { text-align: center; }
-      .p-task-tbl th:first-child, .p-task-tbl th:nth-child(2), .p-task-tbl th:nth-child(4) { text-align: left; }
-      .p-multiline {
-        white-space: pre-wrap;
-        line-height: 1.3;
-      }
-      .p-task-worker-item {
+      .worker-sig-cell-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px dotted #999;
+        border-bottom: 1px solid #ccc;
         padding: 2px 0;
-        gap: 6px;
+        gap: 4px;
       }
-      .p-task-worker-item:last-child {
+      .worker-sig-cell-item:last-child {
         border-bottom: none;
       }
-      .p-task-worker-sig {
-        height: 22px;
-        max-width: 100px;
+      .worker-sig-cell-item img {
+        height: 20px;
+        max-width: 75px;
         object-fit: contain;
       }
-
-      /* Rescue & Equipment Grid */
-      .p-split {
+      .pdf-bottom-split {
         display: flex;
         gap: 6px;
-        margin-bottom: 6px;
+        margin-bottom: 5px;
       }
-      .p-rescue-box {
-        width: 55%;
-        border: 1.2px solid #000;
+      .pdf-bottom-split > table {
+        width: 50%;
+        margin-bottom: 0;
       }
-      .p-equip-box {
-        width: 45%;
-        border: 1.2px solid #000;
-      }
-      .p-box-hdr {
-        background: #b5b5b5 !important;
-        font-weight: bold;
-        padding: 3px 6px;
-        border-bottom: 1px solid #000;
-        font-size: 8.5px;
-        text-transform: uppercase;
-      }
-      .p-box-body {
-        padding: 4px 6px;
-        font-size: 8.5px;
-      }
-      .p-rescue-banner {
-        font-weight: bold;
-        background: #f3f4f6 !important;
+      .pdf-signoff-bar {
         border: 1px solid #000;
-        padding: 3px 6px;
-        margin-bottom: 4px;
-        font-size: 8.5px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .p-mini-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3px 8px;
-      }
-      .p-line-item {
-        border-bottom: 1px solid #666;
-        padding-bottom: 1px;
-        font-size: 8px;
-      }
-      .p-equip-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 6px;
-      }
-
-      /* Foreman Completion Footer */
-      .p-bottom-bar {
+        padding: 4px 6px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid #000;
-        padding: 4px 8px;
-        background: #fafafa !important;
-        font-size: 8.5px;
+        font-size: 9px;
       }
-      .p-foreman-sig {
-        height: 26px;
+      .pdf-signoff-bar img {
+        height: 24px;
+        max-width: 130px;
         vertical-align: middle;
         margin-left: 6px;
       }
-      .p-footer {
-        text-align: center;
-        font-size: 8px;
+      .pdf-footer {
         margin-top: 5px;
-        color: #222;
+        text-align: center;
+        font-size: 8.5px;
+        color: #111;
       }
     }
   </style>
@@ -570,163 +640,160 @@
 <body>
 
   <!-- =========================================
-       MOBILE / DESKTOP INTERACTIVE FORM
+       MOBILE INPUT FORM
        ========================================= -->
-  <div class="app-container">
-    <div class="top-bar">
-          <div class="form-header">
+  <div class="form-card">
+    <div class="form-header">
       <img src="logo.jpg" alt="Company Logo" onerror="this.style.display='none'">
-
+      <h1>FIELD LEVEL HAZARD ASSESSMENT (FLHA)</h1>
+      <div class="save-badge">&#10003; Auto-Saved Locally</div>
     </div>
-      <div>
-        <p>FIELD LEVEL HAZARD ASSESSMENT (FLHA) <span id="saveIndicator" class="save-status">• Auto-Saved Locally</span></p>
-      </div>
-      <div class="action-bar">
-        <button type="button" class="btn btn-warning" onclick="startNewDay()">New Day (Keep Tasks)</button>
-        <button type="button" class="btn btn-danger" onclick="resetAllData()">Clear All</button>
-      </div>
+
+    <div class="toolbar">
+      <button type="button" class="tool-btn" onclick="newDayReset()">New Day (Keep Tasks)</button>
+      <button type="button" class="tool-btn danger" onclick="clearAllData()">Clear All</button>
     </div>
 
     <form id="flhaForm">
-      <!-- 1. PROJECT & SHIFT INFO -->
-      <div class="sec-banner">1. Project &amp; Shift Details</div>
-      <div class="grid-3">
-        <div class="field">
+      <!-- 1. PROJECT & SHIFT DETAILS -->
+      <div class="section-title">1. Project &amp; Shift Details</div>
+      <div class="grid-2">
+        <div class="field-group">
           <label>Date</label>
-          <input type="date" id="fDate" onchange="saveFormState()">
+          <input type="date" id="inDate">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Project / Job Name</label>
-          <input type="text" id="fProject" placeholder="e.g., Oakridge Phase 2" oninput="saveFormState()">
+          <input type="text" id="inProject">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Site Location / Address</label>
-          <input type="text" id="fLocation" placeholder="Site address" oninput="saveFormState()">
+          <input type="text" id="inLocation">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Supervisor / Foreman</label>
-          <input type="text" id="fSupervisor" placeholder="Supervisor name" oninput="saveFormState()">
+          <input type="text" id="inSupervisor">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Muster Point</label>
-          <input type="text" id="fMuster" placeholder="e.g., Main Site Gate" oninput="saveFormState()">
+          <input type="text" id="inMuster">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Weather / Site Conditions</label>
-          <input type="text" id="fWeather" placeholder="e.g., Clear, -2°C, Light Wind" oninput="saveFormState()">
+          <input type="text" id="inWeather">
         </div>
       </div>
 
       <!-- 2. HAZARD IDENTIFICATION -->
-      <div class="sec-banner">2. Hazard Identification (Check All Applicable)</div>
-      <div class="haz-grid" id="hazardCheckboxes"></div>
+      <div class="section-title">2. Hazard Identification (Check All Applicable)</div>
+      <div id="hazardFormContainer"></div>
 
-      <!-- 3. TASKS & PER-TASK WORKER SIGNATURES -->
-      <div class="sec-banner">
+      <!-- 3. TASKS, CONTROLS & PER-TASK WORKER SIGNATURES -->
+      <div class="section-title">
         <span>3. Tasks, Controls &amp; Per-Task Worker Signatures</span>
-        <button type="button" class="btn btn-primary btn-sm" onclick="addTask()">+ Add Task</button>
+        <button type="button" class="add-btn" onclick="addTask()">+ Add Task</button>
       </div>
-      <p style="font-size:12px; color:#444; margin-top:-6px; margin-bottom:10px;">
+      <div class="note-box">
         <strong>Note:</strong> Use Enter/Return inside <strong>Hazards</strong> and <strong>Controls</strong> to list multiple items on separate rows. The <strong>first worker</strong> listed under each task is automatically designated as the <strong>Lead Person</strong>.
-      </p>
+      </div>
       <div id="tasksContainer"></div>
 
       <!-- 4. FALL RESCUE PLAN -->
-      <div class="sec-banner">4. Fall Rescue Plan</div>
-      <label class="rescue-check">
-        <input type="checkbox" id="fRescuePlanRef" onchange="saveFormState()">
+      <div class="section-title">4. Fall Rescue Plan</div>
+      <label class="rescue-check-row">
+        <input type="checkbox" id="inRescuePlanMatch">
         <span>Fall Rescue Plan same as described in P2P-SWP-FR-01</span>
       </label>
       <div class="grid-2">
-        <div class="field">
+        <div class="field-group">
           <label>Telehandler Operator</label>
-          <input type="text" id="fRescueTeleOp" placeholder="Name" oninput="saveFormState()">
+          <input type="text" id="inRescueTeleOp">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Backup Telehandler Operator</label>
-          <input type="text" id="fRescueTeleBackup" placeholder="Name" oninput="saveFormState()">
+          <input type="text" id="inRescueTeleBackup">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Manlift Operator</label>
-          <input type="text" id="fRescueManliftOp" placeholder="Name" oninput="saveFormState()">
+          <input type="text" id="inRescueManliftOp">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Backup Manlift Operator</label>
-          <input type="text" id="fRescueManliftBackup" placeholder="Name" oninput="saveFormState()">
+          <input type="text" id="inRescueManliftBackup">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Designated Rescuer #1</label>
-          <input type="text" id="fRescuer1" placeholder="Rescuer 1 Name" oninput="saveFormState()">
+          <input type="text" id="inRescuer1">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Designated Rescuer #2</label>
-          <input type="text" id="fRescuer2" placeholder="Rescuer 2 Name" oninput="saveFormState()">
+          <input type="text" id="inRescuer2">
         </div>
       </div>
 
-      <!-- 5. EQUIPMENT ROLES -->
-      <div class="sec-banner">5. Equipment Operations (Telehandler, Manlift &amp; Crane)</div>
-      <div class="grid-3">
-        <div class="equip-card">
-          <h4>About Telehandler</h4>
-          <div class="field">
-            <label>Telehandler Operator</label>
-            <input type="text" id="fEquipTeleOp" placeholder="Operator Name" oninput="saveFormState()">
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label>Lead Spotter</label>
-            <input type="text" id="fEquipTeleSpotter" placeholder="Lead Spotter Name" oninput="saveFormState()">
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label>On-Demand Spotter</label>
-            <input type="text" id="fEquipTeleSpotterOnDem" placeholder="On-Demand Spotter Name" oninput="saveFormState()">
-          </div>
+      <!-- 5. EQUIPMENT OPERATIONS -->
+      <div class="section-title">5. Equipment Operations (Telehandler, Manlift &amp; Crane)</div>
+      <div class="equip-sub">About Telehandler</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Telehandler Operator</label>
+          <input type="text" id="inEqTeleOp">
         </div>
-        <div class="equip-card">
-          <h4>About Manlift</h4>
-          <div class="field">
-            <label>Manlift Operator</label>
-            <input type="text" id="fEquipManliftOp" placeholder="Operator Name" oninput="saveFormState()">
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label>Assisting Person</label>
-            <input type="text" id="fEquipManliftAssist" placeholder="Assisting Person Name" oninput="saveFormState()">
-          </div>
+        <div class="field-group">
+          <label>Lead Spotter</label>
+          <input type="text" id="inEqTeleLeadSpotter">
         </div>
-        <div class="equip-card">
-          <h4>About the Crane</h4>
-          <div class="field">
-            <label>Crane Operator</label>
-            <input type="text" id="fEquipCraneOp" placeholder="Operator Name" oninput="saveFormState()">
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label>Lead Rigger</label>
-            <input type="text" id="fEquipCraneRigger" placeholder="Lead Rigger Name" oninput="saveFormState()">
-          </div>
+        <div class="field-group">
+          <label>On-Demand Spotter</label>
+          <input type="text" id="inEqTeleOnDemand">
         </div>
       </div>
 
-      <!-- 6. JOB COMPLETION & FOREMAN SIGN-OFF -->
-      <div class="sec-banner">6. Job Completion &amp; Supervisor Sign-Off</div>
-      <div class="grid-3">
-        <div class="field">
+      <div class="equip-sub">About Manlift</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Manlift Operator</label>
+          <input type="text" id="inEqManliftOp">
+        </div>
+        <div class="field-group">
+          <label>Assisting Person</label>
+          <input type="text" id="inEqManliftAssist">
+        </div>
+      </div>
+
+      <div class="equip-sub">About the Crane</div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Crane Operator</label>
+          <input type="text" id="inEqCraneOp">
+        </div>
+        <div class="field-group">
+          <label>Lead Rigger</label>
+          <input type="text" id="inEqCraneRigger">
+        </div>
+      </div>
+
+      <!-- 6. JOB COMPLETION & SUPERVISOR SIGN-OFF -->
+      <div class="section-title">6. Job Completion &amp; Supervisor Sign-Off</div>
+      <div class="grid-2">
+        <div class="field-group">
           <label>All Hazards Controlled / Area Safe?</label>
-          <select id="fAreaSafe" onchange="saveFormState()">
+          <select id="inAreaSafe">
             <option value="Yes">Yes</option>
             <option value="No">No</option>
             <option value="In Progress">In Progress</option>
           </select>
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Incidents / Near Misses Reported?</label>
-          <select id="fIncidents" onchange="saveFormState()">
+          <select id="inIncidents">
             <option value="No">No</option>
-            <option value="Yes">Yes (See Report)</option>
+            <option value="Yes (See Report)">Yes (See Report)</option>
           </select>
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Permits Closed Out?</label>
-          <select id="fPermits" onchange="saveFormState()">
+          <select id="inPermits">
             <option value="Yes">Yes</option>
             <option value="N/A">N/A</option>
             <option value="No">No</option>
@@ -734,671 +801,695 @@
         </div>
       </div>
 
-      <div class="field" style="margin-top:8px;">
+      <div class="field-group">
         <label>Supervisor / Foreman Signature</label>
-        <div class="sig-pad-wrap">
-          <canvas id="foremanCanvas" class="sig-canvas"></canvas>
-          <div class="sig-controls">
-            <span>Sign above with finger or mouse</span>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="clearForemanSig()">Clear Signature</button>
-          </div>
+        <div class="sup-sig-row">
+          <div class="sup-sig-preview" id="supSigPreview">Not signed yet</div>
+          <button type="button" class="sign-trigger-btn" id="supSignBtn" onclick="openSigModal('supervisor')">Sign</button>
         </div>
       </div>
 
-      <button type="submit" class="submit-main">Generate &amp; Save FLHA PDF</button>
+      <button type="submit" class="submit-btn">Generate &amp; Save FLHA PDF</button>
     </form>
   </div>
 
   <!-- =========================================
-       PRINT / PDF TEMPLATE (LANDSCAPE SHEET)
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= -->
+  <div class="sig-modal-overlay" id="sigModal">
+    <div class="sig-modal-box">
+      <div class="sig-modal-header">
+        <h3 id="sigModalTitle">Sign Below</h3>
+      </div>
+      <div class="sig-modal-body" id="modalCanvasWrap">
+        <canvas id="modalCanvas"></canvas>
+        <div class="sig-baseline"></div>
+      </div>
+      <div class="sig-modal-footer">
+        <button type="button" class="modal-btn" onclick="closeSigModal()">Cancel</button>
+        <button type="button" class="modal-btn clear" onclick="clearModalCanvas()">Clear</button>
+        <button type="button" class="modal-btn save" onclick="saveModalSignature()">Done &amp; Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       PRINT / PDF TEMPLATE (LANDSCAPE)
        ========================================= -->
   <div id="pdf-template">
-    <div class="p-header">
-    <div class="logo-box">
-      <img src="logo.jpg" alt="Company Logo" onerror="this.outerHTML='<div style=\'display:inline-block;border:3px solid #000;padding:6px 14px;font-weight:900;font-size:22px;\'>POINT TO POINT STRUCTURES CORP.</div>'">
-    </div>
-      <div class="p-title-block">
+    <div class="pdf-top-bar">
+      <img src="logo.jpg" alt="Company Logo" onerror="this.style.display='none'">
+      <div class="pdf-title-block">
         <h2>Field Level Hazard Assessment (FLHA)</h2>
-        <span>TO BE COMPLETED PRIOR TO WORK COMMENCING &amp; REVIEWED WHEN CONDITIONS CHANGE</span>
+        <p>TO BE COMPLETED PRIOR TO WORK COMMENCING &amp; REVIEWED WHEN CONDITIONS CHANGE</p>
       </div>
     </div>
 
-    <!-- Header Info Table -->
-    <table class="p-tbl">
+    <table class="pdf-grid">
       <tr>
-        <td style="width:14%;"><div class="p-lbl">Date</div><div class="p-val" id="pDate"></div></td>
-        <td style="width:22%;"><div class="p-lbl">Project / Job Name</div><div class="p-val" id="pProject"></div></td>
-        <td style="width:22%;"><div class="p-lbl">Site Location</div><div class="p-val" id="pLocation"></div></td>
-        <td style="width:16%;"><div class="p-lbl">Supervisor / Foreman</div><div class="p-val" id="pSupervisor"></div></td>
-        <td style="width:13%;"><div class="p-lbl">Muster Point</div><div class="p-val" id="pMuster"></div></td>
-        <td style="width:13%;"><div class="p-lbl">Weather</div><div class="p-val" id="pWeather"></div></td>
+        <th style="width:12%;">Date</th><td style="width:21%;" id="outDate"></td>
+        <th style="width:14%;">Project / Job Name</th><td style="width:20%;" id="outProject"></td>
+        <th style="width:13%;">Site Location</th><td style="width:20%;" id="outLocation"></td>
+      </tr>
+      <tr>
+        <th>Supervisor / Foreman</th><td id="outSupervisor"></td>
+        <th>Muster Point</th><td id="outMuster"></td>
+        <th>Weather</th><td id="outWeather"></td>
       </tr>
     </table>
 
-    <!-- Hazard Matrix Table -->
-    <table class="p-tbl p-haz-tbl">
-      <thead>
-        <tr>
-          <th>Environmental</th>
-          <th>PPE Required</th>
-          <th>Electrical</th>
-          <th>Overhead / Heights</th>
-          <th>Rigging / Hoisting</th>
-          <th>Ergonomic / Access</th>
-        </tr>
-      </thead>
-      <tbody id="pHazBody"></tbody>
-    </table>
+    <table class="pdf-grid" id="pdfHazardTable"></table>
 
-    <div class="p-risk-bar">
-      <span>RISK RANKING: &nbsp; 1 = HIGH (Immediate action / stop work until controlled) &nbsp;|&nbsp; 2 = MEDIUM (Control prior to starting task) &nbsp;|&nbsp; 3 = LOW (Monitor &amp; follow safe work practices)</span>
-      <span>FIRST WORKER PER TASK = LEAD PERSON</span>
+    <div class="risk-legend">
+      RISK RANKING: 1 = HIGH (Immediate action / stop work until controlled) &nbsp;|&nbsp; 2 = MEDIUM (Control prior to starting task) &nbsp;|&nbsp; 3 = LOW (Monitor &amp; follow safe work practices) &nbsp;&bull;&nbsp; FIRST WORKER PER TASK = LEAD PERSON
     </div>
 
-    <!-- Tasks & Per-Task Workers Table -->
-    <table class="p-tbl p-task-tbl">
+    <table class="pdf-grid">
       <thead>
         <tr>
           <th style="width:17%;">Task / Activity</th>
-          <th style="width:20%;">Identified Hazards</th>
-          <th style="width:5%;">Risk<br>Pre</th>
+          <th style="width:22%;">Identified Hazards</th>
+          <th style="width:5%; text-align:center;">Risk Pre</th>
           <th style="width:24%;">Plans to Eliminate / Control Hazards</th>
-          <th style="width:5%;">Risk<br>Post</th>
-          <th style="width:29%;">Assigned Workers &amp; Signatures</th>
+          <th style="width:5%; text-align:center;">Risk Post</th>
+          <th style="width:27%;">Assigned Workers &amp; Signatures</th>
         </tr>
       </thead>
-      <tbody id="pTasksBody"></tbody>
+      <tbody id="pdfTasksBody"></tbody>
     </table>
 
-    <!-- Fall Rescue Plan + Equipment Split -->
-    <div class="p-split">
-      <div class="p-rescue-box">
-        <div class="p-box-hdr">Fall Rescue Plan</div>
-        <div class="p-box-body">
-          <div class="p-rescue-banner" id="pRescueRef"></div>
-          <div class="p-mini-grid">
-            <div class="p-line-item"><strong>Telehandler Op:</strong> <span id="pRescueTeleOp"></span></div>
-            <div class="p-line-item"><strong>Backup Telehandler Op:</strong> <span id="pRescueTeleBackup"></span></div>
-            <div class="p-line-item"><strong>Manlift Op:</strong> <span id="pRescueManliftOp"></span></div>
-            <div class="p-line-item"><strong>Backup Manlift Op:</strong> <span id="pRescueManliftBackup"></span></div>
-            <div class="p-line-item"><strong>Designated Rescuer 1:</strong> <span id="pRescuer1"></span></div>
-            <div class="p-line-item"><strong>Designated Rescuer 2:</strong> <span id="pRescuer2"></span></div>
-          </div>
-        </div>
-      </div>
+    <div class="pdf-bottom-split">
+      <table class="pdf-grid">
+        <tr>
+          <th colspan="2">
+            Fall Rescue Plan &mdash;
+            <span style="font-weight:normal;">
+              <span class="cb-box-lg" id="outRescueCheck"></span>Fall Rescue Plan same as described in P2P-SWP-FR-01
+            </span>
+          </th>
+        </tr>
+        <tr>
+          <td style="width:50%;"><strong>Telehandler Op:</strong> <span id="outRescueTeleOp"></span></td>
+          <td style="width:50%;"><strong>Backup Telehandler Op:</strong> <span id="outRescueTeleBackup"></span></td>
+        </tr>
+        <tr>
+          <td><strong>Manlift Op:</strong> <span id="outRescueManliftOp"></span></td>
+          <td><strong>Backup Manlift Op:</strong> <span id="outRescueManliftBackup"></span></td>
+        </tr>
+        <tr>
+          <td><strong>Designated Rescuer 1:</strong> <span id="outRescuer1"></span></td>
+          <td><strong>Designated Rescuer 2:</strong> <span id="outRescuer2"></span></td>
+        </tr>
+      </table>
 
-      <div class="p-equip-box">
-        <div class="p-box-hdr">Equipment Operations (Telehandler, Manlift &amp; Crane)</div>
-        <div class="p-box-body">
-          <div class="p-equip-row">
-            <div>
-              <div style="font-weight:bold; text-decoration:underline; margin-bottom:2px;">TELEHANDLER</div>
-              <div class="p-line-item" style="margin-bottom:3px;"><strong>Operator:</strong> <span id="pEquipTeleOp"></span></div>
-              <div class="p-line-item"><strong>Lead Spotter:</strong> <span id="pEquipTeleSpotter"></span></div>
-              <div class="p-line-item"><strong>On-Demand Spotter:</strong> <span id="pEquipTeleSpotterOnDem"></span></div>
-            </div>
-            <div>
-              <div style="font-weight:bold; text-decoration:underline; margin-bottom:2px;">MANLIFT</div>
-              <div class="p-line-item" style="margin-bottom:3px;"><strong>Operator:</strong> <span id="pEquipManliftOp"></span></div>
-              <div class="p-line-item"><strong>Assisting:</strong> <span id="pEquipManliftAssist"></span></div>
-            </div>
-            <div>
-              <div style="font-weight:bold; text-decoration:underline; margin-bottom:2px;">THE CRANE</div>
-              <div class="p-line-item" style="margin-bottom:3px;"><strong>Operator:</strong> <span id="pEquipCraneOp"></span></div>
-              <div class="p-line-item"><strong>Lead Rigger:</strong> <span id="pEquipCraneRigger"></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <table class="pdf-grid">
+        <tr>
+          <th colspan="3">Equipment Operations (Telehandler, Manlift &amp; Crane)</th>
+        </tr>
+        <tr>
+          <td style="width:36%;">
+            <strong>TELEHANDLER</strong><br>
+            <strong>Operator:</strong> <span id="outEqTeleOp"></span><br>
+            <strong>Lead Spotter:</strong> <span id="outEqTeleLeadSpotter"></span><br>
+            <strong>On-Demand Spotter:</strong> <span id="outEqTeleOnDemand"></span>
+          </td>
+          <td style="width:32%;">
+            <strong>MANLIFT</strong><br>
+            <strong>Operator:</strong> <span id="outEqManliftOp"></span><br>
+            <strong>Assisting:</strong> <span id="outEqManliftAssist"></span>
+          </td>
+          <td style="width:32%;">
+            <strong>THE CRANE</strong><br>
+            <strong>Operator:</strong> <span id="outEqCraneOp"></span><br>
+            <strong>Lead Rigger:</strong> <span id="outEqCraneRigger"></span>
+          </td>
+        </tr>
+      </table>
     </div>
 
-    <!-- Bottom Completion & Foreman Bar -->
-    <div class="p-bottom-bar">
+    <div class="pdf-signoff-bar">
       <div>
-        <strong>JOB COMPLETION:</strong> &nbsp;
-        Area Safe: <span id="pAreaSafe" style="text-decoration:underline; font-weight:bold;"></span> &nbsp;|&nbsp;
-        Incidents/Near Misses: <span id="pIncidents" style="text-decoration:underline; font-weight:bold;"></span> &nbsp;|&nbsp;
-        Permits Closed: <span id="pPermits" style="text-decoration:underline; font-weight:bold;"></span>
+        <strong>JOB COMPLETION:</strong>
+        Area Safe: <strong id="outAreaSafe"></strong> &nbsp;|&nbsp;
+        Incidents/Near Misses: <strong id="outIncidents"></strong> &nbsp;|&nbsp;
+        Permits Closed: <strong id="outPermits"></strong>
       </div>
       <div>
         <strong>SUPERVISOR / FOREMAN SIGNATURE:</strong>
-        <img id="pForemanSigImg" class="p-foreman-sig" src="" alt="" style="display:none;">
-        <span id="pForemanSigLine" style="display:inline-block; width:140px; border-bottom:1px solid #000;"></span>
+        <img id="outSupSig" src="" alt="" style="display:none;">
       </div>
     </div>
 
-    <div class="p-footer">
-      3250 46th Ave SE &nbsp;Calgary, AB &nbsp;T2B 3K7 &nbsp;(587) 328-0007
+    <div class="pdf-footer">
+      3250 46th Ave SE &nbsp;&bull;&nbsp; Calgary, AB T2B 3K7 &nbsp;&bull;&nbsp; (587) 328-0007
     </div>
   </div>
 
   <script>
     const STORAGE_KEY = "p2p_flha_v2_multiline_state";
 
-    const HAZARD_CATEGORIES = [
-      { key: "env", title: "Environmental", items: ["Weather / High Winds", "Slippery / Icy Surfaces", "Uneven Ground / Mud", "Poor Lighting", "Noise / Dust", "Extreme Heat / Cold"] },
-      { key: "ppe", title: "PPE Required", items: ["Hard Hat & Safety Boots", "Safety Glasses / Face Shield", "High-Vis Vest / Apparel", "Cut-Resistant Gloves", "Fall Arrest Harness & Lanyard", "Hearing / Respiratory Protection"] },
-      { key: "elec", title: "Electrical", items: ["Overhead Power Lines", "Underground Utilities", "Damaged Cords / Tools", "GFCI Protection Verified", "Lockout / Tagout Required", "Temporary Power Panels"] },
-      { key: "over", title: "Overhead / Heights", items: ["Working at Heights (>3m)", "Falling Objects / Drop Zone", "Leading Edges / Openings", "Ladders / Scaffolding", "Aerial Work Platform / Manlift", "Roof / Deck Edge Work"] },
-      { key: "rig", title: "Rigging / Hoisting", items: ["Crane / Boom Operations", "Overhead Loads / Taglines", "Rigging Hardware Inspected", "Pinch / Crush Points", "Load Weight / Capacity Verified", "Signaller / Spotter Assigned"] },
-      { key: "ergo", title: "Ergonomic / Access", items: ["Heavy Lifting / Awkward Posture", "Repetitive Motion", "Sharp Edges / Pinch Points", "Housekeeping / Trip Hazards", "Safe Access / Egress", "Mobile Equipment Traffic"] }
+    const hazardCategories = [
+      {
+        title: "Environmental",
+        items: ["Weather / High Wind", "Slippery / Icy Ground", "Poor Lighting", "Noise / Dust", "Uneven Terrain", "Extreme Heat / Cold"]
+      },
+      {
+        title: "PPE Required",
+        items: ["Hard Hat & Safety Boots", "Safety Glasses / Face Shield", "High-Vis Vest / Apparel", "Cut-Resistant Gloves", "Full Body Harness & Lanyard", "Hearing / Respiratory Protection"]
+      },
+      {
+        title: "Electrical",
+        items: ["Overhead Power Lines", "Damaged Cords / Tools", "GFCI Protection Verified", "Lockout / Tagout Required", "Underground Utilities", "Wet Conditions / Power"]
+      },
+      {
+        title: "Overhead / Heights",
+        items: ["Working at Heights (>3m)", "Falling Objects / Drop Zone", "Leading Edge / Unprotected Opening", "Ladder / Scaffold Safety", "Manlift / Boom Operation", "100% Tie-Off Maintained"]
+      },
+      {
+        title: "Rigging / Hoisting",
+        items: ["Crane / Telehandler Lift", "Rigging Gear Inspected", "Tag Lines Attached", "Load Path Clear / No Overhead Loads", "Qualified Rigger & Signalman", "Outriggers / Ground Pads Set"]
+      },
+      {
+        title: "Ergonomic / Access",
+        items: ["Heavy Lifting / Pinch Points", "Awkward Posture / Repetitive Motion", "Housekeeping / Tripping Hazards", "Safe Access / Egress Clear", "Barricades / Caution Tape Up", "Public / Traffic Control"]
+      }
     ];
 
-    let appState = {
-      date: new Date().toISOString().split("T")[0],
-      project: "",
-      location: "",
-      supervisor: "",
-      muster: "",
-      weather: "",
+    const simpleFieldIds = [
+      "inDate", "inProject", "inLocation", "inSupervisor", "inMuster", "inWeather",
+      "inRescueTeleOp", "inRescueTeleBackup", "inRescueManliftOp", "inRescueManliftBackup",
+      "inRescuer1", "inRescuer2",
+      "inEqTeleOp", "inEqTeleLeadSpotter", "inEqTeleOnDemand",
+      "inEqManliftOp", "inEqManliftAssist",
+      "inEqCraneOp", "inEqCraneRigger",
+      "inAreaSafe", "inIncidents", "inPermits"
+    ];
+
+    let state = {
+      fields: {},
       hazards: {},
-      tasks: [
-        {
-          task: "",
-          hazards: "",
-          riskPre: "2",
-          controls: "",
-          riskPost: "3",
-          workers: [
-            { name: "", sig: "" }
-          ]
-        }
-      ],
-      rescuePlanRef: true,
-      rescueTeleOp: "",
-      rescueTeleBackup: "",
-      rescueManliftOp: "",
-      rescueManliftBackup: "",
-      rescuer1: "",
-      rescuer2: "",
-      equipTeleOp: "",
-      equipTeleSpotter: "",
-      equipTeleSpotterOnDem: "",
-      equipManliftOp: "",
-      equipManliftAssist: "",
-      equipCraneOp: "",
-      equipCraneRigger: "",
-      areaSafe: "Yes",
-      incidents: "No",
-      permits: "Yes",
-      foremanSig: ""
+      rescueMatch: false,
+      supervisorSig: "",
+      tasks: []
     };
 
-    // Load saved state from localStorage
-    function loadSavedState() {
+    function defaultTask() {
+      return {
+        name: "",
+        hazards: "",
+        riskPre: "2",
+        controls: "",
+        riskPost: "3",
+        workers: [{ name: "", sig: "" }]
+      };
+    }
+
+    // Build Hazard Checkboxes
+    const hazardFormContainer = document.getElementById("hazardFormContainer");
+    hazardCategories.forEach((cat, cIdx) => {
+      const box = document.createElement("div");
+      box.className = "hazard-cat";
+      let html = `<div class="hazard-cat-title">${cat.title}</div><div class="hazard-list">`;
+      cat.items.forEach((item, iIdx) => {
+        const key = `h_${cIdx}_${iIdx}`;
+        html += `
+          <label class="hazard-item">
+            <input type="checkbox" id="${key}" onchange="toggleHazard('${key}', this.checked)">
+            <span>${item}</span>
+          </label>
+        `;
+      });
+      html += `</div>`;
+      box.innerHTML = html;
+      hazardFormContainer.appendChild(box);
+    });
+
+    function toggleHazard(key, checked) {
+      state.hazards[key] = checked;
+      saveState();
+    }
+
+    // Load & Save State
+    function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
           const parsed = JSON.parse(raw);
-          appState = { ...appState, ...parsed };
-          if (!Array.isArray(appState.tasks) || appState.tasks.length === 0) {
-            appState.tasks = [{ task: "", hazards: "", riskPre: "2", controls: "", riskPost: "3", workers: [{ name: "", sig: "" }] }];
-          }
-          appState.tasks.forEach(t => {
-            if (!Array.isArray(t.workers)) {
-              t.workers = [{ name: "", sig: "" }];
-            }
-          });
+          state = Object.assign(state, parsed);
         }
       } catch (e) {
-        console.warn("Could not read localStorage:", e);
+        console.warn("Storage load failed:", e);
       }
+
+      if (!state.fields.inDate) {
+        state.fields.inDate = new Date().toISOString().split("T")[0];
+      }
+      if (!state.tasks || state.tasks.length === 0) {
+        state.tasks = [defaultTask()];
+      }
+
+      simpleFieldIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && state.fields[id] !== undefined) {
+          el.value = state.fields[id];
+        }
+      });
+
+      document.getElementById("inRescuePlanMatch").checked = !!state.rescueMatch;
+
+      Object.keys(state.hazards || {}).forEach(key => {
+        const cb = document.getElementById(key);
+        if (cb) cb.checked = !!state.hazards[key];
+      });
+
+      renderTasks();
+      renderSupervisorSigPreview();
     }
 
-    function saveFormState() {
-      appState.date = document.getElementById("fDate").value;
-      appState.project = document.getElementById("fProject").value;
-      appState.location = document.getElementById("fLocation").value;
-      appState.supervisor = document.getElementById("fSupervisor").value;
-      appState.muster = document.getElementById("fMuster").value;
-      appState.weather = document.getElementById("fWeather").value;
-
-      appState.rescuePlanRef = document.getElementById("fRescuePlanRef").checked;
-      appState.rescueTeleOp = document.getElementById("fRescueTeleOp").value;
-      appState.rescueTeleBackup = document.getElementById("fRescueTeleBackup").value;
-      appState.rescueManliftOp = document.getElementById("fRescueManliftOp").value;
-      appState.rescueManliftBackup = document.getElementById("fRescueManliftBackup").value;
-      appState.rescuer1 = document.getElementById("fRescuer1").value;
-      appState.rescuer2 = document.getElementById("fRescuer2").value;
-
-      appState.equipTeleOp = document.getElementById("fEquipTeleOp").value;
-      appState.equipTeleSpotter = document.getElementById("fEquipTeleSpotter").value;
-      appState.equipTeleSpotterOnDem = document.getElementById("fEquipTeleSpotterOnDem").value;
-      appState.equipManliftOp = document.getElementById("fEquipManliftOp").value;
-      appState.equipManliftAssist = document.getElementById("fEquipManliftAssist").value;
-      appState.equipCraneOp = document.getElementById("fEquipCraneOp").value;
-      appState.equipCraneRigger = document.getElementById("fEquipCraneRigger").value;
-
-      appState.areaSafe = document.getElementById("fAreaSafe").value;
-      appState.incidents = document.getElementById("fIncidents").value;
-      appState.permits = document.getElementById("fPermits").value;
+    function saveState() {
+      simpleFieldIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) state.fields[id] = el.value;
+      });
+      state.rescueMatch = document.getElementById("inRescuePlanMatch").checked;
 
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-        const ind = document.getElementById("saveIndicator");
-        ind.textContent = "• Saved";
-        setTimeout(() => { ind.textContent = "• Auto-Saved Locally"; }, 1200);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       } catch (e) {
-        console.warn("Could not save to localStorage:", e);
+        console.warn("Storage save failed:", e);
       }
     }
 
-    function escapeHTML(str) {
-      return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-    }
+    simpleFieldIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener("input", saveState);
+        el.addEventListener("change", saveState);
+      }
+    });
+    document.getElementById("inRescuePlanMatch").addEventListener("change", saveState);
 
-    // Build Hazard Checkboxes
-    function renderHazardCheckboxes() {
-      const container = document.getElementById("hazardCheckboxes");
-      container.innerHTML = "";
-      HAZARD_CATEGORIES.forEach(cat => {
-        const div = document.createElement("div");
-        div.className = "haz-cat";
-        let html = `<h4>${cat.title}</h4>`;
-        cat.items.forEach((item, idx) => {
-          const id = `${cat.key}_${idx}`;
-          const checked = appState.hazards[id] ? "checked" : "";
-          html += `
-            <label class="haz-item">
-              <input type="checkbox" ${checked} onchange="toggleHazard('${id}', this.checked)">
-              <span>${item}</span>
-            </label>
-          `;
-        });
-        div.innerHTML = html;
-        container.appendChild(div);
-      });
-    }
-
-    function toggleHazard(id, isChecked) {
-      appState.hazards[id] = isChecked;
-      saveFormState();
-    }
-
-    // Render Tasks & Per-Task Worker Signature Pads
+    // Render Tasks & Worker Rows
     function renderTasks() {
       const container = document.getElementById("tasksContainer");
       container.innerHTML = "";
 
-      appState.tasks.forEach((t, tIdx) => {
+      state.tasks.forEach((task, tIdx) => {
         const card = document.createElement("div");
         card.className = "task-card";
 
         let workersHTML = "";
-        t.workers.forEach((w, wIdx) => {
-          const roleBadge = wIdx === 0
-            ? `<span class="lead-pill">LEAD PERSON</span>`
-            : `<span class="worker-pill">WORKER #${wIdx + 1}</span>`;
+        (task.workers || []).forEach((w, wIdx) => {
+          const isLead = wIdx === 0;
+          const badge = isLead
+            ? `<span class="lead-tag">LEAD</span>`
+            : `<span class="worker-num-tag">#${wIdx + 1}</span>`;
+          const thumbHTML = w.sig
+            ? `<img class="sig-thumb" src="${w.sig}" alt="Sig">`
+            : "";
+          const btnClass = w.sig ? "sign-trigger-btn signed" : "sign-trigger-btn";
+          const btnLabel = w.sig ? "Signed &#10003;" : "Sign";
 
           workersHTML += `
-            <div class="worker-sig-row">
-              <div class="worker-sig-top">
-                ${roleBadge}
-                <input type="text" class="worker-name-input" value="${escapeHTML(w.name)}" placeholder="Worker Full Name" oninput="updateTaskWorkerName(${tIdx}, ${wIdx}, this.value)">
-                ${t.workers.length > 1 ? `<button type="button" class="btn btn-danger btn-sm" onclick="removeTaskWorker(${tIdx}, ${wIdx})">Remove</button>` : ""}
-              </div>
-              <div class="sig-pad-wrap">
-                <canvas id="taskSig_${tIdx}_${wIdx}" class="sig-canvas"></canvas>
-                <div class="sig-controls">
-                  <span>${w.name ? escapeHTML(w.name) + " — Sign above" : "Sign above with finger or mouse"}</span>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="clearTaskWorkerSig(${tIdx}, ${wIdx})">Clear Sig</button>
-                </div>
-              </div>
+            <div class="worker-row">
+              ${badge}
+              <input type="text" placeholder="${isLead ? 'Lead Person Name' : 'Worker Name'}"
+                value="${escapeAttr(w.name)}"
+                oninput="updateWorkerName(${tIdx}, ${wIdx}, this.value)">
+              ${thumbHTML}
+              <button type="button" class="${btnClass}" onclick="openSigModal('worker', ${tIdx}, ${wIdx})">${btnLabel}</button>
+              <button type="button" class="del-worker-btn" title="Remove worker" onclick="removeWorker(${tIdx}, ${wIdx})">&times;</button>
             </div>
           `;
         });
 
         card.innerHTML = `
           <div class="task-card-header">
-            <span class="task-badge">Task #${tIdx + 1}</span>
-            ${appState.tasks.length > 1 ? `<button type="button" class="btn btn-danger btn-sm" onclick="removeTask(${tIdx})">Remove Task</button>` : ""}
+            <span class="task-badge">TASK #${tIdx + 1}</span>
+            ${state.tasks.length > 1 ? `<button type="button" class="remove-btn" onclick="removeTask(${tIdx})">Remove Task</button>` : ""}
           </div>
-          <div class="field">
+          <div class="field-group">
             <label>Task / Activity Description</label>
-            <input type="text" value="${escapeHTML(t.task)}" placeholder="e.g., Erection of Steel Columns" oninput="updateTask(${tIdx}, 'task', this.value)">
+            <input type="text" placeholder="e.g., Erecting steel columns on Grid A"
+              value="${escapeAttr(task.name)}"
+              oninput="updateTaskField(${tIdx}, 'name', this.value)">
           </div>
           <div class="grid-2">
-            <div class="field">
+            <div class="field-group">
               <label>Identified Hazards (One per line)</label>
-              <textarea rows="4" placeholder="e.g., Overhead suspended loads&#10;Pinch points during alignment&#10;Working at heights" oninput="updateTask(${tIdx}, 'hazards', this.value)">${escapeHTML(t.hazards)}</textarea>
-              <div class="helper-hint">Press Enter to add each hazard on a new row</div>
+              <textarea rows="4" placeholder="Pinch points&#10;Suspended loads&#10;Working at heights"
+                oninput="updateTaskField(${tIdx}, 'hazards', this.value)">${escapeHTML(task.hazards)}</textarea>
             </div>
-            <div class="field">
+            <div class="field-group">
               <label>Plans to Eliminate / Control Hazards (One per line)</label>
-              <textarea rows="4" placeholder="e.g., Use taglines &amp; clear drop zone&#10;Keep hands clear of bolt holes&#10;100% tie-off with harness" oninput="updateTask(${tIdx}, 'controls', this.value)">${escapeHTML(t.controls)}</textarea>
-              <div class="helper-hint">Press Enter to add each control on a new row</div>
+              <textarea rows="4" placeholder="Use tag lines&#10;Barricade drop zone&#10;100% tie-off"
+                oninput="updateTaskField(${tIdx}, 'controls', this.value)">${escapeHTML(task.controls)}</textarea>
             </div>
           </div>
           <div class="grid-2">
-            <div class="field">
-              <label>Risk Before Controls (1=High, 2=Med, 3=Low)</label>
-              <select onchange="updateTask(${tIdx}, 'riskPre', this.value)">
-                <option value="1" ${t.riskPre === "1" ? "selected" : ""}>1 - High</option>
-                <option value="2" ${t.riskPre === "2" ? "selected" : ""}>2 - Medium</option>
-                <option value="3" ${t.riskPre === "3" ? "selected" : ""}>3 - Low</option>
+            <div class="field-group">
+              <label>Risk Level Before Controls (1-3)</label>
+              <select onchange="updateTaskField(${tIdx}, 'riskPre', this.value)">
+                <option value="1" ${task.riskPre === "1" ? "selected" : ""}>1 - High</option>
+                <option value="2" ${task.riskPre === "2" ? "selected" : ""}>2 - Medium</option>
+                <option value="3" ${task.riskPre === "3" ? "selected" : ""}>3 - Low</option>
               </select>
             </div>
-            <div class="field">
-              <label>Risk After Controls (1=High, 2=Med, 3=Low)</label>
-              <select onchange="updateTask(${tIdx}, 'riskPost', this.value)">
-                <option value="1" ${t.riskPost === "1" ? "selected" : ""}>1 - High</option>
-                <option value="2" ${t.riskPost === "2" ? "selected" : ""}>2 - Medium</option>
-                <option value="3" ${t.riskPost === "3" ? "selected" : ""}>3 - Low</option>
+            <div class="field-group">
+              <label>Risk Level After Controls (1-3)</label>
+              <select onchange="updateTaskField(${tIdx}, 'riskPost', this.value)">
+                <option value="1" ${task.riskPost === "1" ? "selected" : ""}>1 - High</option>
+                <option value="2" ${task.riskPost === "2" ? "selected" : ""}>2 - Medium</option>
+                <option value="3" ${task.riskPost === "3" ? "selected" : ""}>3 - Low</option>
               </select>
             </div>
           </div>
-
-          <div class="task-workers-box">
-            <div class="task-workers-header">
-              <span>Workers Assigned to Task #${tIdx + 1}</span>
-              <button type="button" class="btn btn-secondary btn-sm" onclick="addTaskWorker(${tIdx})">+ Add Worker to Task</button>
+          <div class="workers-subbox">
+            <div class="workers-subbox-title">
+              <span>Assigned Workers &amp; Signatures</span>
             </div>
             ${workersHTML}
+            <button type="button" class="add-btn secondary" onclick="addWorkerToTask(${tIdx})">+ Add Worker to Task #${tIdx + 1}</button>
           </div>
         `;
         container.appendChild(card);
-
-        // Initialize signature pads for each worker in this task
-        t.workers.forEach((w, wIdx) => {
-          setupSignatureCanvas(`taskSig_${tIdx}_${wIdx}`, w.sig, (dataUrl) => {
-            appState.tasks[tIdx].workers[wIdx].sig = dataUrl;
-            saveFormState();
-          });
-        });
       });
     }
 
     function addTask() {
-      appState.tasks.push({
-        task: "",
-        hazards: "",
-        riskPre: "2",
-        controls: "",
-        riskPost: "3",
-        workers: [{ name: "", sig: "" }]
-      });
-      saveFormState();
+      state.tasks.push(defaultTask());
+      saveState();
       renderTasks();
     }
 
     function removeTask(tIdx) {
-      appState.tasks.splice(tIdx, 1);
-      saveFormState();
+      if (state.tasks.length <= 1) return;
+      state.tasks.splice(tIdx, 1);
+      saveState();
       renderTasks();
     }
 
-    function updateTask(tIdx, key, val) {
-      appState.tasks[tIdx][key] = val;
-      saveFormState();
+    function updateTaskField(tIdx, key, val) {
+      state.tasks[tIdx][key] = val;
+      saveState();
     }
 
-    function addTaskWorker(tIdx) {
-      appState.tasks[tIdx].workers.push({ name: "", sig: "" });
-      saveFormState();
+    function addWorkerToTask(tIdx) {
+      state.tasks[tIdx].workers.push({ name: "", sig: "" });
+      saveState();
       renderTasks();
     }
 
-    function removeTaskWorker(tIdx, wIdx) {
-      appState.tasks[tIdx].workers.splice(wIdx, 1);
-      saveFormState();
+    function removeWorker(tIdx, wIdx) {
+      if (state.tasks[tIdx].workers.length <= 1) {
+        state.tasks[tIdx].workers[0] = { name: "", sig: "" };
+      } else {
+        state.tasks[tIdx].workers.splice(wIdx, 1);
+      }
+      saveState();
       renderTasks();
     }
 
-    function updateTaskWorkerName(tIdx, wIdx, val) {
-      appState.tasks[tIdx].workers[wIdx].name = val;
-      saveFormState();
+    function updateWorkerName(tIdx, wIdx, val) {
+      state.tasks[tIdx].workers[wIdx].name = val;
+      saveState();
     }
 
-    function clearTaskWorkerSig(tIdx, wIdx) {
-      appState.tasks[tIdx].workers[wIdx].sig = "";
-      saveFormState();
-      renderTasks();
+    function renderSupervisorSigPreview() {
+      const box = document.getElementById("supSigPreview");
+      const btn = document.getElementById("supSignBtn");
+      if (state.supervisorSig) {
+        box.innerHTML = `<img src="${state.supervisorSig}" alt="Supervisor Signature">`;
+        btn.className = "sign-trigger-btn signed";
+        btn.innerHTML = "Signed &#10003;";
+      } else {
+        box.textContent = "Not signed yet";
+        btn.className = "sign-trigger-btn";
+        btn.textContent = "Sign";
+      }
     }
 
-    // Reusable Signature Pad Setup
-    function setupSignatureCanvas(canvasId, existingDataUrl, onSaveCallback) {
-      const canvas = document.getElementById(canvasId);
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-
-      const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = (rect.width || 500) * dpr;
-      canvas.height = 95 * dpr;
-      ctx.scale(dpr, dpr);
-      ctx.lineWidth = 2.2;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.strokeStyle = "#000";
-
-      if (existingDataUrl) {
-        const img = new Image();
-        img.onload = () => {
-          ctx.drawImage(img, 0, 0, rect.width || 500, 95);
-        };
-        img.src = existingDataUrl;
-      }
-
-      let drawing = false;
-
-      function getPos(e) {
-        const r = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - r.left, y: clientY - r.top };
-      }
-
-      function start(e) {
-        drawing = true;
-        const pos = getPos(e);
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-      }
-
-      function move(e) {
-        if (!drawing) return;
-        e.preventDefault();
-        const pos = getPos(e);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-      }
-
-      function end() {
-        if (!drawing) return;
-        drawing = false;
-        onSaveCallback(canvas.toDataURL("image/png"));
-      }
-
-      canvas.addEventListener("mousedown", start);
-      canvas.addEventListener("mousemove", move);
-      window.addEventListener("mouseup", end);
-
-      canvas.addEventListener("touchstart", start, { passive: false });
-      canvas.addEventListener("touchmove", move, { passive: false });
-      canvas.addEventListener("touchend", end);
-    }
-
-    function clearForemanSig() {
-      appState.foremanSig = "";
-      saveFormState();
-      initForemanCanvas();
-    }
-
-    function initForemanCanvas() {
-      setupSignatureCanvas("foremanCanvas", appState.foremanSig, (dataUrl) => {
-        appState.foremanSig = dataUrl;
-        saveFormState();
+    function newDayReset() {
+      if (!confirm("Start a new day? This clears all worker and supervisor signatures and sets today's date, while keeping your tasks and crew names.")) return;
+      state.fields.inDate = new Date().toISOString().split("T")[0];
+      document.getElementById("inDate").value = state.fields.inDate;
+      state.supervisorSig = "";
+      state.tasks.forEach(t => {
+        (t.workers || []).forEach(w => { w.sig = ""; });
       });
-    }
-
-    // New Day Button: Keeps project info, hazards, and tasks; clears all signatures & updates date
-    function startNewDay() {
-      if (!confirm("Start a new day? This will update the date to today and clear all worker and supervisor signatures while keeping your tasks and site info.")) return;
-      appState.date = new Date().toISOString().split("T")[0];
-      appState.tasks.forEach(t => {
-        t.workers.forEach(w => { w.sig = ""; });
-      });
-      appState.foremanSig = "";
-      saveFormState();
-      populateInputs();
+      saveState();
       renderTasks();
-      initForemanCanvas();
+      renderSupervisorSigPreview();
     }
 
-    // Clear All Data
-    function resetAllData() {
-      if (!confirm("Clear the entire form and reset all saved data?")) return;
+    function clearAllData() {
+      if (!confirm("Clear the entire form and reset all saved local data?")) return;
       localStorage.removeItem(STORAGE_KEY);
-      location.reload();
+      state = {
+        fields: { inDate: new Date().toISOString().split("T")[0] },
+        hazards: {},
+        rescueMatch: false,
+        supervisorSig: "",
+        tasks: [defaultTask()]
+      };
+      simpleFieldIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = state.fields[id] || "";
+      });
+      document.getElementById("inAreaSafe").value = "Yes";
+      document.getElementById("inIncidents").value = "No";
+      document.getElementById("inPermits").value = "Yes";
+      document.getElementById("inRescuePlanMatch").checked = false;
+      document.querySelectorAll("#hazardFormContainer input[type='checkbox']").forEach(cb => cb.checked = false);
+      saveState();
+      renderTasks();
+      renderSupervisorSigPreview();
     }
 
-    function populateInputs() {
-      document.getElementById("fDate").value = appState.date || new Date().toISOString().split("T")[0];
-      document.getElementById("fProject").value = appState.project || "";
-      document.getElementById("fLocation").value = appState.location || "";
-      document.getElementById("fSupervisor").value = appState.supervisor || "";
-      document.getElementById("fMuster").value = appState.muster || "";
-      document.getElementById("fWeather").value = appState.weather || "";
+    // =========================================
+    // FULL-SCREEN SIGNATURE MODAL LOGIC
+    // =========================================
+    const sigModal = document.getElementById("sigModal");
+    const modalCanvas = document.getElementById("modalCanvas");
+    const modalCtx = modalCanvas.getContext("2d");
+    let activeTarget = null; // { type: 'worker' | 'supervisor', tIdx, wIdx }
+    let isDrawing = false;
+    let hasStroke = false;
 
-      document.getElementById("fRescuePlanRef").checked = !!appState.rescuePlanRef;
-      document.getElementById("fRescueTeleOp").value = appState.rescueTeleOp || "";
-      document.getElementById("fRescueTeleBackup").value = appState.rescueTeleBackup || "";
-      document.getElementById("fRescueManliftOp").value = appState.rescueManliftOp || "";
-      document.getElementById("fRescueManliftBackup").value = appState.rescueManliftBackup || "";
-      document.getElementById("fRescuer1").value = appState.rescuer1 || "";
-      document.getElementById("fRescuer2").value = appState.rescuer2 || "";
+    function openSigModal(type, tIdx, wIdx) {
+      activeTarget = { type, tIdx, wIdx };
+      let label = "Supervisor / Foreman Signature";
+      if (type === "worker") {
+        const wName = (state.tasks[tIdx].workers[wIdx].name || "").trim();
+        label = wName ? `Sign: ${wName}` : `Sign: Worker #${wIdx + 1} (Task #${tIdx + 1})`;
+      }
+      document.getElementById("sigModalTitle").textContent = label;
+      sigModal.classList.add("open");
+      document.body.style.overflow = "hidden";
 
-      document.getElementById("fEquipTeleOp").value = appState.equipTeleOp || "";
-      document.getElementById("fEquipTeleSpotter").value = appState.equipTeleSpotter || "";
-      document.getElementById("fEquipTeleSpotterOnDem").value = appState.equipTeleSpotterOnDem || "";
-      document.getElementById("fEquipManliftOp").value = appState.equipManliftOp || "";
-      document.getElementById("fEquipManliftAssist").value = appState.equipManliftAssist || "";
-      document.getElementById("fEquipCraneOp").value = appState.equipCraneOp || "";
-      document.getElementById("fEquipCraneRigger").value = appState.equipCraneRigger || "";
+      requestAnimationFrame(() => {
+        const wrap = document.getElementById("modalCanvasWrap");
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        modalCanvas.width = wrap.clientWidth * dpr;
+        modalCanvas.height = wrap.clientHeight * dpr;
+        modalCtx.setTransform(1, 0, 0, 1, 0, 0);
+        modalCtx.scale(dpr, dpr);
+        modalCtx.lineWidth = 3;
+        modalCtx.lineCap = "round";
+        modalCtx.lineJoin = "round";
+        modalCtx.strokeStyle = "#000";
+        hasStroke = false;
 
-      document.getElementById("fAreaSafe").value = appState.areaSafe || "Yes";
-      document.getElementById("fIncidents").value = appState.incidents || "No";
-      document.getElementById("fPermits").value = appState.permits || "Yes";
+        const existing = type === "supervisor"
+          ? state.supervisorSig
+          : state.tasks[tIdx].workers[wIdx].sig;
+        if (existing) {
+          const img = new Image();
+          img.onload = () => {
+            modalCtx.drawImage(img, 0, 0, wrap.clientWidth, wrap.clientHeight);
+            hasStroke = true;
+          };
+          img.src = existing;
+        }
+      });
     }
 
-    // Generate PDF Print View
+    function closeSigModal() {
+      sigModal.classList.remove("open");
+      document.body.style.overflow = "";
+      activeTarget = null;
+    }
+
+    function clearModalCanvas() {
+      const wrap = document.getElementById("modalCanvasWrap");
+      modalCtx.clearRect(0, 0, wrap.clientWidth, wrap.clientHeight);
+      hasStroke = false;
+    }
+
+    function getCanvasCoords(e) {
+      const rect = modalCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function startDraw(e) {
+      e.preventDefault();
+      isDrawing = true;
+      hasStroke = true;
+      const pos = getCanvasCoords(e);
+      modalCtx.beginPath();
+      modalCtx.moveTo(pos.x, pos.y);
+    }
+
+    function moveDraw(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const pos = getCanvasCoords(e);
+      modalCtx.lineTo(pos.x, pos.y);
+      modalCtx.stroke();
+    }
+
+    function endDraw(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      isDrawing = false;
+    }
+
+    modalCanvas.addEventListener("mousedown", startDraw);
+    modalCanvas.addEventListener("mousemove", moveDraw);
+    window.addEventListener("mouseup", endDraw);
+    modalCanvas.addEventListener("touchstart", startDraw, { passive: false });
+    modalCanvas.addEventListener("touchmove", moveDraw, { passive: false });
+    modalCanvas.addEventListener("touchend", endDraw, { passive: false });
+
+    function saveModalSignature() {
+      if (!activeTarget) return;
+      let dataUrl = "";
+      if (hasStroke) {
+        // Export compact PNG so localStorage stays lightweight even with many signatures
+        const exportCanvas = document.createElement("canvas");
+        exportCanvas.width = 320;
+        exportCanvas.height = 110;
+        const eCtx = exportCanvas.getContext("2d");
+        eCtx.drawImage(modalCanvas, 0, 0, exportCanvas.width, exportCanvas.height);
+        dataUrl = exportCanvas.toDataURL("image/png");
+      }
+
+      if (activeTarget.type === "supervisor") {
+        state.supervisorSig = dataUrl;
+        saveState();
+        renderSupervisorSigPreview();
+      } else {
+        const { tIdx, wIdx } = activeTarget;
+        state.tasks[tIdx].workers[wIdx].sig = dataUrl;
+        saveState();
+        renderTasks();
+      }
+      closeSigModal();
+    }
+
+    // =========================================
+    // POPULATE PRINT / PDF TEMPLATE
+    // =========================================
     document.getElementById("flhaForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      saveFormState();
+      saveState();
 
-      document.getElementById("pDate").textContent = appState.date;
-      document.getElementById("pProject").textContent = appState.project;
-      document.getElementById("pLocation").textContent = appState.location;
-      document.getElementById("pSupervisor").textContent = appState.supervisor;
-      document.getElementById("pMuster").textContent = appState.muster;
-      document.getElementById("pWeather").textContent = appState.weather;
+      document.getElementById("outDate").textContent = state.fields.inDate || "";
+      document.getElementById("outProject").textContent = state.fields.inProject || "";
+      document.getElementById("outLocation").textContent = state.fields.inLocation || "";
+      document.getElementById("outSupervisor").textContent = state.fields.inSupervisor || "";
+      document.getElementById("outMuster").textContent = state.fields.inMuster || "";
+      document.getElementById("outWeather").textContent = state.fields.inWeather || "";
 
-      // Render Hazard Matrix with Square Checkboxes
-      const hazBody = document.getElementById("pHazBody");
-      let hazRowHTML = "<tr>";
-      HAZARD_CATEGORIES.forEach(cat => {
-        hazRowHTML += "<td>";
-        cat.items.forEach((item, idx) => {
-          const checked = appState.hazards[`${cat.key}_${idx}`];
-          hazRowHTML += `
-            <div class="cb-row">
-              <span class="cb-box">${checked ? "&#10003;" : ""}</span>
-              <span>${item}</span>
-            </div>
-          `;
+      // Hazard Matrix Table
+      const pdfHazardTable = document.getElementById("pdfHazardTable");
+      let hHead = "<tr>";
+      let hBody = "<tr>";
+      hazardCategories.forEach((cat, cIdx) => {
+        hHead += `<th style="width:16.66%;">${cat.title}</th>`;
+        hBody += "<td>";
+        cat.items.forEach((item, iIdx) => {
+          const checked = !!state.hazards[`h_${cIdx}_${iIdx}`];
+          hBody += `<div class="haz-pdf-item"><span class="cb-box">${checked ? "&#10003;" : ""}</span>${escapeHTML(item)}</div>`;
         });
-        hazRowHTML += "</td>";
+        hBody += "</td>";
       });
-      hazRowHTML += "</tr>";
-      hazBody.innerHTML = hazRowHTML;
+      hHead += "</tr>";
+      hBody += "</tr>";
+      pdfHazardTable.innerHTML = hHead + hBody;
 
-      // Render Tasks & Per-Task Workers with Signatures
-      const tasksBody = document.getElementById("pTasksBody");
-      tasksBody.innerHTML = "";
-      appState.tasks.forEach(t => {
-        const activeWorkers = t.workers.filter(w => w.name.trim() !== "" || w.sig !== "");
+      // Tasks Table
+      const pdfTasksBody = document.getElementById("pdfTasksBody");
+      pdfTasksBody.innerHTML = "";
+      state.tasks.forEach(task => {
+        const workersList = (task.workers || []).filter(w => (w.name || "").trim() || w.sig);
         let workersCellHTML = "";
-
-        if (activeWorkers.length === 0) {
-          workersCellHTML = `<span style="color:#777;">—</span>`;
-        } else {
-          activeWorkers.forEach((w, idx) => {
-            const nameLabel = idx === 0
-              ? `<strong>${escapeHTML(w.name || "Lead")} (LEAD)</strong>`
-              : `<span>${escapeHTML(w.name || "Worker")}</span>`;
-            const sigTag = w.sig
-              ? `<img src="${w.sig}" class="p-task-worker-sig" alt="sig">`
-              : `<span style="display:inline-block; width:80px; border-bottom:1px solid #000;"></span>`;
-            workersCellHTML += `
-              <div class="p-task-worker-item">
-                ${nameLabel}
-                ${sigTag}
-              </div>
-            `;
-          });
-        }
+        workersList.forEach((w, idx) => {
+          const nameLabel = idx === 0
+            ? `<strong>${escapeHTML(w.name || "Lead")} (LEAD)</strong>`
+            : escapeHTML(w.name || `Worker #${idx + 1}`);
+          const sigImg = w.sig ? `<img src="${w.sig}" alt="Sig">` : "";
+          workersCellHTML += `<div class="worker-sig-cell-item"><span>${nameLabel}</span>${sigImg}</div>`;
+        });
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td><strong>${escapeHTML(t.task)}</strong></td>
-          <td class="p-multiline">${escapeHTML(t.hazards)}</td>
-          <td style="text-align:center; font-weight:bold;">${escapeHTML(t.riskPre)}</td>
-          <td class="p-multiline">${escapeHTML(t.controls)}</td>
-          <td style="text-align:center; font-weight:bold;">${escapeHTML(t.riskPost)}</td>
+          <td><strong>${escapeHTML(task.name)}</strong></td>
+          <td style="white-space: pre-wrap;">${escapeHTML(task.hazards)}</td>
+          <td style="text-align:center; font-weight:bold;">${escapeHTML(task.riskPre)}</td>
+          <td style="white-space: pre-wrap;">${escapeHTML(task.controls)}</td>
+          <td style="text-align:center; font-weight:bold;">${escapeHTML(task.riskPost)}</td>
           <td>${workersCellHTML}</td>
         `;
-        tasksBody.appendChild(tr);
+        pdfTasksBody.appendChild(tr);
       });
 
-      // Render Rescue Plan with Square Checkbox
-      document.getElementById("pRescueRef").innerHTML = `
-        <span class="cb-box-lg">${appState.rescuePlanRef ? "&#10003;" : ""}</span>
-        <span>Fall Rescue Plan same as described in P2P-SWP-FR-01</span>
-      `;
-      document.getElementById("pRescueTeleOp").textContent = appState.rescueTeleOp;
-      document.getElementById("pRescueTeleBackup").textContent = appState.rescueTeleBackup;
-      document.getElementById("pRescueManliftOp").textContent = appState.rescueManliftOp;
-      document.getElementById("pRescueManliftBackup").textContent = appState.rescueManliftBackup;
-      document.getElementById("pRescuer1").textContent = appState.rescuer1;
-      document.getElementById("pRescuer2").textContent = appState.rescuer2;
+      // Rescue & Equipment
+      document.getElementById("outRescueCheck").innerHTML = state.rescueMatch ? "&#10003;" : "";
+      document.getElementById("outRescueTeleOp").textContent = state.fields.inRescueTeleOp || "";
+      document.getElementById("outRescueTeleBackup").textContent = state.fields.inRescueTeleBackup || "";
+      document.getElementById("outRescueManliftOp").textContent = state.fields.inRescueManliftOp || "";
+      document.getElementById("outRescueManliftBackup").textContent = state.fields.inRescueManliftBackup || "";
+      document.getElementById("outRescuer1").textContent = state.fields.inRescuer1 || "";
+      document.getElementById("outRescuer2").textContent = state.fields.inRescuer2 || "";
 
-      // Render Equipment Roles (Telehandler, Manlift, Crane)
-      document.getElementById("pEquipTeleOp").textContent = appState.equipTeleOp;
-      document.getElementById("pEquipTeleSpotter").textContent = appState.equipTeleSpotter;
-      document.getElementById("pEquipTeleSpotterOnDem").textContent = appState.equipTeleSpotterOnDem;
-      document.getElementById("pEquipManliftOp").textContent = appState.equipManliftOp;
-      document.getElementById("pEquipManliftAssist").textContent = appState.equipManliftAssist;
-      document.getElementById("pEquipCraneOp").textContent = appState.equipCraneOp;
-      document.getElementById("pEquipCraneRigger").textContent = appState.equipCraneRigger;
+      document.getElementById("outEqTeleOp").textContent = state.fields.inEqTeleOp || "";
+      document.getElementById("outEqTeleLeadSpotter").textContent = state.fields.inEqTeleLeadSpotter || "";
+      document.getElementById("outEqTeleOnDemand").textContent = state.fields.inEqTeleOnDemand || "";
+      document.getElementById("outEqManliftOp").textContent = state.fields.inEqManliftOp || "";
+      document.getElementById("outEqManliftAssist").textContent = state.fields.inEqManliftAssist || "";
+      document.getElementById("outEqCraneOp").textContent = state.fields.inEqCraneOp || "";
+      document.getElementById("outEqCraneRigger").textContent = state.fields.inEqCraneRigger || "";
 
-      // Render Completion & Foreman Signature
-      document.getElementById("pAreaSafe").textContent = appState.areaSafe;
-      document.getElementById("pIncidents").textContent = appState.incidents;
-      document.getElementById("pPermits").textContent = appState.permits;
+      document.getElementById("outAreaSafe").textContent = state.fields.inAreaSafe || "Yes";
+      document.getElementById("outIncidents").textContent = state.fields.inIncidents || "No";
+      document.getElementById("outPermits").textContent = state.fields.inPermits || "Yes";
 
-      const fSigImg = document.getElementById("pForemanSigImg");
-      const fSigLine = document.getElementById("pForemanSigLine");
-      if (appState.foremanSig) {
-        fSigImg.src = appState.foremanSig;
-        fSigImg.style.display = "inline-block";
-        fSigLine.style.display = "none";
+      const supImg = document.getElementById("outSupSig");
+      if (state.supervisorSig) {
+        supImg.src = state.supervisorSig;
+        supImg.style.display = "inline-block";
       } else {
-        fSigImg.style.display = "none";
-        fSigLine.style.display = "inline-block";
+        supImg.style.display = "none";
       }
 
-      const safeProj = (appState.project || "Project").trim().replace(/\s+/g, "_");
-      document.title = `FLHA_${safeProj}_${appState.date}`;
+      const projClean = (state.fields.inProject || "Site").trim().replace(/\s+/g, "_");
+      const dateClean = state.fields.inDate || "FLHA";
+      document.title = `FLHA_${projClean}_${dateClean}`;
 
-      setTimeout(() => window.print(), 150);
+      window.print();
     });
 
-    // Boot Application
-    loadSavedState();
-    populateInputs();
-    renderHazardCheckboxes();
-    renderTasks();
-    initForemanCanvas();
+    function escapeHTML(str) {
+      return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    function escapeAttr(str) {
+      return escapeHTML(str).replace(/"/g, "&quot;");
+    }
+
+    loadState();
   </script>
 </body>
 </html>

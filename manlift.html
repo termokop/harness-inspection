@@ -16,7 +16,7 @@
       color: #111;
     }
     .form-card {
-      max-width: 640px;
+      max-width: 600px;
       margin: auto;
       background: #fff;
       padding: 20px;
@@ -27,78 +27,58 @@
       text-align: center;
       border-bottom: 2px solid #111;
       padding-bottom: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .form-header img {
       max-height: 70px;
       width: auto;
-      margin-bottom: 8px;
-    }
-    .form-header h1 {
-      margin: 0;
-      font-size: 20px;
-      letter-spacing: 0.5px;
+      margin-bottom: 6px;
     }
     .form-header p {
       margin: 4px 0 0;
       font-weight: bold;
-      color: #444;
+      font-size: 16px;
+      color: #111;
+      text-transform: uppercase;
     }
     .top-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
       margin-bottom: 16px;
     }
-    @media (min-width: 500px) {
+    @media (max-width: 480px) {
       .top-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
       }
-    }
-    .field-group {
-      margin-bottom: 10px;
-    }
-    .field-group label {
-      display: block;
-      font-weight: bold;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-    .field-group input,
-    .field-group textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #9ca3af;
-      border-radius: 6px;
-      font-size: 15px;
-      box-sizing: border-box;
-      font-family: inherit;
     }
     .section-title {
       background: #b5b5b5;
       color: #000;
       font-weight: bold;
       padding: 8px 12px;
-      margin-top: 20px;
-      margin-bottom: 8px;
-      font-size: 13px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      font-size: 14px;
       border: 1px solid #000;
       text-transform: uppercase;
     }
     .check-item {
       border-bottom: 1px solid #e5e7eb;
-      padding: 10px 0;
+      padding: 12px 0;
     }
-    .check-title {
-      font-size: 14px;
-      font-weight: 700;
+    .check-label {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 4px;
       display: block;
     }
     .check-desc {
-      font-size: 12px;
+      font-size: 13px;
       color: #4b5563;
       margin-bottom: 8px;
       display: block;
+      line-height: 1.35;
     }
     .radio-group {
       display: grid;
@@ -113,71 +93,121 @@
       background: #f9fafb;
       border: 1px solid #d1d5db;
       border-radius: 6px;
-      padding: 8px 4px;
+      padding: 9px 6px;
       font-size: 12px;
       font-weight: bold;
       cursor: pointer;
     }
     .radio-option input {
-      width: 16px;
-      height: 16px;
       margin: 0;
+      width: 17px;
+      height: 17px;
     }
     .radio-option:has(input:checked) {
       background: #e5e7eb;
       border-color: #111;
     }
-    .defect-box {
-      margin-top: 18px;
-      padding: 14px;
-      background: #f9fafb;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
+    .meta-grid {
+      margin-top: 20px;
+      border-top: 2px solid #111;
+      padding-top: 14px;
     }
-    .defect-toggle {
+    .field-group {
+      margin-bottom: 14px;
+    }
+    .field-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .field-group input,
+    .field-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #9ca3af;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    .defect-radios {
       display: flex;
       gap: 12px;
-      margin: 8px 0 12px;
+      margin-top: 4px;
     }
-    .defect-toggle label {
+    .defect-radios label {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-weight: bold;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px 16px;
       font-size: 14px;
       cursor: pointer;
+      margin-bottom: 0;
     }
-    .sig-wrapper {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 2px solid #111;
-    }
-    .sig-pad-box {
-      border: 1.5px solid #111;
-      border-radius: 6px;
-      background: #fff;
-      touch-action: none;
-      margin-top: 4px;
-    }
-    canvas.sig-canvas {
-      width: 100%;
-      height: 120px;
-      display: block;
-    }
-    .clear-btn {
-      margin-top: 6px;
-      padding: 6px 12px;
+    .defect-radios label:has(input:checked) {
       background: #e5e7eb;
+      border-color: #111;
+    }
+    .sig-section {
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 12px;
+      background: #f9fafb;
+      margin-bottom: 14px;
+    }
+    .sig-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #fff;
       border: 1px solid #9ca3af;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-top: 6px;
+    }
+    .sig-preview-box {
+      flex: 1;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+      border: 1px dashed #cbd5e1;
       border-radius: 4px;
+      overflow: hidden;
+    }
+    .sig-preview-box img {
+      max-height: 40px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .sig-placeholder {
       font-size: 12px;
+      color: #6b7280;
+    }
+    .sign-trigger-btn {
+      padding: 10px 16px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
+      white-space: nowrap;
+    }
+    .sign-trigger-btn.signed {
+      background: #166534;
     }
     .submit-btn {
       width: 100%;
       padding: 15px;
-      margin-top: 20px;
+      margin-top: 10px;
       background: #111;
       color: #fff;
       border: none;
@@ -190,13 +220,122 @@
       background: #333;
     }
 
+    /* =========================================
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      z-index: 9999;
+      padding: 12px;
+      box-sizing: border-box;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      width: 100%;
+      max-width: 720px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 8px;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #111;
+    }
+    .modal-sub {
+      font-size: 12px;
+      color: #4b5563;
+    }
+    .modal-canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: 55vh;
+      min-height: 240px;
+      max-height: 380px;
+      border: 2px solid #111;
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .modal-canvas-wrap canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .sig-guide-line {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24%;
+      border-bottom: 1.5px dashed #9ca3af;
+      pointer-events: none;
+    }
+    .sig-guide-text {
+      position: absolute;
+      left: 24px;
+      bottom: calc(24% + 4px);
+      font-size: 11px;
+      color: #9ca3af;
+      pointer-events: none;
+    }
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .modal-btn {
+      padding: 13px 10px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 1px solid #9ca3af;
+    }
+    .btn-cancel {
+      background: #f3f4f6;
+      color: #111;
+    }
+    .btn-clear {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fca5a5;
+    }
+    .btn-save {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
     /* Hide PDF sheet on normal screen */
     #pdf-template {
       display: none;
     }
 
     /* =========================================
-       2. PRINT / PDF LAYOUT (COMPACT 1-PAGE)
+       2. PRINT / PDF LAYOUT (SINGLE LETTER PAGE)
        ========================================= */
     @media print {
       @page {
@@ -210,8 +349,9 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .form-card {
-        display: none;
+      .form-card,
+      .modal-overlay {
+        display: none !important;
       }
       #pdf-template {
         display: block;
@@ -219,7 +359,7 @@
         color: #000;
         font-family: Arial, Helvetica, sans-serif;
       }
-      .pdf-header-row {
+      .pdf-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -227,41 +367,46 @@
         padding-bottom: 6px;
         margin-bottom: 8px;
       }
-      .logo-box {
-        text-align: center;
-        margin-bottom: 8px;
-      }
-      .logo-box img {
-        max-height: 70px;
+      .pdf-top img {
+        max-height: 48px;
         width: auto;
       }
-      .doc-title {
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: uppercase;
+      .pdf-title-block {
         text-align: right;
       }
-      .top-meta-table {
+      .pdf-title-block h1 {
+        margin: 0;
+        font-size: 15px;
+        text-transform: uppercase;
+      }
+      .pdf-title-block p {
+        margin: 2px 0 0;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .pdf-info-grid {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 8px;
-        font-size: 10px;
+        font-size: 10.5px;
       }
-      .top-meta-table td {
+      .pdf-info-grid td {
         border: 1px solid #000;
-        padding: 4px 6px;
+        padding: 4px 7px;
         width: 25%;
       }
-      .top-meta-table span.lbl {
-        font-weight: bold;
+      .pdf-info-grid strong {
+        text-transform: uppercase;
+        font-size: 9.5px;
       }
       table.insp-table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 7px;
-        font-size: 9.5px;
+        font-size: 9.8px;
       }
-      table.insp-table th, table.insp-table td {
+      table.insp-table th,
+      table.insp-table td {
         border: 1px solid #000;
         padding: 2.2px 5px;
         line-height: 1.2;
@@ -273,51 +418,53 @@
         text-transform: uppercase;
         font-size: 10px;
       }
-      .col-rating {
-        background-color: #e5e5e5 !important;
-        font-weight: bold;
-        text-align: center;
+      .col-item {
+        width: 79%;
+        text-align: left;
+      }
+      .col-status {
         width: 7%;
+        text-align: center;
+        font-weight: bold;
         font-size: 9px;
       }
       .mark-cell {
         text-align: center;
         font-weight: bold;
-        font-size: 11px;
+        font-size: 10.5px;
       }
-      .defect-pdf-box {
+      .defect-box {
         border: 1px solid #000;
-        padding: 5px 7px;
+        padding: 5px 8px;
         margin-bottom: 8px;
         font-size: 10px;
       }
-      .defect-pdf-header {
+      .defect-header-line {
         font-weight: bold;
         margin-bottom: 3px;
       }
-      .defect-pdf-text {
+      .defect-text {
         min-height: 22px;
         white-space: pre-wrap;
       }
-      .sig-pdf-table {
+      .signoff-table {
         width: 100%;
         border-collapse: collapse;
         font-size: 10px;
       }
-      .sig-pdf-table td {
+      .signoff-table td {
         border: 1px solid #000;
-        padding: 4px 6px;
+        padding: 4px 7px;
         vertical-align: bottom;
       }
-      .sig-img-slot {
-        height: 34px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .sig-cell {
+        height: 36px;
+        vertical-align: middle !important;
       }
-      .sig-img-slot img {
+      .sig-cell img {
         max-height: 32px;
         max-width: 180px;
+        display: block;
       }
       .pdf-footer {
         margin-top: 8px;
@@ -336,77 +483,82 @@
        ========================================= -->
   <div class="form-card">
     <div class="form-header">
-      <img src="logo.jpg" alt="Company Logo" onerror="this.style.display='none'">
-      
+      <img src="logo.jpg" alt="Company Logo">
       <p>MANLIFT INSPECTION</p>
     </div>
 
-    <form id="manliftForm">
+    <form id="manliftForm" novalidate>
       <!-- Top Equipment Details -->
       <div class="top-grid">
-        <div class="field-group">
+        <div class="field-group" style="margin-bottom:0;">
           <label>Site</label>
-          <input type="text" id="inSite" placeholder="Project / Site Name">
+          <input type="text" id="inSite" placeholder="Job site name / address">
         </div>
-        <div class="field-group">
+        <div class="field-group" style="margin-bottom:0;">
           <label>Manlift Model</label>
           <input type="text" id="inModel" placeholder="e.g., JLG 600S / Genie S-65">
         </div>
-        <div class="field-group">
+        <div class="field-group" style="margin-bottom:0;">
           <label>Hour Meter Reading</label>
           <input type="number" step="0.1" id="inHours" placeholder="e.g., 1425.5">
         </div>
-        <div class="field-group">
+        <div class="field-group" style="margin-bottom:0;">
           <label>Fuel in Tank (Litres)</label>
-          <input type="number" step="0.1" id="inFuel" placeholder="e.g., 85">
+          <input type="number" step="1" id="inFuel" placeholder="e.g., 60">
         </div>
       </div>
 
-      <!-- Dynamic Checklist Container -->
+      <!-- Dynamic Checklist Sections -->
       <div id="form-sections"></div>
 
-      <!-- Defects Section -->
-      <div class="defect-box">
-        <label style="font-weight:bold; font-size:14px;">Defects Found?</label>
-        <div class="defect-toggle">
-          <label><input type="radio" name="defectsFound" value="No" checked> No</label>
-          <label><input type="radio" name="defectsFound" value="Yes"> Yes</label>
+      <!-- Defects & Sign-Off -->
+      <div class="meta-grid">
+        <div class="field-group">
+          <label>Defects Found?</label>
+          <div class="defect-radios">
+            <label><input type="radio" name="defectsFound" value="No" checked> No</label>
+            <label><input type="radio" name="defectsFound" value="Yes"> Yes</label>
+          </div>
         </div>
-        <div class="field-group" style="margin-bottom:0;">
-          <label>Defect Description</label>
-          <textarea id="inDefectDesc" rows="3" placeholder="Describe any defects or tag-out actions taken..."></textarea>
-        </div>
-      </div>
 
-      <!-- Sign-off Section -->
-      <div class="sig-wrapper">
+        <div class="field-group">
+          <label>Defect Description</label>
+          <textarea id="inDefectDesc" rows="3" placeholder="Describe any defects, leaks, or damage found..."></textarea>
+        </div>
+
         <div class="field-group">
           <label>Date</label>
           <input type="date" id="inDate">
         </div>
 
-        <div class="field-group">
-          <label>Operator Name</label>
-          <input type="text" id="inOperatorName" placeholder="Full Name">
-        </div>
-        <div class="field-group">
-          <label>Operator Signature</label>
-          <div class="sig-pad-box">
-            <canvas id="sigOperator" class="sig-canvas"></canvas>
+        <!-- Operator Block -->
+        <div class="sig-section">
+          <div class="field-group" style="margin-bottom:10px;">
+            <label>Operator Name</label>
+            <input type="text" id="inOperatorName" placeholder="Operator full name">
           </div>
-          <button type="button" class="clear-btn" onclick="clearPad('sigOperator')">Clear Operator Signature</button>
+          <label style="font-size:13px; font-weight:bold;">Operator Signature</label>
+          <div class="sig-row">
+            <div class="sig-preview-box" id="opSigPreview">
+              <span class="sig-placeholder">Not signed yet</span>
+            </div>
+            <button type="button" class="sign-trigger-btn" id="opSignBtn" onclick="openSigModal('operator')">Sign</button>
+          </div>
         </div>
 
-        <div class="field-group" style="margin-top:16px;">
-          <label>Assisting Person Name</label>
-          <input type="text" id="inAssistantName" placeholder="Full Name (if applicable)">
-        </div>
-        <div class="field-group">
-          <label>Assisting Person Signature</label>
-          <div class="sig-pad-box">
-            <canvas id="sigAssistant" class="sig-canvas"></canvas>
+        <!-- Assisting Person Block -->
+        <div class="sig-section">
+          <div class="field-group" style="margin-bottom:10px;">
+            <label>Assisting Person Name</label>
+            <input type="text" id="inAssistingName" placeholder="Spotter / assisting person name">
           </div>
-          <button type="button" class="clear-btn" onclick="clearPad('sigAssistant')">Clear Assisting Signature</button>
+          <label style="font-size:13px; font-weight:bold;">Assisting Person Signature</label>
+          <div class="sig-row">
+            <div class="sig-preview-box" id="asstSigPreview">
+              <span class="sig-placeholder">Not signed yet</span>
+            </div>
+            <button type="button" class="sign-trigger-btn" id="asstSignBtn" onclick="openSigModal('assisting')">Sign</button>
+          </div>
         </div>
       </div>
 
@@ -415,52 +567,74 @@
   </div>
 
   <!-- =========================================
-       PRINT / PDF TEMPLATE
+       FULL-SCREEN SIGNATURE MODAL
+       ========================================= -->
+  <div class="modal-overlay" id="sigModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalRoleTitle">Signature</div>
+          <div class="modal-sub" id="modalSignerName">Sign with your finger or stylus below</div>
+        </div>
+      </div>
+      <div class="modal-canvas-wrap">
+        <canvas id="modalCanvas"></canvas>
+        <div class="sig-guide-line"></div>
+        <div class="sig-guide-text">Sign above line</div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="modal-btn btn-cancel" onclick="closeSigModal()">Cancel</button>
+        <button type="button" class="modal-btn btn-clear" onclick="clearModalCanvas()">Clear</button>
+        <button type="button" class="modal-btn btn-save" onclick="saveModalSignature()">Done &amp; Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       PRINT / PDF TEMPLATE (EXACT LAYOUT)
        ========================================= -->
   <div id="pdf-template">
-    <div class="logo-box">
-      <img src="logo.jpg" alt="Company Logo" onerror="this.outerHTML='<div style=\'display:inline-block;border:3px solid #000;padding:6px 14px;font-weight:900;font-size:22px;\'>POINT TO POINT STRUCTURES CORP.</div>'">
+    <div class="pdf-top">
+      <img src="logo.jpg" alt="Company Logo">
+      <div class="pdf-title-block">
+        <h1>MANLIFT (TELESCOPIC BOOM)</h1>
+        <p>PRE-USE INSPECTION</p>
+      </div>
     </div>
 
-      <div class="doc-title">MANLIFT (TELESCOPIC BOOM)<br>PRE-USE INSPECTION</div>
-    
-
-    <table class="top-meta-table">
+    <table class="pdf-info-grid">
       <tr>
-        <td><span class="lbl">Site:</span> <span id="outSite"></span></td>
-        <td><span class="lbl">Manlift Model:</span> <span id="outModel"></span></td>
-        <td><span class="lbl">Hour Meter:</span> <span id="outHours"></span></td>
-        <td><span class="lbl">Fuel (Litres):</span> <span id="outFuel"></span></td>
+        <td><strong>Site:</strong> <span id="outSite"></span></td>
+        <td><strong>Manlift Model:</strong> <span id="outModel"></span></td>
+        <td><strong>Hour Meter:</strong> <span id="outHours"></span></td>
+        <td><strong>Fuel (Litres):</strong> <span id="outFuel"></span></td>
       </tr>
     </table>
 
-    <!-- Checklist Tables rendered by JS -->
+    <!-- Tables populated by JS -->
     <div id="pdf-tables"></div>
 
-    <!-- Defects Box -->
-    <div class="defect-pdf-box">
-      <div class="defect-pdf-header">Defects Found? &nbsp; <span id="outDefectsFound">No</span></div>
-      <div class="defect-pdf-text"><span style="font-weight:bold;">Defect Description:</span> <span id="outDefectDesc"></span></div>
+    <!-- Defect Description Box -->
+    <div class="defect-box">
+      <div class="defect-header-line">Defects Found? <span id="outDefectsFound">No</span></div>
+      <div class="defect-text"><strong>Defect Description:</strong> <span id="outDefectDesc"></span></div>
     </div>
 
-    <!-- Signatures & Date -->
-    <table class="sig-pdf-table">
+    <!-- Bottom Signatures & Date -->
+    <table class="signoff-table">
       <tr>
-        <td style="width:38%;"><span style="font-weight:bold;">Operator Name:</span> <span id="outOperatorName"></span></td>
-        <td style="width:42%;">
-          <div style="font-weight:bold; font-size:9px;">Operator Signature:</div>
-          <div class="sig-img-slot"><img id="outOperatorSig" src="" alt=""></div>
+        <td style="width:36%;"><strong>Operator Name:</strong> <span id="outOperatorName"></span></td>
+        <td style="width:44%;" class="sig-cell">
+          <strong>Operator Signature:</strong>
+          <img id="outOpSig" src="" alt="" style="display:none;">
         </td>
-        <td style="width:20%;" rowspan="2" style="vertical-align:top;">
-          <div style="font-weight:bold;">Date:</div>
-          <div id="outDate" style="margin-top:6px; font-weight:bold;"></div>
-        </td>
+        <td style="width:20%;" rowspan="2"><strong>Date:</strong><br><span id="outDate"></span></td>
       </tr>
       <tr>
-        <td><span style="font-weight:bold;">Assisting Person:</span> <span id="outAssistantName"></span></td>
-        <td>
-          <div style="font-weight:bold; font-size:9px;">Assisting Person Signature:</div>
-          <div class="sig-img-slot"><img id="outAssistantSig" src="" alt=""></div>
+        <td><strong>Assisting Person:</strong> <span id="outAssistingName"></span></td>
+        <td class="sig-cell">
+          <strong>Assisting Person Signature:</strong>
+          <img id="outAsstSig" src="" alt="" style="display:none;">
         </td>
       </tr>
     </table>
@@ -471,52 +645,51 @@
   </div>
 
   <script>
-    // Streamlined Telescopic Boom Checklist (Tailored to boom lifts with Pass / Fail / N/A)
     const sections = [
       {
         title: "1. Power-Off Visual Inspection",
         items: [
-          { name: "Manuals & Decals", desc: "Operator's manual inside weather-resistant box; all safety decals legible." },
-          { name: "Annual Inspection", desc: "Current annual inspection sticker or tag is present and valid." },
-          { name: "Wheels & Tires", desc: "Free of cuts, chunks, or excessive wear; lug nuts tight; air pressure OK." },
-          { name: "Fluid Levels & Leaks", desc: "Engine oil, hydraulic fluid, and coolant at proper levels; no leaks underneath." },
-          { name: "Battery / Power System", desc: "Terminals clean and tight, cables undamaged, fuel or charge sufficient." },
-          { name: "Hydraulics & Hoses", desc: "Hoses, fittings, and cylinders free of abrasion, pinching, or leaks." },
-          { name: "Structural Integrity", desc: "Telescopic boom, chassis, and welds free of cracks, dents, bends, or corrosion." },
-          { name: "Fasteners & Pins", desc: "All pivot pins, retaining bolts, and compartment latches secure." },
-          { name: "Guardrails & Platform", desc: "Floor clean and dry; guardrails, mid-rails, toe boards, and entry gate secure." },
-          { name: "Fall Protection Anchors", desc: "Lanyard anchorage points intact and free of damage." },
-          { name: "Outriggers / Axle Extensions", desc: "Outriggers, pads, extending axles, and interlocks undamaged (if equipped)." }
+          { label: "Manuals & Decals", desc: "Operator's manual is inside the weather-resistant storage box, and all safety decals are legible." },
+          { label: "Annual Inspection", desc: "Current annual inspection sticker or tag is present and valid." },
+          { label: "Wheels & Tires", desc: "Tires are free of cuts, chunks, or excessive wear, and lug nuts are tight. (Check air pressure if pneumatic)." },
+          { label: "Fluid Levels & Leaks", desc: "Engine oil, hydraulic fluid, and coolant are at proper levels with no leaks underneath." },
+          { label: "Battery / Power System", desc: "Battery terminals are clean and tight, cables are undamaged, and fuel or charge level is sufficient." },
+          { label: "Hydraulics & Hoses", desc: "Hoses, fittings, and cylinders show no signs of abrasion, pinching, or leaking." },
+          { label: "Structural Integrity", desc: "Telescopic boom sections, turntable, chassis, and welds are free of cracks, dents, bends, or severe corrosion." },
+          { label: "Fasteners & Pins", desc: "All pivot pins, retaining bolts, and compartment latches are secure." },
+          { label: "Guardrails & Platform", desc: "Platform floor is clean and dry. Guardrails, mid-rails, toe boards, and entry gates/chains are secure and functional." },
+          { label: "Fall Protection Anchors", desc: "Lanyard anchorage points are intact and free of damage." },
+          { label: "Outriggers / Extendable Axles", desc: "Outriggers, pads, extendable axles, and interlocks are undamaged (if equipped)." }
         ]
       },
       {
         title: "2. Power-On Functional Inspection",
         items: [
-          { name: "Ground Controls", desc: "Lower switches, joysticks, and key switch operate smoothly and return to neutral." },
-          { name: "Emergency Stop (Ground)", desc: "Red E-stop cuts all power and stops machine functions immediately." },
-          { name: "Platform Controls", desc: "Upper drive, steer, boom lift/extend/swing and foot pedal operate smoothly." },
-          { name: "Emergency Stop (Platform)", desc: "Upper E-stop halts all operations when engaged." },
-          { name: "Emergency Lowering", desc: "Auxiliary/emergency lowering system operates properly from the ground." },
-          { name: "Brakes & Steering", desc: "Drive and steer respond accurately; brakes hold when controls are released." },
-          { name: "Alarms, Horn & Lights", desc: "Horn, motion/descent alarms, flashing beacons, and tilt/slope alarms work." }
+          { label: "Ground Controls", desc: "Lower control station switches, joysticks, and key switch operate smoothly and return to neutral." },
+          { label: "Emergency Stop (Ground)", desc: "Pushing the red E-stop cuts all power and stops machine functions immediately." },
+          { label: "Platform Controls", desc: "Upper drive, steer, boom telescope, and lift/lower controls operate smoothly. Foot pedal / trigger works properly." },
+          { label: "Emergency Stop (Platform)", desc: "Upper E-stop halts all operations when engaged." },
+          { label: "Emergency Lowering", desc: "Auxiliary/emergency lowering system operates properly from the ground." },
+          { label: "Brakes & Steering", desc: "Drive and steer functions respond accurately, and brakes hold the machine when controls are released." },
+          { label: "Alarms, Horn & Lights", desc: "Horn, motion/descent alarms, flashing beacons, and tilt/slope alarms function properly." }
         ]
       },
       {
         title: "3. Worksite Hazard Assessment",
         items: [
-          { name: "Ground Conditions", desc: "Surface level, firm, and free of drop-offs, holes, debris, or obstructions." },
-          { name: "Overhead Obstructions", desc: "Path of travel and boom elevation clear of beams, rafters, pipes, and ceilings." },
-          { name: "Electrical Hazards", desc: "Minimum safe clearance (at least 10 ft / 3 m+) maintained from power lines." },
-          { name: "Weather Conditions", desc: "Wind speeds and weather within manufacturer's safe operating limits." },
-          { name: "Traffic & Pedestrians", desc: "Work zone barricaded or spotted to protect against vehicles and foot traffic." }
+          { label: "Ground Conditions", desc: "Surface is level, firm, and free of drop-offs, holes, debris, or floor obstructions." },
+          { label: "Overhead Obstructions", desc: "Path of travel and boom elevation is clear of beams, rafters, pipes, and ceilings." },
+          { label: "Electrical Hazards", desc: "Minimum safe clearance (10 ft / 3 m or more depending on voltage) is maintained from power lines." },
+          { label: "Weather Conditions", desc: "Wind speeds and weather conditions are within the manufacturer's safe operating limits." },
+          { label: "Traffic & Pedestrians", desc: "Work zone is barricaded or spotted to protect against nearby vehicles and foot traffic." }
         ]
       }
     ];
 
-    const ratings = ["PASS", "FAIL", "N/A"];
+    const statuses = ["PASS", "FAIL", "N/A"];
     const formContainer = document.getElementById("form-sections");
 
-    // 1. Build Mobile Form Questions
+    // Build Mobile Form Checklist
     sections.forEach((sec, sIdx) => {
       const secHeader = document.createElement("div");
       secHeader.className = "section-title";
@@ -529,18 +702,18 @@
         itemDiv.className = "check-item";
 
         let radiosHTML = `<div class="radio-group">`;
-        ratings.forEach((rate) => {
+        statuses.forEach((st) => {
           radiosHTML += `
             <label class="radio-option">
-              <input type="radio" name="${fieldName}" value="${rate}">
-              ${rate}
+              <input type="radio" name="${fieldName}" value="${st}">
+              ${st}
             </label>
           `;
         });
         radiosHTML += `</div>`;
 
         itemDiv.innerHTML = `
-          <span class="check-title">${item.name}</span>
+          <span class="check-label">${item.label}</span>
           <span class="check-desc">${item.desc}</span>
           ${radiosHTML}
         `;
@@ -551,100 +724,165 @@
     // Auto-fill today's date
     document.getElementById("inDate").valueAsDate = new Date();
 
-    // 2. Signature Pad Setup (Supports Multiple Pads)
-    const pads = {};
+    // =========================================
+    // FULL-SCREEN SIGNATURE MODAL LOGIC
+    // =========================================
+    const signatures = {
+      operator: "",
+      assisting: ""
+    };
+    let activeTarget = null;
+    let isDrawing = false;
+    let hasStrokes = false;
 
-    function initSignaturePad(canvasId) {
-      const canvas = document.getElementById(canvasId);
-      const ctx = canvas.getContext("2d");
-      let drawing = false;
-      let hasInk = false;
+    const modal = document.getElementById("sigModal");
+    const canvas = document.getElementById("modalCanvas");
+    const ctx = canvas.getContext("2d");
 
-      function resizeCanvas() {
-        const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        const rect = canvas.getBoundingClientRect();
-        if (rect.width > 0) {
-          canvas.width = rect.width * ratio;
-          canvas.height = rect.height * ratio;
-          ctx.scale(ratio, ratio);
-          ctx.lineWidth = 2.2;
-          ctx.lineCap = "round";
-          ctx.strokeStyle = "#000";
+    function resizeModalCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.max(window.devicePixelRatio || 1, 2);
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      ctx.lineWidth = 2.6;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = "#000";
+    }
+
+    function openSigModal(target) {
+      activeTarget = target;
+      const roleTitle = target === "operator" ? "Operator Signature" : "Assisting Person Signature";
+      const personName = target === "operator"
+        ? document.getElementById("inOperatorName").value.trim()
+        : document.getElementById("inAssistingName").value.trim();
+
+      document.getElementById("modalRoleTitle").textContent = roleTitle;
+      document.getElementById("modalSignerName").textContent = personName
+        ? `Signing as: ${personName}`
+        : "Sign with your finger or stylus below";
+
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+
+      requestAnimationFrame(() => {
+        resizeModalCanvas();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasStrokes = false;
+
+        if (signatures[target]) {
+          const img = new Image();
+          img.onload = () => {
+            const rect = canvas.getBoundingClientRect();
+            ctx.drawImage(img, 0, 0, rect.width, rect.height);
+            hasStrokes = true;
+          };
+          img.src = signatures[target];
         }
+      });
+    }
+
+    function closeSigModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+      activeTarget = null;
+    }
+
+    function clearModalCanvas() {
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+      hasStrokes = false;
+    }
+
+    function saveModalSignature() {
+      if (!activeTarget) return;
+      const dataUrl = hasStrokes ? canvas.toDataURL("image/png") : "";
+      signatures[activeTarget] = dataUrl;
+      updateSignaturePreview(activeTarget, dataUrl);
+      closeSigModal();
+    }
+
+    function updateSignaturePreview(target, dataUrl) {
+      const previewEl = document.getElementById(target === "operator" ? "opSigPreview" : "asstSigPreview");
+      const btnEl = document.getElementById(target === "operator" ? "opSignBtn" : "asstSignBtn");
+
+      if (dataUrl) {
+        previewEl.innerHTML = `<img src="${dataUrl}" alt="Signature">`;
+        btnEl.textContent = "Signed ✓";
+        btnEl.classList.add("signed");
+      } else {
+        previewEl.innerHTML = `<span class="sig-placeholder">Not signed yet</span>`;
+        btnEl.textContent = "Sign";
+        btnEl.classList.remove("signed");
       }
+    }
 
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-
-      function getPos(e) {
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - rect.left, y: clientY - rect.top };
-      }
-
-      function startDraw(e) {
-        drawing = true;
-        hasInk = true;
-        const pos = getPos(e);
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-      }
-
-      function draw(e) {
-        if (!drawing) return;
-        e.preventDefault();
-        const pos = getPos(e);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-      }
-
-      function endDraw() {
-        drawing = false;
-      }
-
-      canvas.addEventListener("mousedown", startDraw);
-      canvas.addEventListener("mousemove", draw);
-      window.addEventListener("mouseup", endDraw);
-
-      canvas.addEventListener("touchstart", startDraw, { passive: false });
-      canvas.addEventListener("touchmove", draw, { passive: false });
-      canvas.addEventListener("touchend", endDraw);
-
-      pads[canvasId] = {
-        clear: () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          hasInk = false;
-        },
-        isEmpty: () => !hasInk,
-        toDataURL: () => canvas.toDataURL("image/png")
+    function getPointerPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
       };
     }
 
-    initSignaturePad("sigOperator");
-    initSignaturePad("sigAssistant");
-
-    function clearPad(id) {
-      if (pads[id]) pads[id].clear();
+    function startDraw(e) {
+      e.preventDefault();
+      isDrawing = true;
+      hasStrokes = true;
+      const pos = getPointerPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
     }
 
-    // 3. Generate PDF Layout on Submit
+    function moveDraw(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const pos = getPointerPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+
+    function endDraw(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+      isDrawing = false;
+    }
+
+    canvas.addEventListener("mousedown", startDraw);
+    canvas.addEventListener("mousemove", moveDraw);
+    window.addEventListener("mouseup", endDraw);
+
+    canvas.addEventListener("touchstart", startDraw, { passive: false });
+    canvas.addEventListener("touchmove", moveDraw, { passive: false });
+    window.addEventListener("touchend", endDraw);
+
+    window.addEventListener("resize", () => {
+      if (modal.classList.contains("active")) {
+        const snapshot = hasStrokes ? canvas.toDataURL("image/png") : "";
+        resizeModalCanvas();
+        if (snapshot) {
+          const img = new Image();
+          img.onload = () => {
+            const rect = canvas.getBoundingClientRect();
+            ctx.drawImage(img, 0, 0, rect.width, rect.height);
+          };
+          img.src = snapshot;
+        }
+      }
+    });
+
+    // =========================================
+    // GENERATE PRINT / PDF OUTPUT
+    // =========================================
     document.getElementById("manliftForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const site = document.getElementById("inSite").value.trim();
-      const model = document.getElementById("inModel").value.trim();
-      const hours = document.getElementById("inHours").value.trim();
-      const fuel = document.getElementById("inFuel").value.trim();
-      const inspDate = document.getElementById("inDate").value;
-
-      document.getElementById("outSite").textContent = site;
-      document.getElementById("outModel").textContent = model;
-      document.getElementById("outHours").textContent = hours;
-      document.getElementById("outFuel").textContent = fuel ? `${fuel} L` : "";
-      document.getElementById("outDate").textContent = inspDate;
-
-      // Render Checklist Tables
       const pdfTablesDiv = document.getElementById("pdf-tables");
       pdfTablesDiv.innerHTML = "";
 
@@ -653,19 +891,19 @@
           <table class="insp-table">
             <tr>
               <th class="cat-header">${sec.title}</th>
-              <th class="col-rating">PASS</th>
-              <th class="col-rating">FAIL</th>
-              <th class="col-rating">N/A</th>
+              <th class="col-status">PASS</th>
+              <th class="col-status">FAIL</th>
+              <th class="col-status">N/A</th>
             </tr>
         `;
 
         sec.items.forEach((item, iIdx) => {
-          const checkedEl = document.querySelector(`input[name="q_${sIdx}_${iIdx}"]:checked`);
-          const selected = checkedEl ? checkedEl.value : "";
+          const checkedInput = document.querySelector(`input[name="q_${sIdx}_${iIdx}"]:checked`);
+          const selected = checkedInput ? checkedInput.value : "";
 
-          tableHTML += `<tr><td><strong>${item.name}:</strong> ${item.desc}</td>`;
-          ratings.forEach((rate) => {
-            tableHTML += `<td class="mark-cell">${selected === rate ? "&#10003;" : ""}</td>`;
+          tableHTML += `<tr><td class="col-item"><strong>${item.label}:</strong> ${item.desc}</td>`;
+          statuses.forEach((st) => {
+            tableHTML += `<td class="mark-cell">${selected === st ? "&#10003;" : ""}</td>`;
           });
           tableHTML += `</tr>`;
         });
@@ -674,34 +912,45 @@
         pdfTablesDiv.innerHTML += tableHTML;
       });
 
-      // Defects
-      const defectRadio = document.querySelector('input[name="defectsFound"]:checked');
-      document.getElementById("outDefectsFound").textContent = defectRadio ? defectRadio.value : "No";
-      document.getElementById("outDefectDesc").textContent = document.getElementById("inDefectDesc").value.trim();
+      // Populate Top Info
+      const site = document.getElementById("inSite").value.trim();
+      const model = document.getElementById("inModel").value.trim();
+      const dateVal = document.getElementById("inDate").value;
 
-      // Signatures & Names
-      document.getElementById("outOperatorName").textContent = document.getElementById("inOperatorName").value.trim();
-      document.getElementById("outAssistantName").textContent = document.getElementById("inAssistantName").value.trim();
+      document.getElementById("outSite").textContent = site;
+      document.getElementById("outModel").textContent = model;
+      document.getElementById("outHours").textContent = document.getElementById("inHours").value;
+      document.getElementById("outFuel").textContent = document.getElementById("inFuel").value;
 
-      const opSigImg = document.getElementById("outOperatorSig");
-      if (!pads["sigOperator"].isEmpty()) {
-        opSigImg.src = pads["sigOperator"].toDataURL();
-        opSigImg.style.display = "block";
+      // Populate Defects
+      const defectChoice = document.querySelector('input[name="defectsFound"]:checked');
+      document.getElementById("outDefectsFound").textContent = defectChoice ? defectChoice.value : "No";
+      document.getElementById("outDefectDesc").textContent = document.getElementById("inDefectDesc").value;
+
+      // Populate Names, Date & Signatures
+      document.getElementById("outOperatorName").textContent = document.getElementById("inOperatorName").value;
+      document.getElementById("outAssistingName").textContent = document.getElementById("inAssistingName").value;
+      document.getElementById("outDate").textContent = dateVal;
+
+      const outOpSig = document.getElementById("outOpSig");
+      if (signatures.operator) {
+        outOpSig.src = signatures.operator;
+        outOpSig.style.display = "block";
       } else {
-        opSigImg.style.display = "none";
+        outOpSig.style.display = "none";
       }
 
-      const asstSigImg = document.getElementById("outAssistantSig");
-      if (!pads["sigAssistant"].isEmpty()) {
-        asstSigImg.src = pads["sigAssistant"].toDataURL();
-        asstSigImg.style.display = "block";
+      const outAsstSig = document.getElementById("outAsstSig");
+      if (signatures.assisting) {
+        outAsstSig.src = signatures.assisting;
+        outAsstSig.style.display = "block";
       } else {
-        asstSigImg.style.display = "none";
+        outAsstSig.style.display = "none";
       }
 
-      // Set Filename
-      const cleanModel = model.replace(/[^a-zA-Z0-9_-]/g, "_");
-      document.title = `Manlift_Inspection_${cleanModel || "Report"}_${inspDate || "Draft"}`;
+      // Automatic filename
+      const cleanName = (model || site || "Report").replace(/\s+/g, "_");
+      document.title = `Manlift_Inspection_${cleanName}_${dateVal || "Draft"}`;
 
       window.print();
     });
